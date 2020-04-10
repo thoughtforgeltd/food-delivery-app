@@ -8,11 +8,13 @@ import 'authentication/bloc/authentication_bloc.dart';
 import 'authentication/bloc/authentication_event.dart';
 import 'authentication/bloc/authentication_state.dart';
 import 'authentication/repository/user_repository.dart';
+import 'common/blog_delegate.dart';
 import 'home/home_screen.dart';
 import 'login/login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  BlocSupervisor.delegate = SimpleBlocDelegate();
   final UserRepository userRepository = UserRepository();
   final UserDetailsRepository userDetailsRepository = UserDetailsRepository();
   runApp(
