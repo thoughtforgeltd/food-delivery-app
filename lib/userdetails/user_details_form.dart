@@ -61,7 +61,6 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
         }
         if (state.isSuccess) {
           BlocProvider.of<AuthenticationBloc>(context).add(AddedUserDetails());
-          Navigator.of(context).pop();
         }
         if (state.isFailure) {
           Scaffold.of(context)
