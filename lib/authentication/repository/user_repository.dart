@@ -19,6 +19,11 @@ class UserRepository {
       password: password,
     );
   }
+
+  Future<FirebaseUser> getUserID() async {
+    return await _firebaseAuth.currentUser();
+  }
+
   Future<void> signOut() async {
     return Future.wait([
       _firebaseAuth.signOut(),

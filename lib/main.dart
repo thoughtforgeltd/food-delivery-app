@@ -19,20 +19,25 @@ void main() {
   final UserDetailsRepository userDetailsRepository = UserDetailsRepository();
   runApp(
     BlocProvider(
-      create: (context) => AuthenticationBloc(userRepository: userRepository)
+      create: (context) => AuthenticationBloc(
+          userRepository: userRepository,
+          userDetailsRepository: userDetailsRepository)
         ..add(AppStarted()),
-      child: App(userRepository: userRepository, userDetailsRepository: userDetailsRepository),
+      child: App(
+          userRepository: userRepository,
+          userDetailsRepository: userDetailsRepository),
     ),
   );
 }
-
 
 class App extends StatelessWidget {
   final UserRepository _userRepository;
   final UserDetailsRepository _userDetailsRepository;
 
-  App({Key key, @required UserRepository userRepository,
-    @required UserDetailsRepository userDetailsRepository})
+  App(
+      {Key key,
+      @required UserRepository userRepository,
+      @required UserDetailsRepository userDetailsRepository})
       : assert(userRepository != null),
         _userRepository = userRepository,
         _userDetailsRepository = userDetailsRepository,
@@ -51,7 +56,9 @@ class App extends StatelessWidget {
             return LoginScreen(userRepository: _userRepository);
           }
           if (state is Authenticated) {
-            return UserDetailsScreen(userDetailsRepository: _userDetailsRepository);
+            return UserDetailsScreen(
+                userDetailsRepository: _userDetailsRepository,
+                userRepository: _userRepository);
           }
           if (state is UserDetailsEntered) {
             return HomeScreen(name: state.details);

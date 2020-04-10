@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/repository/user_details_repository.dart';
+import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
 import 'package:fooddeliveryapp/common/validators.dart';
 import 'package:fooddeliveryapp/userdetails/bloc/user_details_event.dart';
 import 'package:fooddeliveryapp/userdetails/bloc/user_details_state.dart';
@@ -8,10 +9,13 @@ import 'package:rxdart/rxdart.dart';
 
 class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
   final UserDetailsRepository _userDetailsRepository;
+  final UserRepository _userRepository;
 
-  UserDetailsBloc({@required UserDetailsRepository userDetailsRepository})
-      : assert(userDetailsRepository != null),
-        _userDetailsRepository = userDetailsRepository;
+  UserDetailsBloc({@required UserDetailsRepository userDetailsRepository,
+    @required UserRepository userRepository})
+      : assert(userDetailsRepository != null &&  userRepository != null),
+        _userDetailsRepository = userDetailsRepository,
+        _userRepository = userRepository;
 
   @override
   UserDetailsState get initialState => UserDetailsState.empty();
@@ -86,8 +90,9 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
       String firstName, String lastName, String address, String phone) async* {
     yield UserDetailsState.loading();
     try {
+      final userId = await _userRepository.getUserID();
       await _userDetailsRepository.updateUserDetails(
-          firstName, lastName, address, phone);
+          userId.uid, firstName, lastName, address, phone);
       yield UserDetailsState.success();
     } catch (_) {
       yield UserDetailsState.failure();
