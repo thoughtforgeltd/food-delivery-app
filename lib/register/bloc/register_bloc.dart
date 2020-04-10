@@ -4,6 +4,7 @@ import 'package:fooddeliveryapp/common/validators.dart';
 import 'package:fooddeliveryapp/register/bloc/register_event.dart';
 import 'package:fooddeliveryapp/register/bloc/register_state.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final UserRepository _userRepository;
