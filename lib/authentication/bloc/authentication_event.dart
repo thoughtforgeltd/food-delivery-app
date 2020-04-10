@@ -9,4 +9,6 @@ class AppStarted extends AuthenticationEvent {}
 
 class LoggedIn extends AuthenticationEvent {}
 
+class AddedUserDetails extends AuthenticationEvent {}
+
 class LoggedOut extends AuthenticationEvent {}

@@ -24,7 +24,9 @@ class AuthenticationBloc
       yield* _mapAppStartedToState();
     } else if (event is LoggedIn) {
       yield* _mapLoggedInToState();
-    } else if (event is LoggedOut) {
+    } else if (event is AddedUserDetails) {
+      yield* _mapUserDetailsAddedToState();
+    }else if (event is LoggedOut) {
       yield* _mapLoggedOutToState();
     }
   }
@@ -41,6 +43,10 @@ class AuthenticationBloc
 
   Stream<AuthenticationState> _mapLoggedInToState() async* {
     yield Authenticated(await _userRepository.getUser());
+  }
+
+  Stream<AuthenticationState> _mapUserDetailsAddedToState() async* {
+    yield UserDetailsEntered(await _userRepository.getUser());
   }
 
   Stream<AuthenticationState> _mapLoggedOutToState() async* {

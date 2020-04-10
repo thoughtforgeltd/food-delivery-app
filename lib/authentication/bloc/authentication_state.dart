@@ -21,4 +21,16 @@ class Authenticated extends AuthenticationState {
   String toString() => 'Authenticated { displayName: $displayName }';
 }
 
+class UserDetailsEntered extends AuthenticationState {
+  final String details;
+
+  const UserDetailsEntered(this.details);
+
+  @override
+  List<Object> get props => [details];
+
+  @override
+  String toString() => 'UserDetailsEntered { displayName: $details }';
+}
+
 class Unauthenticated extends AuthenticationState {}
