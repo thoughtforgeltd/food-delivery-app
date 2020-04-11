@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fooddeliveryapp/common/widget/button.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -84,10 +85,66 @@ class _UpdateMealScheduleCalendarState
           return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
             _buildTableCalendar(state),
             const SizedBox(height: 8.0),
-            Expanded(child: _buildEventList(state.mealsSelection)),
+            _buildEventList(state.mealsSelection).build(context),
+            _buildSubmitButton(state)
           ]);
         },
       ),
+    );
+  }
+
+  Padding _buildSubmitButton(MealScheduleState state) {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Button(
+            onPressed: isButtonEnabled(state)
+                ? () => _onMealSubmitted(state.mealsSelection)
+                : null,
+            label: "Submit",
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _calendarController.dispose();
+    super.dispose();
+  }
+
+  void _onDaySelected(DateTime day, List events) {
+    _mealScheduleBloc.add(DateChanged(selectedDate: day));
+  }
+
+  void _onMealSubmitted(Map<String, bool> meals) {
+    _mealScheduleBloc.add(
+      Submitted(
+          selectedDate: _calendarController.selectedDay, mealsSelection: meals),
+    );
+  }
+
+  _buildEventList(Map<String, bool> meals) {
+    return new ListView.builder(
+      itemCount: meals.length,
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        String key = meals.keys.elementAt(index);
+        return new Column(
+          children: <Widget>[
+            new ListTile(
+              title: new Text("$key"),
+              subtitle: new Text("${meals[key]}"),
+            ),
+            new Divider(
+              height: 2.0,
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -105,41 +162,4 @@ class _UpdateMealScheduleCalendarState
       onDaySelected: _onDaySelected,
     );
   }
-
-  @override
-  void dispose() {
-    _calendarController.dispose();
-    super.dispose();
-  }
-
-  void _onDaySelected(DateTime day, List events) {
-    _mealScheduleBloc.add(DateChanged(selectedDate: day));
-  }
-
-  void _onFormSubmitted() {
-    _mealScheduleBloc.add(
-      Submitted(
-          selectedDate: _calendarController.selectedDay, mealsSelection: Map()),
-    );
-  }
-}
-
-_buildEventList(Map<String, bool> meals) {
-  return new ListView.builder(
-    itemCount: meals.length,
-    itemBuilder: (BuildContext context, int index) {
-      String key = meals.keys.elementAt(index);
-      return new Column(
-        children: <Widget>[
-          new ListTile(
-            title: new Text("$key"),
-            subtitle: new Text("${meals[key]}"),
-          ),
-          new Divider(
-            height: 2.0,
-          ),
-        ],
-      );
-    },
-  );
 }
