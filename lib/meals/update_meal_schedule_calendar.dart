@@ -81,21 +81,28 @@ class _UpdateMealScheduleCalendarState
       },
       child: BlocBuilder<MealScheduleBloc, MealScheduleState>(
         builder: (context, state) {
-          return TableCalendar(
-            startDay: state.startDate,
-            calendarController: _calendarController,
-            initialCalendarFormat: CalendarFormat.week,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            formatAnimation: FormatAnimation.scale,
-            headerStyle: HeaderStyle(
-              leftChevronIcon: Icon(Icons.arrow_left),
-              rightChevronIcon: Icon(Icons.arrow_right),
-              formatButtonVisible: false
-            ),
-            onDaySelected: _onDaySelected,
-          );
+          return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
+            _buildTableCalendar(state),
+            const SizedBox(height: 8.0),
+            Expanded(child: _buildEventList(state.mealsSelection)),
+          ]);
         },
       ),
+    );
+  }
+
+  TableCalendar _buildTableCalendar(MealScheduleState state) {
+    return TableCalendar(
+      startDay: state.startDate,
+      calendarController: _calendarController,
+      initialCalendarFormat: CalendarFormat.week,
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      formatAnimation: FormatAnimation.scale,
+      headerStyle: HeaderStyle(
+          leftChevronIcon: Icon(Icons.arrow_left),
+          rightChevronIcon: Icon(Icons.arrow_right),
+          formatButtonVisible: false),
+      onDaySelected: _onDaySelected,
     );
   }
 
@@ -115,4 +122,24 @@ class _UpdateMealScheduleCalendarState
           selectedDate: _calendarController.selectedDay, mealsSelection: Map()),
     );
   }
+}
+
+_buildEventList(Map<String, bool> meals) {
+  return new ListView.builder(
+    itemCount: meals.length,
+    itemBuilder: (BuildContext context, int index) {
+      String key = meals.keys.elementAt(index);
+      return new Column(
+        children: <Widget>[
+          new ListTile(
+            title: new Text("$key"),
+            subtitle: new Text("${meals[key]}"),
+          ),
+          new Divider(
+            height: 2.0,
+          ),
+        ],
+      );
+    },
+  );
 }

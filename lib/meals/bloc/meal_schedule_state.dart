@@ -23,7 +23,7 @@ class MealScheduleState {
     return MealScheduleState(
       startDate: new DateTime.now(),
       selectedDate: new DateTime.now(),
-      mealsSelection: {},
+      mealsSelection: temp(),
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
@@ -104,5 +104,13 @@ class MealScheduleState {
       isSuccess: $isSuccess,
       isFailure: $isFailure,
     }''';
+  }
+
+  static Map<String, bool> temp(){
+    final temp = Map<String, bool>();
+    temp["Breakfast"] = true;
+    temp["Lunch"] = false;
+    temp["Dinner"] = true;
+    return temp;
   }
 }
