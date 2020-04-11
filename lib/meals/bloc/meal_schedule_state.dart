@@ -4,12 +4,14 @@ import 'package:meta/meta.dart';
 class MealScheduleState {
 
   final DateTime selectedDate;
+  final DateTime startDate;
   final Map<String, bool> mealsSelection;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
 
   MealScheduleState({
+    @required this.startDate,
     @required this.selectedDate,
     @required this.mealsSelection,
     @required this.isSubmitting,
@@ -19,6 +21,7 @@ class MealScheduleState {
 
   factory MealScheduleState.empty() {
     return MealScheduleState(
+      startDate: new DateTime.now(),
       selectedDate: new DateTime.now(),
       mealsSelection: {},
       isSubmitting: false,
@@ -29,6 +32,7 @@ class MealScheduleState {
 
   factory MealScheduleState.loading() {
     return MealScheduleState(
+      startDate: new DateTime.now(),
       selectedDate: new DateTime.now(),
       mealsSelection: {},
       isSubmitting: true,
@@ -39,6 +43,7 @@ class MealScheduleState {
 
   factory MealScheduleState.failure() {
     return MealScheduleState(
+      startDate: new DateTime.now(),
       selectedDate: new DateTime.now(),
       mealsSelection: {},
       isSubmitting: false,
@@ -49,6 +54,7 @@ class MealScheduleState {
 
   factory MealScheduleState.success() {
     return MealScheduleState(
+      startDate: new DateTime.now(),
       selectedDate: new DateTime.now(),
       mealsSelection: {},
       isSubmitting: false,
@@ -79,6 +85,7 @@ class MealScheduleState {
     bool isFailure,
   }) {
     return MealScheduleState(
+      startDate: startDate ?? this.startDate,
       selectedDate: selectedDate ?? this.selectedDate,
       mealsSelection: mealsSelection ?? this.mealsSelection,
       isSubmitting: isSubmitting ?? this.isSubmitting,
@@ -90,6 +97,7 @@ class MealScheduleState {
   @override
   String toString() {
     return '''MealScheduleState {
+      startDate: $startDate,
       selectedDate: $selectedDate,
       mealsSelection: $mealsSelection,
       isSubmitting: $isSubmitting,

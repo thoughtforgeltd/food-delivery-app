@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/repository/user_details_repository.dart';
+import 'package:fooddeliveryapp/meals/update_meal_schedule_screen.dart';
+import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
 import 'package:fooddeliveryapp/splash_screen.dart';
 import 'package:fooddeliveryapp/userdetails/user_details_screen.dart';
 
@@ -9,7 +11,6 @@ import 'authentication/bloc/authentication_event.dart';
 import 'authentication/bloc/authentication_state.dart';
 import 'authentication/repository/user_repository.dart';
 import 'common/blog_delegate.dart';
-import 'home/home_screen.dart';
 import 'login/login_screen.dart';
 
 void main() {
@@ -17,6 +18,8 @@ void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final UserRepository userRepository = UserRepository();
   final UserDetailsRepository userDetailsRepository = UserDetailsRepository();
+  final MealScheduleRepository mealScheduleRepository =
+      MealScheduleRepository();
   runApp(
     BlocProvider(
       create: (context) => AuthenticationBloc(
@@ -25,7 +28,8 @@ void main() {
         ..add(AppStarted()),
       child: App(
           userRepository: userRepository,
-          userDetailsRepository: userDetailsRepository),
+          userDetailsRepository: userDetailsRepository,
+          mealScheduleRepository: mealScheduleRepository),
     ),
   );
 }
@@ -33,14 +37,17 @@ void main() {
 class App extends StatelessWidget {
   final UserRepository _userRepository;
   final UserDetailsRepository _userDetailsRepository;
+  final MealScheduleRepository _mealScheduleRepository;
 
   App(
       {Key key,
       @required UserRepository userRepository,
+      @required MealScheduleRepository mealScheduleRepository,
       @required UserDetailsRepository userDetailsRepository})
       : assert(userRepository != null),
         _userRepository = userRepository,
         _userDetailsRepository = userDetailsRepository,
+        _mealScheduleRepository = mealScheduleRepository,
         super(key: key);
 
   @override
@@ -61,7 +68,10 @@ class App extends StatelessWidget {
                 userRepository: _userRepository);
           }
           if (state is UserDetailsEntered) {
-            return HomeScreen(name: state.details);
+//            return HomeScreen(name: state.details);
+            return UpdateMealScheduleScreen(
+                userRepository: _userRepository,
+                mealScheduleRepository: _mealScheduleRepository);
           }
         },
       ),

@@ -10,10 +10,10 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
   final MealScheduleRepository _mealSchedulesRepository;
   final UserRepository _userRepository;
 
-  MealScheduleBloc({@required MealScheduleRepository userDetailsRepository,
+  MealScheduleBloc({@required MealScheduleRepository mealScheduleRepository,
     @required UserRepository userRepository})
-      : assert(userDetailsRepository != null &&  userRepository != null),
-        _mealSchedulesRepository = userDetailsRepository,
+      : assert(mealScheduleRepository != null &&  userRepository != null),
+        _mealSchedulesRepository = mealScheduleRepository,
         _userRepository = userRepository;
 
   @override
