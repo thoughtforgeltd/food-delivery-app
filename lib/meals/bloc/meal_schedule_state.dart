@@ -1,3 +1,4 @@
+import 'package:fooddeliveryapp/meals/model/meal_type_configurations.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -5,7 +6,8 @@ class MealScheduleState {
 
   final DateTime selectedDate;
   final DateTime startDate;
-  final Map<String, bool> mealsSelection;
+  final Map<String, Map<String, bool>> mealsSelection;
+  final MealTypeConfigurations mealTypes;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
@@ -14,6 +16,7 @@ class MealScheduleState {
     @required this.startDate,
     @required this.selectedDate,
     @required this.mealsSelection,
+    @required this.mealTypes,
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
@@ -21,64 +24,50 @@ class MealScheduleState {
 
   factory MealScheduleState.empty() {
     return MealScheduleState(
-      startDate: new DateTime.now(),
-      selectedDate: new DateTime.now(),
-      mealsSelection: temp(),
+      startDate: DateTime.now(),
+      selectedDate: DateTime.now(),
+      mealsSelection: Map(),
+      mealTypes: MealTypeConfigurations(types: List()),
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
     );
   }
 
-  factory MealScheduleState.loading() {
-    return MealScheduleState(
-      startDate: new DateTime.now(),
-      selectedDate: new DateTime.now(),
-      mealsSelection: {},
+  MealScheduleState loading() {
+    return copyWith(
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
     );
   }
 
-  factory MealScheduleState.failure() {
-    return MealScheduleState(
-      startDate: new DateTime.now(),
-      selectedDate: new DateTime.now(),
-      mealsSelection: {},
+  MealScheduleState failure() {
+    return copyWith(
       isSubmitting: false,
       isSuccess: false,
       isFailure: true,
     );
   }
 
-  factory MealScheduleState.success() {
-    return MealScheduleState(
-      startDate: new DateTime.now(),
-      selectedDate: new DateTime.now(),
-      mealsSelection: {},
+  MealScheduleState success({
+    Map<String,Map<String, bool>> mealsSelection,
+    MealTypeConfigurations mealTypes
+  }) {
+    return copyWith(
+      mealsSelection: mealsSelection,
+      mealTypes: mealTypes,
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
     );
   }
 
-  MealScheduleState update({
-    DateTime selectedDate,
-    Map<String, bool> mealsSelection,
-  }) {
-    return copyWith(
-      selectedDate: selectedDate,
-      mealsSelection: mealsSelection,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-    );
-  }
-
   MealScheduleState copyWith({
+    DateTime startDate,
     DateTime selectedDate,
-    Map<String, bool> mealsSelection,
+    Map<String,Map<String, bool>> mealsSelection,
+    MealTypeConfigurations mealTypes,
     bool isSubmitEnabled,
     bool isSubmitting,
     bool isSuccess,
@@ -88,6 +77,7 @@ class MealScheduleState {
       startDate: startDate ?? this.startDate,
       selectedDate: selectedDate ?? this.selectedDate,
       mealsSelection: mealsSelection ?? this.mealsSelection,
+      mealTypes: mealTypes ?? this.mealTypes,
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
@@ -100,17 +90,10 @@ class MealScheduleState {
       startDate: $startDate,
       selectedDate: $selectedDate,
       mealsSelection: $mealsSelection,
+      mealTypes: $mealTypes,
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
       isFailure: $isFailure,
     }''';
-  }
-
-  static Map<String, bool> temp(){
-    final temp = Map<String, bool>();
-    temp["Breakfast"] = true;
-    temp["Lunch"] = false;
-    temp["Dinner"] = true;
-    return temp;
   }
 }

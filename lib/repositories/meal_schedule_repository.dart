@@ -7,18 +7,17 @@ class MealScheduleRepository {
   MealScheduleRepository() : _collection = Firestore.instance.collection(_path);
 
   Future<void> updateMealSchedulesForTheDay(
-      String userId, DateTime selectedDate, Map<String, bool> mealsSelection) {
-    return _collection.document(userId).setData({
-      "date": selectedDate.millisecondsSinceEpoch,
-      "meals": mealsSelection,
-    }, merge: true);
+      String userId, DateTime selectedDate, Map<String, Map<String, bool>> mealsSelection) {
+    return _collection.document(userId).setData(mealsSelection, merge: true);
   }
 
-  Future<DocumentSnapshot> getMealSelections(String userID) {
-    return _collection.document(userID).get();
+  Future<Map<String, dynamic>> getMealSelections(String userID) async{
+    final document = await _collection.document(userID).get();
+    return Future.value(document.data);
   }
 
-  Future<DocumentSnapshot> getMealSelectionsForTheDay(String userID, DateTime date) {
-    return _collection.document(userID).get();
+  Future<DocumentSnapshot> getMealSelectionsForTheDay(String userID, DateTime date) async{
+    final meals = await getMealSelections(userID);
+    return Future.value(meals[date.millisecondsSinceEpoch]);
   }
 }

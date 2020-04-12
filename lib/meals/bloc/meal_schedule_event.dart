@@ -8,6 +8,8 @@ abstract class MealScheduleEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class MealSchedulesLoaded extends MealScheduleEvent{}
+
 class DateChanged extends MealScheduleEvent {
   final DateTime selectedDate;
 
@@ -21,7 +23,7 @@ class DateChanged extends MealScheduleEvent {
 }
 
 class MealSelectionChanged extends MealScheduleEvent {
-  final Map<String, bool> mealsSelection;
+  final Map<String, Map<String, bool>> mealsSelection;
 
   const MealSelectionChanged({@required this.mealsSelection});
 
@@ -34,7 +36,7 @@ class MealSelectionChanged extends MealScheduleEvent {
 
 class Submitted extends MealScheduleEvent {
   final DateTime selectedDate;
-  final Map<String, bool> mealsSelection;
+  final Map<String, Map<String, bool>> mealsSelection;
 
   const Submitted({
     @required this.selectedDate,

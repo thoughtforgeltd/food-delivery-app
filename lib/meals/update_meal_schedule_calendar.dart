@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/button.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
+import 'package:fooddeliveryapp/meals/model/meal_type.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'bloc/meal_schedule_state.dart';
@@ -85,7 +86,7 @@ class _UpdateMealScheduleCalendarState
           return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
             _buildTableCalendar(state),
             const SizedBox(height: 8.0),
-            _buildEventList(state.mealsSelection).build(context),
+            _buildEventList(state.mealTypes.types).build(context),
             _buildSubmitButton(state)
           ]);
         },
@@ -120,24 +121,25 @@ class _UpdateMealScheduleCalendarState
     _mealScheduleBloc.add(DateChanged(selectedDate: day));
   }
 
-  void _onMealSubmitted(Map<String, bool> meals) {
+  void _onMealSubmitted(Map<String, Map<String, bool>> meals) {
     _mealScheduleBloc.add(
       Submitted(
           selectedDate: _calendarController.selectedDay, mealsSelection: meals),
     );
   }
 
-  _buildEventList(Map<String, bool> meals) {
+  _buildEventList(List<MealType> events) {
     return new ListView.builder(
-      itemCount: meals.length,
+      itemCount: events.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
-        String key = meals.keys.elementAt(index);
+        String key = events[index].id;
+        String value = events[index].title;
         return new Column(
           children: <Widget>[
             new ListTile(
               title: new Text("$key"),
-              subtitle: new Text("${meals[key]}"),
+              subtitle: new Text("$value"),
             ),
             new Divider(
               height: 2.0,
