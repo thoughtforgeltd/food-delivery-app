@@ -105,7 +105,7 @@ class _UpdateMealScheduleCalendarState
             onPressed: isButtonEnabled(state)
                 ? () => _onMealSubmitted(state.mealsSelection)
                 : null,
-            label: "Submit",
+            label: "Add Meals",
           ),
         ],
       ),

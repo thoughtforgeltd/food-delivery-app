@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/repository/user_details_repository.dart';
+import 'package:fooddeliveryapp/design/themes.dart';
 import 'package:fooddeliveryapp/meals/update_meal_schedule_screen.dart';
 import 'package:fooddeliveryapp/repositories/configuration_repository.dart';
 import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
@@ -69,6 +70,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: MealDeliveryThemes.lightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         // ignore: missing_return
         builder: (context, state) {
