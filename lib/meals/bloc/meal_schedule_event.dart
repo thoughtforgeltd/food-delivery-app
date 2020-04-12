@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
 import 'package:meta/meta.dart';
 
 abstract class MealScheduleEvent extends Equatable {
@@ -23,7 +24,7 @@ class DateChanged extends MealScheduleEvent {
 }
 
 class MealSelectionChanged extends MealScheduleEvent {
-  final Map<String, Map<String, bool>> mealsSelection;
+  final MealSchedules mealsSelection;
 
   const MealSelectionChanged({@required this.mealsSelection});
 
@@ -36,7 +37,7 @@ class MealSelectionChanged extends MealScheduleEvent {
 
 class Submitted extends MealScheduleEvent {
   final DateTime selectedDate;
-  final Map<String, Map<String, bool>> mealsSelection;
+  final MealSchedules mealsSelection;
 
   const Submitted({
     @required this.selectedDate,

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/button.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
+import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
 import 'package:fooddeliveryapp/meals/model/meal_type.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -121,7 +122,7 @@ class _UpdateMealScheduleCalendarState
     _mealScheduleBloc.add(DateChanged(selectedDate: day));
   }
 
-  void _onMealSubmitted(Map<String, Map<String, bool>> meals) {
+  void _onMealSubmitted(MealSchedules meals) {
     _mealScheduleBloc.add(
       Submitted(
           selectedDate: _calendarController.selectedDay, mealsSelection: meals),

@@ -1,3 +1,4 @@
+import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
 import 'package:fooddeliveryapp/meals/model/meal_type_configurations.dart';
 import 'package:meta/meta.dart';
 
@@ -6,7 +7,7 @@ class MealScheduleState {
 
   final DateTime selectedDate;
   final DateTime startDate;
-  final Map<String, Map<String, bool>> mealsSelection;
+  final MealSchedules mealsSelection;
   final MealTypeConfigurations mealTypes;
   final bool isSubmitting;
   final bool isSuccess;
@@ -26,7 +27,7 @@ class MealScheduleState {
     return MealScheduleState(
       startDate: DateTime.now(),
       selectedDate: DateTime.now(),
-      mealsSelection: Map(),
+      mealsSelection: MealSchedules(),
       mealTypes: MealTypeConfigurations(types: List()),
       isSubmitting: false,
       isSuccess: false,
@@ -51,7 +52,7 @@ class MealScheduleState {
   }
 
   MealScheduleState success({
-    Map<String,Map<String, bool>> mealsSelection,
+    MealSchedules mealsSelection,
     MealTypeConfigurations mealTypes
   }) {
     return copyWith(
@@ -66,7 +67,7 @@ class MealScheduleState {
   MealScheduleState copyWith({
     DateTime startDate,
     DateTime selectedDate,
-    Map<String,Map<String, bool>> mealsSelection,
+    MealSchedules mealsSelection,
     MealTypeConfigurations mealTypes,
     bool isSubmitEnabled,
     bool isSubmitting,

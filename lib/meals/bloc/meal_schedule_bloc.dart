@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_state.dart';
+import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
 import 'package:fooddeliveryapp/repositories/configuration_repository.dart';
 import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
 import 'package:meta/meta.dart';
@@ -79,14 +80,14 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
   }
 
   Stream<MealScheduleState> _mapMealSelectionChangedToState(
-      Map<String, Map<String, bool>> mealsSelection) async* {
+      MealSchedules mealsSelection) async* {
     yield state.copyWith(
       mealsSelection: mealsSelection,
     );
   }
 
   Stream<MealScheduleState> _mapFormSubmittedToState(DateTime selectedDate,
-      Map<String, Map<String, bool>> mealsSelection) async* {
+      MealSchedules mealsSelection) async* {
     yield state.loading();
     try {
       final userId = await _userRepository.getUserID();

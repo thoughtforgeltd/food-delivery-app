@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fooddeliveryapp/meals/model/meal.dart';
+import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
 
 class MealScheduleRepository {
   final CollectionReference _collection;
@@ -6,18 +8,19 @@ class MealScheduleRepository {
 
   MealScheduleRepository() : _collection = Firestore.instance.collection(_path);
 
-  Future<void> updateMealSchedulesForTheDay(
-      String userId, DateTime selectedDate, Map<String, Map<String, bool>> mealsSelection) {
-    return _collection.document(userId).setData(mealsSelection, merge: true);
+  Future<void> updateMealSchedulesForTheDay(String userId,
+      DateTime selectedDate, MealSchedules mealsSelection) {
+    return _collection.document(userId).setData(mealsSelection.toJson(), merge: true);
   }
 
-  Future<Map<String, dynamic>> getMealSelections(String userID) async{
+  Future<MealSchedules> getMealSelections(String userID) async {
     final document = await _collection.document(userID).get();
-    return Future.value(document.data);
+    return Future.value(MealSchedules.fromJson(document.data));
   }
 
-  Future<DocumentSnapshot> getMealSelectionsForTheDay(String userID, DateTime date) async{
+  Future<Meal> getMealSelectionsForTheDay(String userID, DateTime date) async {
     final meals = await getMealSelections(userID);
-    return Future.value(meals[date.millisecondsSinceEpoch]);
+    return Future.value(meals.meals
+        .firstWhere((element) => element.date == date.millisecondsSinceEpoch));
   }
 }
