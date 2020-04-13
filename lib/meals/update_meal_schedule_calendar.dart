@@ -87,7 +87,6 @@ class _UpdateMealScheduleCalendarState
         builder: (context, state) {
           return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
             _buildTableCalendar(state),
-            const SizedBox(height: 8.0),
             Container(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
               child : _buildEventList(state).build(context)
@@ -151,15 +150,14 @@ class _UpdateMealScheduleCalendarState
         orElse: () => null);
     return new ListView.builder(
       itemCount: events.length,
+      scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
-        String key = events[index]?.id;
-        String value = events[index]?.title;
         return MealSelectionCard(
           meal: MealSelection(
             date: state.selectedDate,
             schedules: meals?.schedules?.firstWhere(
-                (element) => element.id == value,
+                (element) => element.id == events[index]?.title,
                 orElse: () => null),
             configurations: events[index]
           ),

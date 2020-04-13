@@ -41,7 +41,7 @@ class MealSelectionCard extends StatelessWidget {
                         child: Image.network(
                           _meal.configurations.icon  ?? FireStorePaths.URL_WARNING_ICON,
                           color: AppColors.colorPrimary,
-                          scale: 2,
+                          scale: 3,
                         )
                     ),
                   ],
