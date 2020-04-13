@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/button.dart';
+import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
 import 'package:fooddeliveryapp/meals/meal_selection_card.dart';
@@ -88,9 +89,8 @@ class _UpdateMealScheduleCalendarState
           return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
             _buildTableCalendar(state),
             Container(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-              child : _buildEventList(state).build(context)
-            ),
+                padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+                child: _buildEventList(state).build(context)),
             _buildSubmitButton(state)
           ]);
         },
@@ -155,12 +155,11 @@ class _UpdateMealScheduleCalendarState
       itemBuilder: (BuildContext context, int index) {
         return MealSelectionCard(
           meal: MealSelection(
-            date: state.selectedDate,
-            schedules: meals?.schedules?.firstWhere(
-                (element) => element.id == events[index]?.title,
-                orElse: () => null),
-            configurations: events[index]
-          ),
+              date: state.selectedDate,
+              schedules: meals?.schedules?.firstWhere(
+                  (element) => element.id == events[index]?.title,
+                  orElse: () => null),
+              configurations: events[index]),
           onAddPressed: _onAddPressed,
           onSubtractPressed: _onSubtractPressed,
         );
@@ -175,10 +174,15 @@ class _UpdateMealScheduleCalendarState
       initialCalendarFormat: CalendarFormat.week,
       startingDayOfWeek: StartingDayOfWeek.monday,
       formatAnimation: FormatAnimation.scale,
+      weekendDays: [],
       headerStyle: HeaderStyle(
           leftChevronIcon: Icon(Icons.arrow_left),
           rightChevronIcon: Icon(Icons.arrow_right),
           formatButtonVisible: false),
+      calendarStyle: CalendarStyle(
+        selectedColor: AppColors.colorPrimaryDark,
+        todayColor: AppColors.colorPrimaryLight
+      ),
       onDaySelected: _onDaySelected,
     );
   }
