@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/button.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
+import 'package:fooddeliveryapp/meals/meal_selection_card.dart';
 import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
-import 'package:fooddeliveryapp/meals/model/meal_type.dart';
+import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'bloc/meal_schedule_state.dart';
@@ -87,7 +88,10 @@ class _UpdateMealScheduleCalendarState
           return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
             _buildTableCalendar(state),
             const SizedBox(height: 8.0),
-            _buildEventList(state.mealTypes.types).build(context),
+            Container(
+              padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+              child : _buildEventList(state).build(context)
+            ),
             _buildSubmitButton(state)
           ]);
         },
@@ -129,23 +133,38 @@ class _UpdateMealScheduleCalendarState
     );
   }
 
-  _buildEventList(List<MealType> events) {
+  void _onAddPressed(MealSelection mealSelection) {
+    print("mealSelection : _onAddPressed");
+    print(mealSelection);
+  }
+
+  void _onSubtractPressed(MealSelection mealSelection) {
+    print("mealSelection : _onSubtractPressed");
+    print(mealSelection);
+  }
+
+  _buildEventList(MealScheduleState state) {
+    final events = state.mealTypes.types;
+    final meals = state.mealsSelection?.meals?.firstWhere(
+        (element) =>
+            element?.date == state.selectedDate?.millisecondsSinceEpoch,
+        orElse: () => null);
     return new ListView.builder(
       itemCount: events.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
-        String key = events[index].id;
-        String value = events[index].title;
-        return new Column(
-          children: <Widget>[
-            new ListTile(
-              title: new Text("$key"),
-              subtitle: new Text("$value"),
-            ),
-            new Divider(
-              height: 2.0,
-            ),
-          ],
+        String key = events[index]?.id;
+        String value = events[index]?.title;
+        return MealSelectionCard(
+          meal: MealSelection(
+            date: state.selectedDate,
+            schedules: meals?.schedules?.firstWhere(
+                (element) => element.id == value,
+                orElse: () => null),
+            configurations: events[index]
+          ),
+          onAddPressed: _onAddPressed,
+          onSubtractPressed: _onSubtractPressed,
         );
       },
     );

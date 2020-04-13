@@ -3,13 +3,21 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'meal_schedules.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(nullable: true)
 class MealSchedules {
-  List<Meal> meals;
+  @JsonKey(defaultValue: [])
+  List<Meal> meals = List();
 
   MealSchedules({this.meals});
 
   factory MealSchedules.fromJson(Map<String, dynamic> json) => _$MealSchedulesFromJson(json);
 
   Map<String, dynamic> toJson() => _$MealSchedulesToJson(this);
+
+  @override
+  String toString() {
+    return '''MealSchedules {
+      meals: $meals,
+    }''';
+  }
 }

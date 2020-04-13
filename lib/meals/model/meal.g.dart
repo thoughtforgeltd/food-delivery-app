@@ -10,9 +10,11 @@ Meal _$MealFromJson(Map<String, dynamic> json) {
   return Meal(
     date: json['date'] as num,
     schedules: (json['schedules'] as List)
-        ?.map((e) =>
-            e == null ? null : Schedules.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+            ?.map((e) => e == null
+                ? null
+                : Schedules.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
   );
 }
 

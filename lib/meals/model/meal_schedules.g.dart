@@ -9,9 +9,10 @@ part of 'meal_schedules.dart';
 MealSchedules _$MealSchedulesFromJson(Map<String, dynamic> json) {
   return MealSchedules(
     meals: (json['meals'] as List)
-        ?.map(
-            (e) => e == null ? null : Meal.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+            ?.map((e) =>
+                e == null ? null : Meal.fromJson(e as Map<String, dynamic>))
+            ?.toList() ??
+        [],
   );
 }
 

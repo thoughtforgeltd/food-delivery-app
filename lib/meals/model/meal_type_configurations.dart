@@ -4,8 +4,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'meal_type_configurations.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(nullable: true)
 class MealTypeConfigurations {
+
+  @JsonKey(defaultValue: [])
   List<MealType> types;
 
   MealTypeConfigurations({this.types});
@@ -13,4 +15,11 @@ class MealTypeConfigurations {
   factory MealTypeConfigurations.fromJson(Map<String, dynamic> json) => _$MealTypeConfigurationsFromJson(json);
 
   Map<String, dynamic> toJson() => _$MealTypeConfigurationsToJson(this);
+
+  @override
+  String toString() {
+    return '''MealTypeConfigurations {
+      id: $types
+    }''';
+  }
 }

@@ -6,7 +6,6 @@ class ConfigurationsRepository {
   final CollectionReference _collection;
   static String _path = FireStorePaths.KEY_CONFIGURATIONS_COLLECTIONS;
   static String _document = FireStorePaths.KEY_DOCUMENT_MEAL_TYPE;
-  static String _key = FireStorePaths.KEY_MEAL_TYPE;
 
   ConfigurationsRepository() : _collection = Firestore.instance.collection(_path);
 
