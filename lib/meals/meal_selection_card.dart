@@ -39,11 +39,22 @@ class MealSelectionCard extends StatelessWidget {
                     Align(
                         alignment: Alignment.centerLeft,
                         child: Image.network(
-                          _meal.configurations.icon  ?? FireStorePaths.URL_WARNING_ICON,
+                          _meal.configurations.icon ??
+                              FireStorePaths.URL_WARNING_ICON,
                           color: AppColors.colorPrimary,
                           scale: 3,
-                        )
+                        )),
+                    Center(
+                      child: Text(
+                        _meal.configurations.title,
+                      ),
                     ),
+                    IconButton(icon: Icon(Icons.add), onPressed: onAddPressed),
+//                    Text(
+//                      _meal?.schedules?.quantity?.toString() ?? 0,
+//                    ),
+                    IconButton(
+                        icon: Icon(Icons.remove), onPressed: onSubtractPressed)
                   ],
                 )
               ],
@@ -52,5 +63,13 @@ class MealSelectionCard extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  void onAddPressed() {
+    _onAddPressed(_meal);
+  }
+
+  void onSubtractPressed() {
+    _onSubtractPressed(_meal);
   }
 }
