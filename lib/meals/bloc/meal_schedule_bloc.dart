@@ -76,6 +76,9 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
       DateTime selectedDate) async* {
     yield state.copyWith(
       selectedDate: selectedDate,
+      isSuccess: false,
+      isSubmitting: false,
+      isFailure: false
     );
   }
 
@@ -83,6 +86,9 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
       MealSchedules mealsSelection) async* {
     yield state.copyWith(
       mealsSelection: mealsSelection,
+        isSuccess: false,
+        isSubmitting: false,
+        isFailure: false
     );
   }
 
