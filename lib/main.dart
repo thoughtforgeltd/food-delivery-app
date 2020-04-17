@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/repository/user_details_repository.dart';
 import 'package:fooddeliveryapp/design/themes.dart';
@@ -69,6 +70,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPaintSizeEnabled = false;
     return MaterialApp(
       theme: MealDeliveryThemes.lightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(

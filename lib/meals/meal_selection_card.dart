@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
+import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:fooddeliveryapp/repositories/paths/firebase_congiguration_paths.dart';
 
@@ -24,45 +25,60 @@ class MealSelectionCard extends StatelessWidget {
     return Card(
       elevation: 5,
       child: Container(
-        padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-        decoration: BoxDecoration(
-            border: Border(
-                left:
-                    BorderSide(width: 4.0, color: AppColors.colorPrimaryDark))),
-        child: Stack(children: <Widget>[
-          Align(
-            alignment: Alignment.centerRight,
-            child: Stack(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: Image.network(
-                          _meal.configurations.icon ??
-                              FireStorePaths.URL_WARNING_ICON,
-                          color: AppColors.colorPrimary,
-                          scale: 3,
-                        )),
-                    Center(
-                      child: Text(
-                        _meal.configurations.title,
-                      ),
-                    ),
-                    IconButton(icon: Icon(Icons.add), onPressed: onAddPressed),
-//                    Text(
-//                      _meal?.schedules?.quantity?.toString() ?? 0,
-//                    ),
-                    IconButton(
-                        icon: Icon(Icons.remove), onPressed: onSubtractPressed)
-                  ],
-                )
-              ],
-            ),
-          )
-        ]),
+        padding: Dimensions.padding_16,
+        decoration: _buildBoxDecoration(),
+        child: Row(
+          children: <Widget>[
+            _buildMealIcon(),
+            Expanded(child: _buildMealTitle()),
+            _buildMealAddAction(),
+            _buildMealQuantity(),
+            _buildMealRemoveAction()
+          ],
+        ),
       ),
     );
+  }
+
+  Widget _buildMealIcon() {
+    return Container(
+        padding: Dimensions.padding_right_16,
+        child: Image.network(
+            _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
+            color: AppColors.colorPrimary,
+            scale: 3,
+          )
+    );
+  }
+
+  Widget _buildMealTitle() {
+    return Text(_meal.configurations.title);
+  }
+
+  Widget _buildMealAddAction() {
+    return  IconButton(
+      onPressed: () => _onAddPressed(_meal),
+      icon: Icon(Icons.add),
+    );
+  }
+
+  Widget _buildMealQuantity() {
+    return  Text(
+        _meal?.schedules?.quantity ?? "0"
+    );
+  }
+
+  Widget _buildMealRemoveAction() {
+    return  IconButton(
+      onPressed: () => _onAddPressed(_meal),
+      icon: Icon(Icons.remove),
+    );
+  }
+
+  BoxDecoration _buildBoxDecoration() {
+    return BoxDecoration(
+        border: Border(
+            left: BorderSide(width: 4.0, color: AppColors.colorPrimaryDark)));
   }
 
   void onAddPressed() {
