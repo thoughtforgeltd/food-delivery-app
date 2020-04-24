@@ -133,13 +133,15 @@ class _UpdateMealScheduleCalendarState
   }
 
   void _onAddPressed(MealSelection mealSelection) {
-    print("mealSelection : _onAddPressed");
-    print(mealSelection);
+    _mealScheduleBloc.add(
+      AddMealSchedule(selection: mealSelection),
+    );
   }
 
   void _onSubtractPressed(MealSelection mealSelection) {
-    print("mealSelection : _onSubtractPressed");
-    print(mealSelection);
+    _mealScheduleBloc.add(
+      RemoveMealSchedule(selection: mealSelection),
+    );
   }
 
   _buildEventList(MealScheduleState state) {

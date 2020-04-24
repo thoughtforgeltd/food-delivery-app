@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
+import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:meta/meta.dart';
 
 abstract class MealScheduleEvent extends Equatable {
@@ -33,6 +34,38 @@ class MealSelectionChanged extends MealScheduleEvent {
 
   @override
   String toString() => 'MealSelectionChanged { mealsSelection: $mealsSelection }';
+}
+
+class AddMealSchedule extends MealScheduleEvent {
+  final MealSelection selection;
+
+  const AddMealSchedule({
+    @required this.selection,
+  });
+
+  @override
+  List<Object> get props => [selection];
+
+  @override
+  String toString() {
+    return 'AddMealSchedule { selection: $selection}';
+  }
+}
+
+class RemoveMealSchedule extends MealScheduleEvent {
+  final MealSelection selection;
+
+  const RemoveMealSchedule({
+    @required this.selection,
+  });
+
+  @override
+  List<Object> get props => [selection];
+
+  @override
+  String toString() {
+    return 'RemoveMealSchedule { selection: $selection}';
+  }
 }
 
 class Submitted extends MealScheduleEvent {
