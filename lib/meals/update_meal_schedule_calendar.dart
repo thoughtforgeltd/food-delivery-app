@@ -75,7 +75,9 @@ class _UpdateMealScheduleCalendarState
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('There is an error while updating meal schedules..'),
+                    Flexible(
+                     child: Text('There is an error while updating meal schedules..')
+                    ),
                     Icon(Icons.error),
                   ],
                 ),
