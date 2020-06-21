@@ -3,6 +3,7 @@ import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_state.dart';
 import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
+import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:fooddeliveryapp/repositories/configuration_repository.dart';
 import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
 import 'package:meta/meta.dart';
@@ -54,6 +55,8 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
       yield* _mapDateChangedToState(event.selectedDate);
     } else if (event is MealSelectionChanged) {
       yield* _mapMealSelectionChangedToState(event.mealsSelection);
+    }else if (event is AddMealSchedule) {
+      yield* _mapAddMealScheduleToState(event.selection);
     } else if (event is Submitted) {
       yield* _mapFormSubmittedToState(event.selectedDate, event.mealsSelection);
     }
@@ -89,6 +92,13 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
         isSuccess: false,
         isSubmitting: false,
         isFailure: false
+    );
+  }
+
+  Stream<MealScheduleState> _mapAddMealScheduleToState(
+      MealSelection mealSelection) async* {
+    yield state.addSchedule(
+        selection: mealSelection
     );
   }
 

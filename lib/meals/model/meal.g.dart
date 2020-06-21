@@ -8,7 +8,7 @@ part of 'meal.dart';
 
 Meal _$MealFromJson(Map<String, dynamic> json) {
   return Meal(
-    date: json['date'] as num,
+    date: json['date'] as Timestamp,
     schedules: (json['schedules'] as List)
             ?.map((e) => e == null
                 ? null

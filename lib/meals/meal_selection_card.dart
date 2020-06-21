@@ -65,7 +65,7 @@ class MealSelectionCard extends StatelessWidget {
 
   Widget _buildMealQuantity() {
     return  Text(
-        _meal?.schedules?.quantity ?? "0"
+        _meal?.schedules?.quantity?.toString() ?? "0"
     );
   }
 

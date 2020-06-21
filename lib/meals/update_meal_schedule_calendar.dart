@@ -150,7 +150,7 @@ class _UpdateMealScheduleCalendarState
     final events = state.mealTypes.types;
     final meals = state.mealsSelection?.meals?.firstWhere(
         (element) =>
-            element?.date == state.selectedDate?.millisecondsSinceEpoch,
+            element?.date?.millisecondsSinceEpoch == state.selectedDate?.millisecondsSinceEpoch,
         orElse: () => null);
     return new ListView.builder(
       itemCount: events.length,
@@ -161,7 +161,7 @@ class _UpdateMealScheduleCalendarState
           meal: MealSelection(
               date: state.selectedDate,
               schedules: meals?.schedules?.firstWhere(
-                  (element) => element.id == events[index]?.title,
+                  (element) => element.id == events[index]?.id,
                   orElse: () => null),
               configurations: events[index]),
           onAddPressed: _onAddPressed,

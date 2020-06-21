@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fooddeliveryapp/meals/model/meal.dart';
 import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
+import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:fooddeliveryapp/meals/model/meal_type_configurations.dart';
+import 'package:fooddeliveryapp/meals/model/schedule.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 class MealScheduleState {
-
   final DateTime selectedDate;
   final DateTime startDate;
   final MealSchedules mealsSelection;
@@ -51,10 +54,8 @@ class MealScheduleState {
     );
   }
 
-  MealScheduleState success({
-    MealSchedules mealsSelection,
-    MealTypeConfigurations mealTypes
-  }) {
+  MealScheduleState success(
+      {MealSchedules mealsSelection, MealTypeConfigurations mealTypes}) {
     return copyWith(
       mealsSelection: mealsSelection,
       mealTypes: mealTypes,
@@ -82,6 +83,46 @@ class MealScheduleState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+    );
+  }
+
+  MealScheduleState addSchedule({
+    MealSelection selection,
+  }) {
+    if(selection.schedules == null){
+      selection.schedules = Schedules(
+        quantity: 0,
+        id: selection.configurations.id
+      );
+    }
+    selection?.schedules?.quantity = selection.schedules.quantity+1;
+    final date = Timestamp.fromDate(selection.date);
+    final meals = this.mealsSelection.meals;
+    if (this.mealsSelection.meals.isEmpty) {
+      this.mealsSelection.meals.add(Meal(
+          date: date,
+          schedules: [selection.schedules]));
+    } else {
+      final mealOfSpecificDay = meals?.firstWhere(
+              (element) => element?.date == date, orElse: () => null);
+
+      final scheduleOfSpecificDay = mealOfSpecificDay?.schedules
+          ?.firstWhere((element) => element?.id == selection.configurations.id, orElse: () => null);
+
+      if (mealOfSpecificDay == null) {
+        meals.add(Meal(
+            date: date,
+            schedules: [selection.schedules]));
+      } else if (scheduleOfSpecificDay == null) {
+        mealOfSpecificDay.schedules.add(Schedules(
+            id: selection.schedules.id,
+            quantity: selection.schedules.quantity));
+      } else {
+        scheduleOfSpecificDay.quantity = selection.schedules.quantity;
+      }
+    }
+    return copyWith(
+        mealsSelection: this.mealsSelection
     );
   }
 
