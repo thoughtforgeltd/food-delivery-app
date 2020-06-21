@@ -25,7 +25,7 @@ class MealSelectionCard extends StatelessWidget {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
         padding: Dimensions.padding_16,
@@ -47,8 +47,7 @@ class MealSelectionCard extends StatelessWidget {
         padding: Dimensions.padding_right_16,
         child: Image.network(
             _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
-            color: AppColors.colorPrimary,
-            scale: 3,
+            color: AppColors.colorPrimary
           )
     );
   }
