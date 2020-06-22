@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fooddeliveryapp/meals/model/meal.dart';
 import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
+import 'package:fooddeliveryapp/utilities/date_utilities.dart';
 
 class MealScheduleRepository {
   final CollectionReference _collection;
@@ -20,7 +21,6 @@ class MealScheduleRepository {
 
   Future<Meal> getMealSelectionsForTheDay(String userID, DateTime date) async {
     final meals = await getMealSelections(userID);
-    return Future.value(meals.meals
-        .firstWhere((element) => element.date.millisecondsSinceEpoch == date.millisecondsSinceEpoch));
+    return Future.value(meals.meals?.firstWhere((element) => element.date.isSameDay(date), orElse: () => null));
   }
 }

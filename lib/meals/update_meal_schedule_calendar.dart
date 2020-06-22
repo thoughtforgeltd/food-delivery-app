@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -125,7 +126,7 @@ class _UpdateMealScheduleCalendarState
   }
 
   void _onDaySelected(DateTime day, List events) {
-    _mealScheduleBloc.add(DateChanged(selectedDate: day));
+    _mealScheduleBloc.add(DateChanged(selectedDate: Timestamp.fromDate(day)));
   }
 
   void _onMealSubmitted(MealSchedules meals) {
@@ -150,7 +151,7 @@ class _UpdateMealScheduleCalendarState
   _buildEventList(MealScheduleState state) {
     final events = state.mealTypes.types;
     final meals = state.mealsSelection?.meals?.firstWhere(
-        (element) => element?.date?.isSameDay(state.selectedDate) ,
+        (element) => element?.date?.isSameDayFromTimestamp(state.selectedDate) ,
         orElse: () => null);
     return new ListView.builder(
       itemCount: events.length,
@@ -161,7 +162,7 @@ class _UpdateMealScheduleCalendarState
           meal: MealSelection(
               date: state.selectedDate,
               schedules: meals?.schedules?.firstWhere(
-                  (element) => element.id == events[index]?.id,
+                  (element) => element?.id == events[index]?.id,
                   orElse: () => null),
               configurations: events[index]),
           onAddPressed: _onAddPressed,
@@ -173,7 +174,7 @@ class _UpdateMealScheduleCalendarState
 
   TableCalendar _buildTableCalendar(MealScheduleState state) {
     return TableCalendar(
-      startDay: state.startDate,
+      startDay: state.startDate.toDate(),
       calendarController: _calendarController,
       initialCalendarFormat: CalendarFormat.month,
       startingDayOfWeek: StartingDayOfWeek.monday,

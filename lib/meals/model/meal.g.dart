@@ -7,9 +7,11 @@ part of 'meal.dart';
 // **************************************************************************
 
 Meal _$MealFromJson(Map<String, dynamic> json) {
+  if(json == null) return null;
+  final schedules = json['schedules'] ?? Map();
   return Meal(
     date: json['date'] as Timestamp,
-    schedules: (json['schedules'] as List)
+    schedules: (schedules as List)
             ?.map((e) => e == null
                 ? null
                 : Schedules.fromJson(e as Map<String, dynamic>))

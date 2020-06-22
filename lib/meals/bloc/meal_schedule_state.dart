@@ -8,8 +8,8 @@ import 'package:meta/meta.dart';
 
 @immutable
 class MealScheduleState {
-  final DateTime selectedDate;
-  final DateTime startDate;
+  final Timestamp selectedDate;
+  final Timestamp startDate;
   final MealSchedules mealsSelection;
   final MealTypeConfigurations mealTypes;
   final bool isSubmitting;
@@ -28,8 +28,8 @@ class MealScheduleState {
 
   factory MealScheduleState.empty() {
     return MealScheduleState(
-      startDate: DateTime.now(),
-      selectedDate: DateTime.now(),
+      startDate: Timestamp.now(),
+      selectedDate:  Timestamp.now(),
       mealsSelection: MealSchedules(),
       mealTypes: MealTypeConfigurations(types: List()),
       isSubmitting: false,
@@ -66,8 +66,8 @@ class MealScheduleState {
   }
 
   MealScheduleState copyWith({
-    DateTime startDate,
-    DateTime selectedDate,
+    Timestamp startDate,
+    Timestamp selectedDate,
     MealSchedules mealsSelection,
     MealTypeConfigurations mealTypes,
     bool isSubmitEnabled,
@@ -94,13 +94,11 @@ class MealScheduleState {
           Schedules(quantity: 0, id: selection.configurations.id);
     }
     selection?.schedules?.quantity = selection.schedules.quantity + 1;
-    final date = Timestamp.fromDate(selection.date);
-    final meals = this.mealsSelection.meals;
-    if (this.mealsSelection.meals.isEmpty) {
-      this
-          .mealsSelection
-          .meals
-          .add(Meal(date: date, schedules: [selection.schedules]));
+    final date = selection.date;
+    final meals = this.mealsSelection.meals ?? List<Meal>();
+    if (meals.isEmpty) {
+      meals.add(Meal(date: date, schedules: [selection.schedules]));
+      this.mealsSelection.meals = meals;
     } else {
       final mealOfSpecificDay = meals
           ?.firstWhere((element) => element?.date == date, orElse: () => null);

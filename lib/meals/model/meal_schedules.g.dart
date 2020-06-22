@@ -7,12 +7,13 @@ part of 'meal_schedules.dart';
 // **************************************************************************
 
 MealSchedules _$MealSchedulesFromJson(Map<String, dynamic> json) {
+  if(json == null) return null;
+  final meal = json['meals'] ?? Map();
   return MealSchedules(
-    meals: (json['meals'] as List)
+    meals: (meal as List)
             ?.map((e) =>
                 e == null ? null : Meal.fromJson(e as Map<String, dynamic>))
-            ?.toList() ??
-        [],
+            ?.toList() ?? [],
   );
 }
 

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
@@ -76,7 +77,7 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
   }
 
   Stream<MealScheduleState> _mapDateChangedToState(
-      DateTime selectedDate) async* {
+      Timestamp selectedDate) async* {
     yield state.copyWith(
       selectedDate: selectedDate,
       isSuccess: false,
