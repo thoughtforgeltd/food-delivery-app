@@ -20,5 +20,5 @@ Meal _$MealFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$MealToJson(Meal instance) => <String, dynamic>{
       'date': instance.date,
-      'schedules': instance.schedules,
+      'schedules': instance.schedules.map((e) => e.toJson()).toList(),
     };
