@@ -10,6 +10,7 @@ import 'package:fooddeliveryapp/meals/meal_selection_card.dart';
 import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
 import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:fooddeliveryapp/utilities/date_utilities.dart';
 
 import 'bloc/meal_schedule_state.dart';
 
@@ -149,8 +150,7 @@ class _UpdateMealScheduleCalendarState
   _buildEventList(MealScheduleState state) {
     final events = state.mealTypes.types;
     final meals = state.mealsSelection?.meals?.firstWhere(
-        (element) =>
-            element?.date?.millisecondsSinceEpoch == state.selectedDate?.millisecondsSinceEpoch,
+        (element) => element?.date?.isSameDay(state.selectedDate) ,
         orElse: () => null);
     return new ListView.builder(
       itemCount: events.length,
