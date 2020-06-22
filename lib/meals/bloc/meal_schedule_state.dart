@@ -89,30 +89,28 @@ class MealScheduleState {
   MealScheduleState addSchedule({
     MealSelection selection,
   }) {
-    if(selection.schedules == null){
-      selection.schedules = Schedules(
-        quantity: 0,
-        id: selection.configurations.id
-      );
+    if (selection.schedules == null) {
+      selection.schedules =
+          Schedules(quantity: 0, id: selection.configurations.id);
     }
-    selection?.schedules?.quantity = selection.schedules.quantity+1;
+    selection?.schedules?.quantity = selection.schedules.quantity + 1;
     final date = Timestamp.fromDate(selection.date);
     final meals = this.mealsSelection.meals;
     if (this.mealsSelection.meals.isEmpty) {
-      this.mealsSelection.meals.add(Meal(
-          date: date,
-          schedules: [selection.schedules]));
+      this
+          .mealsSelection
+          .meals
+          .add(Meal(date: date, schedules: [selection.schedules]));
     } else {
-      final mealOfSpecificDay = meals?.firstWhere(
-              (element) => element?.date == date, orElse: () => null);
+      final mealOfSpecificDay = meals
+          ?.firstWhere((element) => element?.date == date, orElse: () => null);
 
-      final scheduleOfSpecificDay = mealOfSpecificDay?.schedules
-          ?.firstWhere((element) => element?.id == selection.configurations.id, orElse: () => null);
+      final scheduleOfSpecificDay = mealOfSpecificDay?.schedules?.firstWhere(
+          (element) => element?.id == selection.configurations.id,
+          orElse: () => null);
 
       if (mealOfSpecificDay == null) {
-        meals.add(Meal(
-            date: date,
-            schedules: [selection.schedules]));
+        meals.add(Meal(date: date, schedules: [selection.schedules]));
       } else if (scheduleOfSpecificDay == null) {
         mealOfSpecificDay.schedules.add(Schedules(
             id: selection.schedules.id,
@@ -122,7 +120,10 @@ class MealScheduleState {
       }
     }
     return copyWith(
-        mealsSelection: this.mealsSelection
+      mealsSelection: this.mealsSelection,
+      isSubmitting: false,
+      isSuccess: true,
+      isFailure: false
     );
   }
 

@@ -21,6 +21,6 @@ class MealScheduleRepository {
   Future<Meal> getMealSelectionsForTheDay(String userID, DateTime date) async {
     final meals = await getMealSelections(userID);
     return Future.value(meals.meals
-        .firstWhere((element) => element.date == date.millisecondsSinceEpoch));
+        .firstWhere((element) => element.date.millisecondsSinceEpoch == date.millisecondsSinceEpoch));
   }
 }
