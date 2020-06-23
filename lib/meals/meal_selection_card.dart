@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
+import 'package:fooddeliveryapp/design/sizes.dart';
 import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:fooddeliveryapp/repositories/paths/firebase_congiguration_paths.dart';
 
@@ -49,7 +50,7 @@ class MealSelectionCard extends StatelessWidget {
         child: SvgPicture.network(
             _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
             placeholderBuilder: (context) => CircularProgressIndicator(),
-            height: 24.0,
+            height: Sizes.icon_size,
             color: AppColors.colorPrimary));
   }
 
