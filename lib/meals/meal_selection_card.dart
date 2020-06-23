@@ -60,7 +60,7 @@ class MealSelectionCard extends StatelessWidget {
 
   Widget _buildMealAddAction() {
     return IconButton(
-      onPressed: () => _onAddPressed(_meal),
+      onPressed: () => onAddPressed(),
       icon: Icon(Icons.add),
     );
   }
@@ -71,16 +71,18 @@ class MealSelectionCard extends StatelessWidget {
 
   Widget _buildMealRemoveAction() {
     return IconButton(
-      onPressed: () => _onSubtractPressed(_meal),
+      onPressed: onSubtractPressed(),
       icon: Icon(Icons.remove),
     );
   }
 
-  void onAddPressed() {
-    _onAddPressed(_meal);
+  Function onSubtractPressed() {
+    if(_meal?.schedules?.quantity == 0)
+      return null;
+    else return () => _onSubtractPressed(_meal);
   }
 
-  void onSubtractPressed() {
-    _onSubtractPressed(_meal);
+  void onAddPressed() {
+    _onAddPressed(_meal);
   }
 }

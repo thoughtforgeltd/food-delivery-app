@@ -12,5 +12,6 @@ class MealDeliveryThemes {
 
   static final ButtonThemeData buttonTheme = ButtonThemeData(
       buttonColor: AppColors.colorPrimaryDark,
+      disabledColor: AppColors.colorDisable,
       textTheme: ButtonTextTheme.primary);
 }

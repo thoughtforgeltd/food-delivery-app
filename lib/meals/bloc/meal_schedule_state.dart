@@ -95,11 +95,7 @@ class MealScheduleState {
       selection.schedules =
           Schedules(quantity: 0, id: selection.configurations.id);
     }
-    if(selection.schedules.quantity > 0){
-      selection?.schedules?.quantity = selection.schedules.quantity + quantityOperator;
-    }else {
-      selection?.schedules?.quantity = 0;
-    }
+    selection?.schedules?.quantity = selection.schedules.quantity + quantityOperator;
 
     final date = selection.date;
     final meals = this.mealsSelection.meals ?? List<Meal>();
