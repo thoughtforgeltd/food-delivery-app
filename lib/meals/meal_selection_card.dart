@@ -49,7 +49,6 @@ class MealSelectionCard extends StatelessWidget {
         padding: Dimensions.padding_right_16,
         child: SvgPicture.network(
             _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
-            placeholderBuilder: (context) => CircularProgressIndicator(),
             height: Sizes.icon_size,
             color: AppColors.colorPrimary));
   }
