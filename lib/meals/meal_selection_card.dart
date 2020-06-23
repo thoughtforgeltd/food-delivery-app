@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
@@ -45,11 +46,11 @@ class MealSelectionCard extends StatelessWidget {
   Widget _buildMealIcon() {
     return Container(
         padding: Dimensions.padding_right_16,
-        child: Image.network(
+        child: SvgPicture.network(
             _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
-            color: AppColors.colorPrimary
-          )
-    );
+            placeholderBuilder: (context) => CircularProgressIndicator(),
+            height: 24.0,
+            color: AppColors.colorPrimary));
   }
 
   Widget _buildMealTitle() {
@@ -57,20 +58,18 @@ class MealSelectionCard extends StatelessWidget {
   }
 
   Widget _buildMealAddAction() {
-    return  IconButton(
+    return IconButton(
       onPressed: () => _onAddPressed(_meal),
       icon: Icon(Icons.add),
     );
   }
 
   Widget _buildMealQuantity() {
-    return  Text(
-        _meal?.schedules?.quantity?.toString() ?? "0"
-    );
+    return Text(_meal?.schedules?.quantity?.toString() ?? "0");
   }
 
   Widget _buildMealRemoveAction() {
-    return  IconButton(
+    return IconButton(
       onPressed: () => _onAddPressed(_meal),
       icon: Icon(Icons.remove),
     );
