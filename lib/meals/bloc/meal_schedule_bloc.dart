@@ -56,9 +56,11 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
       yield* _mapDateChangedToState(event.selectedDate);
     } else if (event is MealSelectionChanged) {
       yield* _mapMealSelectionChangedToState(event.mealsSelection);
-    }else if (event is AddMealSchedule) {
+    } else if (event is AddMealSchedule) {
       yield* _mapAddMealScheduleToState(event.selection);
-    } else if (event is Submitted) {
+    } else if (event is RemoveMealSchedule) {
+      yield* _mapRemoveMealScheduleToState(event.selection);
+    }else if (event is Submitted) {
       yield* _mapFormSubmittedToState(event.selectedDate, event.mealsSelection);
     }
   }
@@ -67,7 +69,8 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
     yield state.loading();
     try {
       final userId = await _userRepository.getUserID();
-      final configurations = await _configurationsRepository.getMealTypeConfigurations();
+      final configurations =
+          await _configurationsRepository.getMealTypeConfigurations();
       final schedules =
           await _mealSchedulesRepository.getMealSelections(userId.uid);
       yield state.success(mealsSelection: schedules, mealTypes: configurations);
@@ -79,32 +82,33 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
   Stream<MealScheduleState> _mapDateChangedToState(
       Timestamp selectedDate) async* {
     yield state.copyWith(
-      selectedDate: selectedDate,
-      isSuccess: false,
-      isSubmitting: false,
-      isFailure: false
-    );
+        selectedDate: selectedDate,
+        isSuccess: false,
+        isSubmitting: false,
+        isFailure: false);
   }
 
   Stream<MealScheduleState> _mapMealSelectionChangedToState(
       MealSchedules mealsSelection) async* {
     yield state.copyWith(
-      mealsSelection: mealsSelection,
+        mealsSelection: mealsSelection,
         isSuccess: false,
         isSubmitting: false,
-        isFailure: false
-    );
+        isFailure: false);
   }
 
   Stream<MealScheduleState> _mapAddMealScheduleToState(
       MealSelection mealSelection) async* {
-    yield state.addSchedule(
-        selection: mealSelection
-    );
+    yield state.updateSchedule(selection: mealSelection, quantityOperator: 1);
   }
 
-  Stream<MealScheduleState> _mapFormSubmittedToState(DateTime selectedDate,
-      MealSchedules mealsSelection) async* {
+  Stream<MealScheduleState> _mapRemoveMealScheduleToState(
+      MealSelection mealSelection) async* {
+    yield state.updateSchedule(selection: mealSelection, quantityOperator: -1);
+  }
+
+  Stream<MealScheduleState> _mapFormSubmittedToState(
+      DateTime selectedDate, MealSchedules mealsSelection) async* {
     yield state.loading();
     try {
       final userId = await _userRepository.getUserID();

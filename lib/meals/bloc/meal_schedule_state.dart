@@ -5,6 +5,7 @@ import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:fooddeliveryapp/meals/model/meal_type_configurations.dart';
 import 'package:fooddeliveryapp/meals/model/schedule.dart';
 import 'package:meta/meta.dart';
+import 'package:fooddeliveryapp/utilities/date_utilities.dart';
 
 @immutable
 class MealScheduleState {
@@ -86,14 +87,20 @@ class MealScheduleState {
     );
   }
 
-  MealScheduleState addSchedule({
+  MealScheduleState updateSchedule({
     MealSelection selection,
+    int quantityOperator
   }) {
     if (selection.schedules == null) {
       selection.schedules =
           Schedules(quantity: 0, id: selection.configurations.id);
     }
-    selection?.schedules?.quantity = selection.schedules.quantity + 1;
+    if(selection.schedules.quantity > 0){
+      selection?.schedules?.quantity = selection.schedules.quantity + quantityOperator;
+    }else {
+      selection?.schedules?.quantity = 0;
+    }
+
     final date = selection.date;
     final meals = this.mealsSelection.meals ?? List<Meal>();
     if (meals.isEmpty) {
@@ -101,7 +108,7 @@ class MealScheduleState {
       this.mealsSelection.meals = meals;
     } else {
       final mealOfSpecificDay = meals
-          ?.firstWhere((element) => element?.date == date, orElse: () => null);
+          ?.firstWhere((element) => element?.date?.isSameDayFromTimestamp(date), orElse: () => null);
 
       final scheduleOfSpecificDay = mealOfSpecificDay?.schedules?.firstWhere(
           (element) => element?.id == selection.configurations.id,

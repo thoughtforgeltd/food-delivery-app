@@ -71,15 +71,9 @@ class MealSelectionCard extends StatelessWidget {
 
   Widget _buildMealRemoveAction() {
     return IconButton(
-      onPressed: () => _onAddPressed(_meal),
+      onPressed: () => _onSubtractPressed(_meal),
       icon: Icon(Icons.remove),
     );
-  }
-
-  BoxDecoration _buildBoxDecoration() {
-    return BoxDecoration(
-        border: Border(
-            left: BorderSide(width: 4.0, color: AppColors.colorPrimaryDark)));
   }
 
   void onAddPressed() {
