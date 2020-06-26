@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,18 +6,17 @@ import 'package:fooddeliveryapp/common/widget/button.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
+import 'package:fooddeliveryapp/design/text_styles.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_state.dart';
-import 'package:fooddeliveryapp/meals/meal_selection_card.dart';
 import 'package:fooddeliveryapp/meals/model/meal.dart';
 import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
 import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
-import 'package:fooddeliveryapp/meals/model/meal_type.dart';
 import 'package:fooddeliveryapp/meals/model/meal_type_configurations.dart';
 import 'package:fooddeliveryapp/meals/timeline/meal_timeline_card.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:fooddeliveryapp/utilities/date_utilities.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class MealTimelineWidget extends StatefulWidget {
@@ -130,10 +128,6 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     super.dispose();
   }
 
-  void _onDaySelected(DateTime day, List events) {
-    _mealScheduleBloc.add(DateChanged(selectedDate: Timestamp.fromDate(day)));
-  }
-
   void _onMealSubmitted(MealSchedules meals) {
     _mealScheduleBloc.add(
       Submitted(
@@ -186,11 +180,12 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     );
   }
 
-  Text _buildDateWidget(List<Meal> meals, int index) {
-    return Text(
-      meals[index].date.toUIDate(),
-      style:
-          TextStyle(color: AppColors.colorPrimary, fontWeight: FontWeight.bold),
+  Center _buildDateWidget(List<Meal> meals, int index) {
+    return Center(
+      child: Text(
+        meals[index].date.toUIDate(),
+        style: TextStyles.bold,
+      ),
     );
   }
 
