@@ -9,7 +9,7 @@ extension BottomNavigationOptionsExtension on BottomNavigationOptions {
   String get title {
     switch (this) {
       case BottomNavigationOptions.meals_timeline:
-        return 'Meals';
+        return 'Timeline';
       case BottomNavigationOptions.profile:
         return 'Profile';
       default:
@@ -20,7 +20,7 @@ extension BottomNavigationOptionsExtension on BottomNavigationOptions {
   IconData get icon {
     switch (this) {
       case BottomNavigationOptions.meals_timeline:
-        return Icons.restaurant_menu;
+        return Icons.timeline;
       case BottomNavigationOptions.profile:
         return Icons.person;
       default:
