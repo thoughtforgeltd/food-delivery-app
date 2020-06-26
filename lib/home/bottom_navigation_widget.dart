@@ -16,7 +16,6 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
         builder: (context, state) {
       return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
         Container(
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
             child: _buildEventList(state)),
       ]);
     });
