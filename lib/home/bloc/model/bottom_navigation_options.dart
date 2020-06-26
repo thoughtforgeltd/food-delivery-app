@@ -22,7 +22,7 @@ extension BottomNavigationOptionsExtension on BottomNavigationOptions {
       case BottomNavigationOptions.meals_timeline:
         return Icons.restaurant_menu;
       case BottomNavigationOptions.profile:
-        return Icons.perm_identity;
+        return Icons.person;
       default:
         return null;
     }

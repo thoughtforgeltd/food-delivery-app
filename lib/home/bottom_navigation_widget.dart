@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/authentication_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/authentication_event.dart';
+import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_event.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_state.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigtion_bloc.dart';
@@ -49,6 +50,7 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
   _buildEventList(BottomNavigationState state) {
     return BottomNavigationBar(
       currentIndex: state.options.index,
+      selectedItemColor: AppColors.colorPrimaryAccent,
       onTap:(int index) {
         _bottomNavigationBloc.add(BottomNavigationChanged(
           options: BottomNavigationOptions.values.firstWhere(
