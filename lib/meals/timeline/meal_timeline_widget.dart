@@ -57,20 +57,6 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
               ),
             );
         }
-        if (state.isSuccess) {
-          Scaffold.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Meal Schedule updated!'),
-                  ],
-                ),
-              ),
-            );
-        }
         if (state.isFailure) {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
