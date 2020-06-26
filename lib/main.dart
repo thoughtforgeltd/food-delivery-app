@@ -14,6 +14,7 @@ import 'authentication/bloc/authentication_event.dart';
 import 'authentication/bloc/authentication_state.dart';
 import 'authentication/repository/user_repository.dart';
 import 'common/blog_delegate.dart';
+import 'home/home_screen.dart';
 import 'login/login_screen.dart';
 
 void main() {
@@ -88,8 +89,7 @@ class App extends StatelessWidget {
                 userRepository: _userRepository);
           }
           if (state is UserDetailsEntered) {
-//            return HomeScreen(name: state.details);
-            return UpdateMealScheduleScreen();
+            return HomeScreen(name: state.details);
           }
         },
       ),
