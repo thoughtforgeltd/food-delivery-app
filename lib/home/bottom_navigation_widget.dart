@@ -51,6 +51,7 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
     return BottomNavigationBar(
       currentIndex: state.options.index,
       selectedItemColor: AppColors.colorPrimaryAccent,
+      showUnselectedLabels: false,
       onTap:(int index) {
         _bottomNavigationBloc.add(BottomNavigationChanged(
           options: BottomNavigationOptions.values.firstWhere(
