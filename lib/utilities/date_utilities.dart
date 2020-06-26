@@ -23,6 +23,6 @@ extension TimestampUtilities on Timestamp {
   }
 
   String toUIDate(){
-    return DateFormat('dd MMM', Intl.defaultLocale).format(this.toDate());
+    return DateFormat('dd\nMMM', Intl.defaultLocale).format(this.toDate());
   }
 }

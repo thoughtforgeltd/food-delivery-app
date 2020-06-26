@@ -162,28 +162,35 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         return TimelineTile(
-          indicatorStyle: IndicatorStyle(
-            width: Sizes.icon_size,
-            color: AppColors.colorPrimary,
-            iconStyle: IconStyle(
-              color: Colors.white,
-              iconData: Icons.timer,
+            indicatorStyle: IndicatorStyle(
+              width: Sizes.icon_size,
+              color: AppColors.colorPrimary,
+              iconStyle: IconStyle(
+                color: Colors.white,
+                iconData: Icons.timer,
+              ),
             ),
-          ),
-          topLineStyle: LineStyle(
-            color: AppColors.colorPrimary,
-          ),
-          alignment: TimelineAlign.manual,
-          lineX: 0.2,
-          leftChild: Text(meals[index].date.toUIDate()),
-          rightChild: Column(
-            children: <Widget>[
-              _buildMeals(meals[index], state.mealTypes),
-              SizedBox(height:20),
-            ],
-          )
-        );
+            topLineStyle: LineStyle(
+              color: AppColors.colorPrimary,
+            ),
+            alignment: TimelineAlign.manual,
+            lineX: 0.15,
+            leftChild: _buildDateWidget(meals, index),
+            rightChild: Column(
+              children: <Widget>[
+                _buildMeals(meals[index], state.mealTypes),
+                SizedBox(height: 20),
+              ],
+            ));
       },
+    );
+  }
+
+  Text _buildDateWidget(List<Meal> meals, int index) {
+    return Text(
+      meals[index].date.toUIDate(),
+      style:
+          TextStyle(color: AppColors.colorPrimary, fontWeight: FontWeight.bold),
     );
   }
 
@@ -193,14 +200,14 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
       child: Column(
           children: meal.schedules
               ?.map((e) => MealTimelineCard(
-            meal: MealSelection(
-                date: meal.date,
-                schedules: e,
-                configurations: type.types
-                    .firstWhere((element) => element.id == e.id)),
-            onAddPressed: _onAddPressed,
-            onSubtractPressed: _onSubtractPressed,
-          ))
+                    meal: MealSelection(
+                        date: meal.date,
+                        schedules: e,
+                        configurations: type.types
+                            .firstWhere((element) => element.id == e.id)),
+                    onAddPressed: _onAddPressed,
+                    onSubtractPressed: _onSubtractPressed,
+                  ))
               ?.toList()),
     );
   }
