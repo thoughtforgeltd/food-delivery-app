@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/button.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
+import 'package:fooddeliveryapp/design/sizes.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_state.dart';
@@ -160,29 +161,46 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         return TimelineTile(
-          topLineStyle: LineStyle(
-            color: AppColors.colorPrimaryAccent,
+          indicatorStyle: IndicatorStyle(
+            width: Sizes.icon_size,
+            color: AppColors.colorPrimary,
+            iconStyle: IconStyle(
+              color: Colors.white,
+              iconData: Icons.timer,
+            ),
           ),
-          alignment: TimelineAlign.center,
+          topLineStyle: LineStyle(
+            color: AppColors.colorPrimary,
+          ),
+          alignment: TimelineAlign.manual,
+          lineX: 0.2,
           leftChild: Text(meals[index].date.toUIDate()),
-          rightChild: _buildMeals(meals[index], state.mealTypes),
+          rightChild: Column(
+            children: <Widget>[
+              _buildMeals(meals[index], state.mealTypes),
+              SizedBox(height:20),
+            ],
+          )
         );
       },
     );
   }
 
   _buildMeals(Meal meal, MealTypeConfigurations type) {
-    return Column(
-        children: meal.schedules
-            ?.map((e) => MealTimelineCard(
-                  meal: MealSelection(
-                      date: meal.date,
-                      schedules: e,
-                      configurations: type.types
-                          .firstWhere((element) => element.id == e.id)),
-                  onAddPressed: _onAddPressed,
-                  onSubtractPressed: _onSubtractPressed,
-                ))
-            ?.toList());
+    return Container(
+      margin: Dimensions.padding_left_16,
+      child: Column(
+          children: meal.schedules
+              ?.map((e) => MealTimelineCard(
+            meal: MealSelection(
+                date: meal.date,
+                schedules: e,
+                configurations: type.types
+                    .firstWhere((element) => element.id == e.id)),
+            onAddPressed: _onAddPressed,
+            onSubtractPressed: _onSubtractPressed,
+          ))
+              ?.toList()),
+    );
   }
 }

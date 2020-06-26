@@ -30,7 +30,7 @@ class MealTimelineCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        padding: Dimensions.padding_16,
+        padding: Dimensions.padding_8,
         child: Row(
           children: <Widget>[
             _buildMealIcon(),
@@ -50,10 +50,6 @@ class MealTimelineCard extends StatelessWidget {
             _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
             color: AppColors.colorPrimary));
-  }
-
-  Widget _buildMealTitle() {
-    return Text(_meal.configurations.title);
   }
 
   Widget _buildMealAddAction() {
