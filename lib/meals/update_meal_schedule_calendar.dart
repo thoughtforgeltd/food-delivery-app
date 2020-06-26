@@ -158,6 +158,7 @@ class _UpdateMealScheduleCalendarState
     return new ListView.builder(
       itemCount: events.length,
       scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         return MealSelectionCard(
