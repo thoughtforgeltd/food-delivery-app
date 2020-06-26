@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/repository/user_details_repository.dart';
 import 'package:fooddeliveryapp/design/themes.dart';
-import 'package:fooddeliveryapp/meals/update_meal_schedule_screen.dart';
 import 'package:fooddeliveryapp/repositories/configuration_repository.dart';
 import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
 import 'package:fooddeliveryapp/splash_screen.dart';
@@ -14,6 +13,7 @@ import 'authentication/bloc/authentication_event.dart';
 import 'authentication/bloc/authentication_state.dart';
 import 'authentication/repository/user_repository.dart';
 import 'common/blog_delegate.dart';
+import 'home/home_screen.dart';
 import 'login/login_screen.dart';
 
 void main() {
@@ -88,8 +88,7 @@ class App extends StatelessWidget {
                 userRepository: _userRepository);
           }
           if (state is UserDetailsEntered) {
-//            return HomeScreen(name: state.details);
-            return UpdateMealScheduleScreen();
+            return HomeScreen(name: state.details);
           }
         },
       ),

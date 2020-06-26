@@ -78,8 +78,8 @@ class _UpdateMealScheduleCalendarState
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                     child: Text('There is an error while updating meal schedules..')
-                    ),
+                        child: Text(
+                            'There is an error while updating meal schedules..')),
                     Icon(Icons.error),
                   ],
                 ),
@@ -90,13 +90,15 @@ class _UpdateMealScheduleCalendarState
       },
       child: BlocBuilder<MealScheduleBloc, MealScheduleState>(
         builder: (context, state) {
-          return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-            _buildTableCalendar(state),
-            Container(
-                padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                child: _buildEventList(state).build(context)),
-            _buildSubmitButton(state)
-          ]);
+          return SingleChildScrollView(
+            child: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
+              _buildTableCalendar(state),
+              Container(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  child: _buildEventList(state).build(context)),
+              _buildSubmitButton(state)
+            ]),
+          );
         },
       ),
     );
@@ -151,11 +153,12 @@ class _UpdateMealScheduleCalendarState
   _buildEventList(MealScheduleState state) {
     final events = state.mealTypes.types;
     final meals = state.mealsSelection?.meals?.firstWhere(
-        (element) => element?.date?.isSameDayFromTimestamp(state.selectedDate) ,
+        (element) => element?.date?.isSameDayFromTimestamp(state.selectedDate),
         orElse: () => null);
     return new ListView.builder(
       itemCount: events.length,
       scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         return MealSelectionCard(
@@ -185,9 +188,8 @@ class _UpdateMealScheduleCalendarState
           rightChevronIcon: Icon(Icons.arrow_right),
           formatButtonVisible: false),
       calendarStyle: CalendarStyle(
-        selectedColor: AppColors.colorPrimaryDark,
-        todayColor: AppColors.colorPrimaryLight
-      ),
+          selectedColor: AppColors.colorPrimaryDark,
+          todayColor: AppColors.colorPrimaryLight),
       onDaySelected: _onDaySelected,
     );
   }
