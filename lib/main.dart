@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/repository/user_details_repository.dart';
 import 'package:fooddeliveryapp/design/themes.dart';
-import 'package:fooddeliveryapp/meals/update_meal_schedule_screen.dart';
 import 'package:fooddeliveryapp/repositories/configuration_repository.dart';
 import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
 import 'package:fooddeliveryapp/splash_screen.dart';
