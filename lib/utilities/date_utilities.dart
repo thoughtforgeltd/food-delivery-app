@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 extension DateUtilities on DateTime {
   bool isSameDay(DateTime dateTime) {
@@ -19,5 +20,9 @@ extension TimestampUtilities on Timestamp {
     final other = dateTime.toDate();
     return dateTime != null && timestamp.year == other.year && timestamp.month == other.month
         && timestamp.day == other.day;
+  }
+
+  String toUIDate(){
+    return DateFormat(Intl.defaultLocale).format(this.toDate());
   }
 }

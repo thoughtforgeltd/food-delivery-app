@@ -9,6 +9,7 @@ import 'package:fooddeliveryapp/home/bloc/bottom_navigation_event.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_state.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigtion_bloc.dart';
 import 'package:fooddeliveryapp/home/bloc/model/bottom_navigation_options.dart';
+import 'package:fooddeliveryapp/meals/timeline/meal_timeline_screen.dart';
 import 'package:fooddeliveryapp/meals/update_meal_schedule_screen.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
@@ -42,13 +43,24 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
             )
           ],
         ),
-        body: UpdateMealScheduleScreen(),
-        bottomNavigationBar: _buildEventList(state),
+        body: _getDestination(state),
+        bottomNavigationBar: _buildBottomNavigationBar(state),
       );
     });
   }
 
-  _buildEventList(BottomNavigationState state) {
+  Widget _getDestination(BottomNavigationState state){
+    switch(state.options){
+      case BottomNavigationOptions.meals_timeline :
+        return MealTimelineScreen();
+      case BottomNavigationOptions.profile :
+        return UpdateMealScheduleScreen();
+      default :
+        return MealTimelineScreen();
+    }
+  }
+
+  _buildBottomNavigationBar(BottomNavigationState state) {
     return BottomNavigationBar(
       currentIndex: state.options.index,
       selectedItemColor: AppColors.colorPrimaryAccent,
