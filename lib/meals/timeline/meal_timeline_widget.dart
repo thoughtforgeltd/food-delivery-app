@@ -62,11 +62,10 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
               : SingleChildScrollView(
                   child: Container(
                   padding: Dimensions.padding_16,
-                  child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        _buildMealsTimeline(state),
-                      ]),
+                  child:
+                      Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
+                    _buildMealsTimeline(state),
+                  ]),
                 ));
         },
       ),
@@ -79,22 +78,9 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     super.dispose();
   }
 
-  void _onMealSubmitted(MealSchedules meals) {
-    _mealScheduleBloc.add(
-      Submitted(
-          selectedDate: _calendarController.selectedDay, mealsSelection: meals),
-    );
-  }
-
-  void _onAddPressed(MealSelection mealSelection) {
+  void _onMealSchedulePressed(MealSelection mealSelection) {
     _mealScheduleBloc.add(
       AddMealSchedule(selection: mealSelection),
-    );
-  }
-
-  void _onSubtractPressed(MealSelection mealSelection) {
-    _mealScheduleBloc.add(
-      RemoveMealSchedule(selection: mealSelection),
     );
   }
 
@@ -152,8 +138,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
                         schedules: e,
                         configurations: type.types
                             .firstWhere((element) => element.id == e.id)),
-                    onAddPressed: _onAddPressed,
-                    onSubtractPressed: _onSubtractPressed,
+                    onMealSchedulePressed: _onMealSchedulePressed,
                   ))
               ?.toList()),
     );

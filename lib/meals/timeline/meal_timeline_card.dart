@@ -9,35 +9,35 @@ import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:fooddeliveryapp/repositories/paths/firebase_congiguration_paths.dart';
 
 class MealTimelineCard extends StatelessWidget {
-  final void Function(MealSelection) _onAddPressed;
-  final void Function(MealSelection) _onSubtractPressed;
+  final void Function(MealSelection) _onMealSchedulePressed;
   final MealSelection _meal;
 
   MealTimelineCard(
       {Key key,
-      Function(MealSelection) onAddPressed,
-      Function(MealSelection) onSubtractPressed,
+      Function(MealSelection) onMealSchedulePressed,
       MealSelection meal})
-      : _onAddPressed = onAddPressed,
-        _onSubtractPressed = onSubtractPressed,
+      : _onMealSchedulePressed = onMealSchedulePressed,
         _meal = meal,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Container(
-        padding: Dimensions.padding_16,
-        child: Row(
-          children: <Widget>[
-            _buildMealIcon(),
-            _buildMealTitle(),
-            _buildMealQuantity(),
-          ],
+    return new GestureDetector(
+      onTap: () => onMealSchedulePressed(),
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Container(
+          padding: Dimensions.padding_16,
+          child: Row(
+            children: <Widget>[
+              _buildMealIcon(),
+              _buildMealTitle(),
+              _buildMealQuantity(),
+            ],
+          ),
         ),
       ),
     );
@@ -63,14 +63,7 @@ class MealTimelineCard extends StatelessWidget {
     );
   }
 
-  Function onSubtractPressed() {
-    if (_meal?.schedules?.quantity == 0)
-      return null;
-    else
-      return () => _onSubtractPressed(_meal);
-  }
-
-  void onAddPressed() {
-    _onAddPressed(_meal);
+  void onMealSchedulePressed() {
+    _onMealSchedulePressed(_meal);
   }
 }
