@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fooddeliveryapp/authentication/bloc/authentication_bloc.dart';
+import 'package:fooddeliveryapp/authentication/bloc/authentication_event.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_state.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigtion_bloc.dart';
 
@@ -14,10 +16,23 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
         builder: (context, state) {
-      return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-        Container(
-            child: _buildEventList(state)),
-      ]);
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Home'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () {
+                BlocProvider.of<AuthenticationBloc>(context).add(
+                  LoggedOut(),
+                );
+              },
+            )
+          ],
+        ),
+        body: Text(state.options.toString()),
+        bottomNavigationBar: _buildEventList(state),
+      );
     });
   }
 
