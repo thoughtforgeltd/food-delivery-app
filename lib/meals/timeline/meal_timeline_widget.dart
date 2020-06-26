@@ -66,27 +66,9 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         _buildMealsTimeline(state),
-                        _buildSubmitButton(state)
                       ]),
                 ));
         },
-      ),
-    );
-  }
-
-  Padding _buildSubmitButton(MealScheduleState state) {
-    return Padding(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Button(
-            onPressed: isButtonEnabled(state)
-                ? () => _onMealSubmitted(state.mealsSelection)
-                : null,
-            label: "Add Meals",
-          ),
-        ],
       ),
     );
   }
