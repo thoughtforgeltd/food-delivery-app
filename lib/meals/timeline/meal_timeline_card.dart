@@ -22,15 +22,17 @@ class MealTimelineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new GestureDetector(
-      onTap: () => onMealSchedulePressed(),
-      child: Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: Dimensions.radius,
+      ),
+      child: new InkWell(
+        customBorder: RoundedRectangleBorder(
+          borderRadius: Dimensions.radius,
         ),
+        onTap: () => onMealSchedulePressed(),
         child: Container(
-          padding: Dimensions.padding_16,
+          margin: Dimensions.padding_16,
           child: Row(
             children: <Widget>[
               _buildMealIcon(),
@@ -49,7 +51,7 @@ class MealTimelineCard extends StatelessWidget {
 
   Widget _buildMealIcon() {
     return Container(
-        padding: Dimensions.padding_right_16,
+        margin: Dimensions.padding_right_16,
         child: SvgPicture.network(
             _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,

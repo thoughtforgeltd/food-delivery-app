@@ -7,4 +7,6 @@ class Dimensions{
   static const padding_right_16 = EdgeInsets.fromLTRB(0, 0, 16, 0);
   static const padding_top_16 = EdgeInsets.fromLTRB(0, 16, 0, 0);
   static const padding_bottom_16 = EdgeInsets.fromLTRB(0, 0, 0, 16);
+
+  static final radius = BorderRadius.circular(10);
 }
