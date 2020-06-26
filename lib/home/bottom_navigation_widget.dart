@@ -9,6 +9,7 @@ import 'package:fooddeliveryapp/home/bloc/bottom_navigation_event.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_state.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigtion_bloc.dart';
 import 'package:fooddeliveryapp/home/bloc/model/bottom_navigation_options.dart';
+import 'package:fooddeliveryapp/meals/update_meal_schedule_screen.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   State<BottomNavigationWidget> createState() => _UpdateBottomNavigationState();
@@ -41,7 +42,7 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
             )
           ],
         ),
-        body: Text(state.options.title),
+        body: UpdateMealScheduleScreen(),
         bottomNavigationBar: _buildEventList(state),
       );
     });
