@@ -29,7 +29,7 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
         builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Home'),
+          title: Text(state.options.title),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.exit_to_app),
