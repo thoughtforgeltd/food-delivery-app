@@ -185,6 +185,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
       child: Text(
         meals[index].date.toUIDate(),
         style: TextStyles.bold,
+        textAlign: TextAlign.center,
       ),
     );
   }
