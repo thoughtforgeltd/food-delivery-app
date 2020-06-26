@@ -33,7 +33,7 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
           title: Text(state.options.title),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.exit_to_app),
+              icon: Icon(Icons.add_to_home_screen),
               onPressed: () {
                 BlocProvider.of<AuthenticationBloc>(context).add(
                   LoggedOut(),
