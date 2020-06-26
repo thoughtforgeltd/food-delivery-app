@@ -158,6 +158,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     return new ListView.builder(
       itemCount: meals?.length ?? 0,
       scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         return TimelineTile(
