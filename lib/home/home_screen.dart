@@ -15,9 +15,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BottomNavigationBloc>(
+    return Container(
+        child: BlocProvider<BottomNavigationBloc>(
       create: (context) => BottomNavigationBloc(),
       child: BottomNavigationWidget(),
-    );
+    ));
   }
 }
