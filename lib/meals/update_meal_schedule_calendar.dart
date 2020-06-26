@@ -179,7 +179,7 @@ class _UpdateMealScheduleCalendarState
     return TableCalendar(
       startDay: state.startDate.toDate(),
       calendarController: _calendarController,
-      initialCalendarFormat: CalendarFormat.month,
+      initialCalendarFormat: CalendarFormat.week,
       startingDayOfWeek: StartingDayOfWeek.monday,
       formatAnimation: FormatAnimation.scale,
       weekendDays: [],
