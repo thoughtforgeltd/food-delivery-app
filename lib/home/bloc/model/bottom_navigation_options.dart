@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 enum BottomNavigationOptions{
+  today,
   meals_timeline,
   profile
 }
@@ -8,6 +9,8 @@ enum BottomNavigationOptions{
 extension BottomNavigationOptionsExtension on BottomNavigationOptions {
   String get title {
     switch (this) {
+      case BottomNavigationOptions.today:
+        return 'Today';
       case BottomNavigationOptions.meals_timeline:
         return 'Timeline';
       case BottomNavigationOptions.profile:
@@ -19,6 +22,8 @@ extension BottomNavigationOptionsExtension on BottomNavigationOptions {
 
   IconData get icon {
     switch (this) {
+      case BottomNavigationOptions.today:
+        return Icons.today;
       case BottomNavigationOptions.meals_timeline:
         return Icons.timeline;
       case BottomNavigationOptions.profile:
