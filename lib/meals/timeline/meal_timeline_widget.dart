@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/button.dart';
+import 'package:fooddeliveryapp/common/widget/loading.dart';
+import 'package:fooddeliveryapp/common/widget/snack_bar.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
@@ -42,50 +44,31 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
   Widget build(BuildContext context) {
     return BlocListener<MealScheduleBloc, MealScheduleState>(
       listener: (context, state) {
-        if (state.isSubmitting) {
-          Scaffold.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Updating Meal Schedule...'),
-                    CircularProgressIndicator(),
-                  ],
-                ),
-              ),
-            );
-        }
         if (state.isFailure) {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                        child: Text(
-                            'There is an error while updating meal schedules..')),
-                    Icon(Icons.error),
-                  ],
-                ),
-                backgroundColor: Colors.red,
+              getAppSnackBar(
+                'Error while loading timeline',
+                Icon(Icons.error),
               ),
             );
         }
       },
       child: BlocBuilder<MealScheduleBloc, MealScheduleState>(
         builder: (context, state) {
-          return SingleChildScrollView(
-              child: Container(
-            padding: Dimensions.padding_16,
-            child: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-              _buildMealsTimeline(state),
-              _buildSubmitButton(state)
-            ]),
-          ));
+          return state.isSubmitting
+              ? buildLoadingWidget()
+              : SingleChildScrollView(
+                  child: Container(
+                  padding: Dimensions.padding_16,
+                  child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        _buildMealsTimeline(state),
+                        _buildSubmitButton(state)
+                      ]),
+                ));
         },
       ),
     );
