@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fooddeliveryapp/common/widget/button.dart';
 import 'package:fooddeliveryapp/common/widget/loading.dart';
 import 'package:fooddeliveryapp/common/widget/snack_bar.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
@@ -13,21 +12,21 @@ import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_state.dart';
 import 'package:fooddeliveryapp/meals/model/meal.dart';
-import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
 import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:fooddeliveryapp/meals/model/meal_type_configurations.dart';
 import 'package:fooddeliveryapp/meals/timeline/meal_timeline_card.dart';
 import 'package:fooddeliveryapp/utilities/date_utilities.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:fooddeliveryapp/utilities/global_key_utilities.dart';
 
 class MealTimelineWidget extends StatefulWidget {
   State<MealTimelineWidget> createState() => _MealTimelineWidgetState();
 }
 
 class _MealTimelineWidgetState extends State<MealTimelineWidget> {
-  CalendarController _calendarController;
+  ScrollController _scrollController;
   MealScheduleBloc _mealScheduleBloc;
+  GlobalKey _currentDateKey = GlobalKey();
 
   bool isButtonEnabled(MealScheduleState state) {
     return !state.isSubmitting;
@@ -37,7 +36,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
   void initState() {
     super.initState();
     _mealScheduleBloc = BlocProvider.of<MealScheduleBloc>(context);
-    _calendarController = CalendarController();
+    _scrollController = ScrollController(initialScrollOffset: 0.0);
   }
 
   @override
@@ -57,6 +56,8 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
       },
       child: BlocBuilder<MealScheduleBloc, MealScheduleState>(
         builder: (context, state) {
+          if(state.isSuccess) WidgetsBinding.instance
+              .addPostFrameCallback((_) => _scrollToCurrentDay());
           return state.isSubmitting
               ? buildLoadingWidget()
               : SingleChildScrollView(
@@ -72,13 +73,19 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     );
   }
 
+  void _scrollToCurrentDay() {
+    final position = _currentDateKey.globalPaintBounds?.bottom ?? 0;
+    if(_scrollController.hasClients) _scrollController.animateTo(position, duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
+  }
+
   @override
   void dispose() {
-    _calendarController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   void _onMealSchedulePressed(MealSelection mealSelection) {
+    _scrollToCurrentDay();
     _mealScheduleBloc.add(
       AddMealSchedule(selection: mealSelection),
     );
@@ -86,13 +93,20 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
 
   _buildMealsTimeline(MealScheduleState state) {
     final meals = state.mealsSelection?.meals;
+    var currentDayIndex = state.mealsSelection?.meals?.indexWhere(
+        (element) => element.date.isSameDayFromTimestamp(state.startDate)) ?? 0;
+    if (currentDayIndex < 0) {
+      currentDayIndex = 0;
+    }
     return new ListView.builder(
       itemCount: meals?.length ?? 0,
       scrollDirection: Axis.vertical,
-      physics: NeverScrollableScrollPhysics(),
+      controller: _scrollController,
+      physics: ScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         return TimelineTile(
+            key: currentDayIndex == index ? _currentDateKey : UniqueKey(),
             indicatorStyle: IndicatorStyle(
               width: Sizes.icon_size,
               color: AppColors.colorPrimary,
