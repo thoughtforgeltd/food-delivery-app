@@ -9,11 +9,13 @@ part of 'meal_schedules.dart';
 MealSchedules _$MealSchedulesFromJson(Map<String, dynamic> json) {
   if(json == null) return null;
   final meal = json['meals'] ?? Map();
+  final meals = (meal as List)
+      ?.map((e) =>
+  e == null ? null : Meal.fromJson(e as Map<String, dynamic>))
+      ?.toList() ?? [];
+  meals?.sort((a, b) => a.date.compareTo(b.date));
   return MealSchedules(
-    meals: (meal as List)
-            ?.map((e) =>
-                e == null ? null : Meal.fromJson(e as Map<String, dynamic>))
-            ?.toList() ?? [],
+    meals: meals,
   );
 }
 
