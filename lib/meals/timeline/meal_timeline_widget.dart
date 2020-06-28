@@ -56,8 +56,9 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
       },
       child: BlocBuilder<MealScheduleBloc, MealScheduleState>(
         builder: (context, state) {
-          if(state.isSuccess) WidgetsBinding.instance
-              .addPostFrameCallback((_) => _scrollToCurrentDay());
+          if (state.isSuccess)
+            WidgetsBinding.instance
+                .addPostFrameCallback((_) => _scrollToCurrentDay());
           return state.isSubmitting
               ? buildLoadingWidget()
               : SingleChildScrollView(
@@ -75,7 +76,9 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
 
   void _scrollToCurrentDay() {
     final position = _currentDateKey.globalPaintBounds?.bottom ?? 0;
-    if(_scrollController.hasClients) _scrollController.animateTo(position, duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
+    if (_scrollController.hasClients)
+      _scrollController.animateTo(position,
+          duration: Duration(milliseconds: 1000), curve: Curves.easeOut);
   }
 
   @override
@@ -93,8 +96,9 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
 
   _buildMealsTimeline(MealScheduleState state) {
     final meals = state.mealsSelection?.meals;
-    var currentDayIndex = state.mealsSelection?.meals?.indexWhere(
-        (element) => element.date.isSameDayFromTimestamp(state.startDate)) ?? 0;
+    var currentDayIndex = state.mealsSelection?.meals?.indexWhere((element) =>
+            element.date.isSameDayFromTimestamp(state.startDate)) ??
+        0;
     if (currentDayIndex < 0) {
       currentDayIndex = 0;
     }
@@ -109,25 +113,35 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             key: currentDayIndex == index ? _currentDateKey : UniqueKey(),
             indicatorStyle: IndicatorStyle(
               width: Sizes.icon_size,
-              color: currentDayIndex == index ? AppColors.colorPrimaryAccent :
-              currentDayIndex <= index ? AppColors.colorPrimary : AppColors.colorTransparent,
+              color: currentDayIndex == index
+                  ? AppColors.colorPrimaryAccent
+                  : currentDayIndex <= index
+                      ? AppColors.colorPrimary
+                      : AppColors.colorTransparent,
               iconStyle: IconStyle(
-                color: currentDayIndex <= index ? AppColors.colorWhite : AppColors.colorTransparent,
+                color: currentDayIndex <= index
+                    ? AppColors.colorWhite
+                    : AppColors.colorTransparent,
                 iconData: Icons.timer,
               ),
             ),
             topLineStyle: LineStyle(
-              color: index >= currentDayIndex ? AppColors.colorPrimary : AppColors.colorDisable,
+              color: index >= currentDayIndex
+                  ? AppColors.colorPrimary
+                  : AppColors.colorDisable,
             ),
             bottomLineStyle: LineStyle(
-              color: index >= currentDayIndex ? AppColors.colorPrimary : AppColors.colorDisable,
+              color: index >= currentDayIndex
+                  ? AppColors.colorPrimary
+                  : AppColors.colorDisable,
             ),
             alignment: TimelineAlign.manual,
             lineX: 0.15,
-            leftChild: _buildDateWidget(meals, index),
+            leftChild: _buildDateWidget(meals, index, currentDayIndex),
             rightChild: Column(
               children: <Widget>[
-                _buildMeals(meals[index], state.mealTypes),
+                _buildMeals(
+                    meals[index], state.mealTypes, currentDayIndex, index),
                 SizedBox(height: 20),
               ],
             ));
@@ -135,17 +149,20 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     );
   }
 
-  Center _buildDateWidget(List<Meal> meals, int index) {
+  Center _buildDateWidget(List<Meal> meals, int index, int currentDayIndex) {
     return Center(
       child: Text(
         meals[index].date.toUIDate(),
-        style: TextStyles.bold,
+        style: currentDayIndex <= index
+            ? TextStyles.bold
+            : TextStyles.disabledBold,
         textAlign: TextAlign.center,
       ),
     );
   }
 
-  _buildMeals(Meal meal, MealTypeConfigurations type) {
+  _buildMeals(
+      Meal meal, MealTypeConfigurations type, int currentDayIndex, int index) {
     return Container(
       margin: Dimensions.padding_left_16,
       child: Column(
@@ -157,6 +174,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
                         configurations: type.types
                             .firstWhere((element) => element.id == e.id)),
                     onMealSchedulePressed: _onMealSchedulePressed,
+                    disabled: currentDayIndex <= index,
                   ))
               ?.toList()),
     );

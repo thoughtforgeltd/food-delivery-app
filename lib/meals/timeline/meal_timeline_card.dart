@@ -11,12 +11,15 @@ import 'package:fooddeliveryapp/repositories/paths/firebase_congiguration_paths.
 class MealTimelineCard extends StatelessWidget {
   final void Function(MealSelection) _onMealSchedulePressed;
   final MealSelection _meal;
+  final bool _disabled;
 
   MealTimelineCard(
       {Key key,
+      bool disabled,
       Function(MealSelection) onMealSchedulePressed,
       MealSelection meal})
       : _onMealSchedulePressed = onMealSchedulePressed,
+        _disabled  = disabled,
         _meal = meal,
         super(key: key);
 
@@ -30,7 +33,7 @@ class MealTimelineCard extends StatelessWidget {
         customBorder: RoundedRectangleBorder(
           borderRadius: Dimensions.radius,
         ),
-        onTap: () => onMealSchedulePressed(),
+        onTap: _disabled ? () => onMealSchedulePressed() : null,
         child: Container(
           margin: Dimensions.padding_16,
           child: Row(
@@ -46,7 +49,8 @@ class MealTimelineCard extends StatelessWidget {
   }
 
   Widget _buildMealTitle() {
-    return Expanded(child: Text(_meal.configurations.title));
+    return Expanded(child: Text(_meal.configurations.title,
+        style: _disabled ? TextStyles.regular : TextStyles.regularDisabled));
   }
 
   Widget _buildMealIcon() {
@@ -55,14 +59,13 @@ class MealTimelineCard extends StatelessWidget {
         child: SvgPicture.network(
             _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
-            color: AppColors.colorPrimary));
+            color: _disabled ? AppColors.colorPrimary :  AppColors.colorDisable));
   }
 
   Widget _buildMealQuantity() {
     return Text(
       _meal?.schedules?.quantity?.toString() ?? "0",
-      style: TextStyles.bold,
-    );
+      style: _disabled ? TextStyles.bold : TextStyles.disabledBold);
   }
 
   void onMealSchedulePressed() {
