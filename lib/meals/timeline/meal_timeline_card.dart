@@ -19,7 +19,7 @@ class MealTimelineCard extends StatelessWidget {
       Function(MealSelection) onMealSchedulePressed,
       MealSelection meal})
       : _onMealSchedulePressed = onMealSchedulePressed,
-        _disabled  = disabled,
+        _disabled = disabled,
         _meal = meal,
         super(key: key);
 
@@ -33,7 +33,7 @@ class MealTimelineCard extends StatelessWidget {
         customBorder: RoundedRectangleBorder(
           borderRadius: Dimensions.radius,
         ),
-        onTap: _disabled ? () => onMealSchedulePressed() : null,
+        onTap: _disabled ? null : () => onMealSchedulePressed(),
         child: Container(
           margin: Dimensions.padding_16,
           child: Row(
@@ -49,8 +49,10 @@ class MealTimelineCard extends StatelessWidget {
   }
 
   Widget _buildMealTitle() {
-    return Expanded(child: Text(_meal.configurations.title,
-        style: _disabled ? TextStyles.regular : TextStyles.regularDisabled));
+    return Expanded(
+        child: Text(_meal.configurations.title,
+            style:
+                _disabled ? TextStyles.regularDisabled : TextStyles.regular));
   }
 
   Widget _buildMealIcon() {
@@ -59,13 +61,13 @@ class MealTimelineCard extends StatelessWidget {
         child: SvgPicture.network(
             _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
-            color: _disabled ? AppColors.colorPrimary :  AppColors.colorDisable));
+            color:
+                _disabled ? AppColors.colorDisable : AppColors.colorPrimary));
   }
 
   Widget _buildMealQuantity() {
-    return Text(
-      _meal?.schedules?.quantity?.toString() ?? "0",
-      style: _disabled ? TextStyles.bold : TextStyles.disabledBold);
+    return Text(_meal?.schedules?.quantity?.toString() ?? "0",
+        style: _disabled ? TextStyles.disabledBold : TextStyles.bold);
   }
 
   void onMealSchedulePressed() {

@@ -110,7 +110,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
         var isCurrentDay = currentDayIndex == index;
-        var isPastDay = currentDayIndex <= index;
+        var isPastDay = index < currentDayIndex;
         return TimelineTile(
             key: isCurrentDay ? _currentDateKey : UniqueKey(),
             indicatorStyle: IndicatorStyle(
@@ -118,24 +118,26 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
               color: isCurrentDay
                   ? AppColors.colorPrimaryAccent
                   : isPastDay
-                      ? AppColors.colorPrimary
-                      : AppColors.colorTransparent,
+                      ? AppColors.colorTransparent
+                      : AppColors.colorPrimary,
               iconStyle: IconStyle(
-                color: isPastDay
+                color: isCurrentDay
                     ? AppColors.colorWhite
-                    : AppColors.colorTransparent,
-                iconData: Icons.timer,
+                    : isPastDay
+                        ? AppColors.colorTransparent
+                        : AppColors.colorWhite,
+                iconData: isCurrentDay ? Icons.today : Icons.timer,
               ),
             ),
             topLineStyle: LineStyle(
               color: isCurrentDay
                   ? AppColors.colorPrimaryAccent
-                  : isPastDay ? AppColors.colorPrimary : AppColors.colorDisable,
+                  : isPastDay ? AppColors.colorDisable : AppColors.colorPrimary,
             ),
             bottomLineStyle: LineStyle(
               color: isCurrentDay
                   ? AppColors.colorPrimaryAccent
-                  : isPastDay ? AppColors.colorPrimary : AppColors.colorDisable,
+                  : isPastDay ? AppColors.colorDisable : AppColors.colorPrimary,
             ),
             alignment: TimelineAlign.manual,
             lineX: 0.15,
@@ -154,7 +156,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     return Center(
       child: Text(
         meals[index].date.toUIDate(),
-        style: isPastDay ? TextStyles.bold : TextStyles.disabledBold,
+        style: isPastDay ? TextStyles.disabledBold : TextStyles.bold,
         textAlign: TextAlign.center,
       ),
     );
