@@ -109,14 +109,18 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             key: currentDayIndex == index ? _currentDateKey : UniqueKey(),
             indicatorStyle: IndicatorStyle(
               width: Sizes.icon_size,
-              color: AppColors.colorPrimary,
+              color: currentDayIndex == index ? AppColors.colorPrimaryAccent :
+              currentDayIndex <= index ? AppColors.colorPrimary : AppColors.colorTransparent,
               iconStyle: IconStyle(
-                color: Colors.white,
+                color: currentDayIndex <= index ? AppColors.colorWhite : AppColors.colorTransparent,
                 iconData: Icons.timer,
               ),
             ),
             topLineStyle: LineStyle(
-              color: AppColors.colorPrimary,
+              color: index >= currentDayIndex ? AppColors.colorPrimary : AppColors.colorDisable,
+            ),
+            bottomLineStyle: LineStyle(
+              color: index >= currentDayIndex ? AppColors.colorPrimary : AppColors.colorDisable,
             ),
             alignment: TimelineAlign.manual,
             lineX: 0.15,
