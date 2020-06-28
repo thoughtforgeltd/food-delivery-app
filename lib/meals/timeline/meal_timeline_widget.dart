@@ -126,12 +126,12 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
               ),
             ),
             topLineStyle: LineStyle(
-              color: index >= currentDayIndex
+              color: index == currentDayIndex ? AppColors.colorPrimaryAccent : index >= currentDayIndex
                   ? AppColors.colorPrimary
                   : AppColors.colorDisable,
             ),
             bottomLineStyle: LineStyle(
-              color: index >= currentDayIndex
+              color: index == currentDayIndex ? AppColors.colorPrimaryAccent : index >= currentDayIndex
                   ? AppColors.colorPrimary
                   : AppColors.colorDisable,
             ),
