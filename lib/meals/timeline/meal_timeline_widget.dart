@@ -102,17 +102,19 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     );
   }
 
-  void _onMealSubmitted(MealSelection meals) {
-//    _mealScheduleBloc.add(
-//      Submitted(
-//          selectedDate: _calendarController.selectedDay, mealsSelection: meals),
-//    );
+  void _onMealSubmitted(MealScheduleState state, MealSelection meals) {
+    _mealScheduleBloc.add(
+      Submitted(
+          selectedDate: meals.date.toDate(), mealsSelection: state.mealsSelection),
+    );
   }
 
-  void _onMealSchedulePressed(MealSelection mealSelection) {
+  void _onMealSchedulePressed(
+      MealScheduleState state, MealSelection mealSelection) {
     showMaterialModalBottomSheet(
         context: context,
         backgroundColor: AppColors.colorPrimary,
+        isDismissible: false,
         shape: RoundedRectangleBorder(
           borderRadius: Dimensions.topRadius,
         ),
@@ -126,7 +128,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
                   child: Text("Update Meal",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.bold,
                           fontSize: Dimensions.button_text_size,
                           color: AppColors.colorWhite)),
                 ),
@@ -135,7 +137,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
                     onAddPressed: _onAddPressed,
                     onSubtractPressed: _onRemovePressed),
                 TextButton(
-                  onPressed: () => _onMealSubmitted,
+                  onPressed: () => _onMealSubmitted(state, mealSelection),
                   label: "Submit",
                 )
               ],
@@ -192,7 +194,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             leftChild: _buildDateWidget(meals, index, isPastDay),
             rightChild: Column(
               children: <Widget>[
-                _buildMeals(meals[index], state.mealTypes, isPastDay),
+                _buildMeals(state, meals[index], state.mealTypes, isPastDay),
                 SizedBox(height: 20),
               ],
             ));
@@ -210,7 +212,8 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     );
   }
 
-  _buildMeals(Meal meal, MealTypeConfigurations type, bool isPastDay) {
+  _buildMeals(MealScheduleState state, Meal meal, MealTypeConfigurations type,
+      bool isPastDay) {
     return Container(
       margin: Dimensions.padding_left_16,
       child: Column(
@@ -221,7 +224,8 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
                         schedules: e,
                         configurations: type.types
                             .firstWhere((element) => element.id == e.id)),
-                    onMealSchedulePressed: _onMealSchedulePressed,
+                    onMealSchedulePressed: (selection) =>
+                        _onMealSchedulePressed(state, selection),
                     disabled: isPastDay,
                   ))
               ?.toList()),
