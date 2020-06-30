@@ -22,6 +22,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:fooddeliveryapp/utilities/global_key_utilities.dart';
 
+import 'modal/meal_timeline_modal_provider.dart';
+
 class MealTimelineWidget extends StatefulWidget {
   State<MealTimelineWidget> createState() => _MealTimelineWidgetState();
 }
@@ -90,58 +92,16 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     super.dispose();
   }
 
-  void _onAddPressed(MealSelection mealSelection) {
-    _mealScheduleBloc.add(
-      AddMealSchedule(selection: mealSelection),
-    );
-  }
-
-  void _onRemovePressed(MealSelection mealSelection) {
-    _mealScheduleBloc.add(
-      RemoveMealSchedule(selection: mealSelection),
-    );
-  }
-
-  void _onMealSubmitted(MealScheduleState state, MealSelection meals) {
-    _mealScheduleBloc.add(
-      Submitted(
-          selectedDate: meals.date.toDate(), mealsSelection: state.mealsSelection),
-    );
-  }
-
   void _onMealSchedulePressed(
       MealScheduleState state, MealSelection mealSelection) {
     showMaterialModalBottomSheet(
         context: context,
         backgroundColor: AppColors.colorPrimary,
-        isDismissible: false,
         shape: RoundedRectangleBorder(
           borderRadius: Dimensions.topRadius,
         ),
-        builder: (context, scrollController) => Container(
-            padding: Dimensions.padding_16,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  padding: Dimensions.padding_bottom_16,
-                  child: Text("Update Meal",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: Dimensions.button_text_size,
-                          color: AppColors.colorWhite)),
-                ),
-                MealSelectionCard(
-                    meal: mealSelection,
-                    onAddPressed: _onAddPressed,
-                    onSubtractPressed: _onRemovePressed),
-                TextButton(
-                  onPressed: () => _onMealSubmitted(state, mealSelection),
-                  label: "Submit",
-                )
-              ],
-            )));
+        builder: (context, scrollController) =>
+            MealTimelineModalProvider(mealSelection: mealSelection));
   }
 
   _buildMealsTimeline(MealScheduleState state) {
