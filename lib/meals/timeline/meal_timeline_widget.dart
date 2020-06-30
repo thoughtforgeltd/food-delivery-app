@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/loading.dart';
 import 'package:fooddeliveryapp/common/widget/snack_bar.dart';
+import 'package:fooddeliveryapp/common/widget/text_button.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
@@ -11,11 +12,13 @@ import 'package:fooddeliveryapp/design/text_styles.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
 import 'package:fooddeliveryapp/meals/bloc/meal_schedule_state.dart';
+import 'package:fooddeliveryapp/meals/meal_selection_card.dart';
 import 'package:fooddeliveryapp/meals/model/meal.dart';
 import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
 import 'package:fooddeliveryapp/meals/model/meal_type_configurations.dart';
 import 'package:fooddeliveryapp/meals/timeline/meal_timeline_card.dart';
 import 'package:fooddeliveryapp/utilities/date_utilities.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:fooddeliveryapp/utilities/global_key_utilities.dart';
 
@@ -87,11 +90,47 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     super.dispose();
   }
 
-  void _onMealSchedulePressed(MealSelection mealSelection) {
-    _scrollToCurrentDay();
+  void _onAddPressed(MealSelection mealSelection) {
     _mealScheduleBloc.add(
       AddMealSchedule(selection: mealSelection),
     );
+  }
+
+  void _onRemovePressed(MealSelection mealSelection) {
+    _mealScheduleBloc.add(
+      RemoveMealSchedule(selection: mealSelection),
+    );
+  }
+
+  void _onMealSubmitted(MealSelection meals) {
+//    _mealScheduleBloc.add(
+//      Submitted(
+//          selectedDate: _calendarController.selectedDay, mealsSelection: meals),
+//    );
+  }
+
+  void _onMealSchedulePressed(MealSelection mealSelection) {
+    showMaterialModalBottomSheet(
+        context: context,
+        backgroundColor: AppColors.colorPrimary,
+        shape : RoundedRectangleBorder(
+            borderRadius : Dimensions.topRadius,
+        ),
+        builder: (context, scrollController) => Container(
+            padding: Dimensions.padding_16,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                MealSelectionCard(
+                    meal: mealSelection,
+                    onAddPressed: _onAddPressed,
+                    onSubtractPressed: _onRemovePressed),
+                TextButton(
+                  onPressed: () => _onMealSubmitted,
+                  label: "SUBMIT",
+                )
+              ],
+            )));
   }
 
   _buildMealsTimeline(MealScheduleState state) {
