@@ -113,21 +113,30 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     showMaterialModalBottomSheet(
         context: context,
         backgroundColor: AppColors.colorPrimary,
-        shape : RoundedRectangleBorder(
-            borderRadius : Dimensions.topRadius,
+        shape: RoundedRectangleBorder(
+          borderRadius: Dimensions.topRadius,
         ),
         builder: (context, scrollController) => Container(
             padding: Dimensions.padding_16,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Container(
+                  padding: Dimensions.padding_bottom_16,
+                  child: Text("Update Meal",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                          fontSize: Dimensions.button_text_size,
+                          color: AppColors.colorWhite)),
+                ),
                 MealSelectionCard(
                     meal: mealSelection,
                     onAddPressed: _onAddPressed,
                     onSubtractPressed: _onRemovePressed),
                 TextButton(
                   onPressed: () => _onMealSubmitted,
-                  label: "SUBMIT",
+                  label: "Submit",
                 )
               ],
             )));
