@@ -24,10 +24,15 @@ import 'package:timeline_tile/timeline_tile.dart';
 
 class MealTimelineModal extends StatefulWidget {
   final MealSelection _mealSelection;
+  final void Function() _onMealScheduleUpdated;
 
-  MealTimelineModal({Key key, @required MealSelection mealSelection})
+  MealTimelineModal(
+      {Key key,
+      @required MealSelection mealSelection,
+      @required Function() onMealScheduleUpdated})
       : assert(mealSelection != null),
         _mealSelection = mealSelection,
+        _onMealScheduleUpdated = onMealScheduleUpdated,
         super(key: key);
 
   State<MealTimelineModal> createState() => _MealTimelineModalState();
@@ -37,6 +42,8 @@ class _MealTimelineModalState extends State<MealTimelineModal> {
   MealScheduleBloc _mealScheduleBloc;
 
   MealSelection get _mealSelection => widget._mealSelection;
+
+  Function() get _onMealScheduleUpdated => widget._onMealScheduleUpdated;
 
   bool isButtonEnabled(MealScheduleState state) {
     return !state.isSubmitting;
@@ -52,6 +59,10 @@ class _MealTimelineModalState extends State<MealTimelineModal> {
   Widget build(BuildContext context) {
     return BlocListener<MealScheduleBloc, MealScheduleState>(
       listener: (context, state) {
+        if (state.isSubmitted) {
+          _onMealScheduleUpdated();
+          Navigator.of(context).pop();
+        }
         if (state.isFailure) {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
@@ -131,11 +142,11 @@ class _MealTimelineModalState extends State<MealTimelineModal> {
   }
 
   void _onMealSubmitted(MealScheduleState state, MealSelection meals) {
-    Navigator.of(context).pop();
     _mealScheduleBloc.add(
       Submitted(
           selectedDate: meals.date.toDate(),
-          mealsSelection: state.mealsSelection),
+          mealsSelection: state.mealsSelection,
+          handleSubmitted: true),
     );
   }
 }

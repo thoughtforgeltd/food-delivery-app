@@ -134,7 +134,9 @@ class _UpdateMealScheduleCalendarState
   void _onMealSubmitted(MealSchedules meals) {
     _mealScheduleBloc.add(
       Submitted(
-          selectedDate: _calendarController.selectedDay, mealsSelection: meals),
+          selectedDate: _calendarController.selectedDay,
+          mealsSelection: meals,
+          handleSubmitted: true),
     );
   }
 

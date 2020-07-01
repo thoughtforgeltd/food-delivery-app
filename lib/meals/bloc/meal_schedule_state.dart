@@ -16,6 +16,7 @@ class MealScheduleState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final bool isSubmitted;
 
   MealScheduleState({
     @required this.startDate,
@@ -25,77 +26,79 @@ class MealScheduleState {
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
+    @required this.isSubmitted,
   });
 
   factory MealScheduleState.empty() {
     return MealScheduleState(
-      startDate: Timestamp.now(),
-      selectedDate:  Timestamp.now(),
-      mealsSelection: MealSchedules(),
-      mealTypes: MealTypeConfigurations(types: List()),
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-    );
+        startDate: Timestamp.now(),
+        selectedDate: Timestamp.now(),
+        mealsSelection: MealSchedules(),
+        mealTypes: MealTypeConfigurations(types: List()),
+        isSubmitting: false,
+        isSuccess: false,
+        isFailure: false,
+        isSubmitted: false);
   }
 
   MealScheduleState loading() {
     return copyWith(
-      isSubmitting: true,
-      isSuccess: false,
-      isFailure: false,
-    );
+        isSubmitting: true,
+        isSuccess: false,
+        isFailure: false,
+        isSubmitted: false);
   }
 
   MealScheduleState failure() {
     return copyWith(
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: true,
-    );
+        isSubmitting: false,
+        isSuccess: false,
+        isFailure: true,
+        isSubmitted: false);
   }
 
   MealScheduleState success(
-      {MealSchedules mealsSelection, MealTypeConfigurations mealTypes}) {
+      {MealSchedules mealsSelection,
+      MealTypeConfigurations mealTypes,
+      bool handleSubmitted}) {
     return copyWith(
-      mealsSelection: mealsSelection,
-      mealTypes: mealTypes,
-      isSubmitting: false,
-      isSuccess: true,
-      isFailure: false,
-    );
+        mealsSelection: mealsSelection,
+        mealTypes: mealTypes,
+        isSubmitting: false,
+        isSuccess: true,
+        isFailure: false,
+        isSubmitted: handleSubmitted);
   }
 
-  MealScheduleState copyWith({
-    Timestamp startDate,
-    Timestamp selectedDate,
-    MealSchedules mealsSelection,
-    MealTypeConfigurations mealTypes,
-    bool isSubmitEnabled,
-    bool isSubmitting,
-    bool isSuccess,
-    bool isFailure,
-  }) {
+  MealScheduleState copyWith(
+      {Timestamp startDate,
+      Timestamp selectedDate,
+      MealSchedules mealsSelection,
+      MealTypeConfigurations mealTypes,
+      bool isSubmitEnabled,
+      bool isSubmitting,
+      bool isSuccess,
+      bool isFailure,
+      bool isSubmitted}) {
     return MealScheduleState(
-      startDate: startDate ?? this.startDate,
-      selectedDate: selectedDate ?? this.selectedDate,
-      mealsSelection: mealsSelection ?? this.mealsSelection,
-      mealTypes: mealTypes ?? this.mealTypes,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      isSuccess: isSuccess ?? this.isSuccess,
-      isFailure: isFailure ?? this.isFailure,
-    );
+        startDate: startDate ?? this.startDate,
+        selectedDate: selectedDate ?? this.selectedDate,
+        mealsSelection: mealsSelection ?? this.mealsSelection,
+        mealTypes: mealTypes ?? this.mealTypes,
+        isSubmitting: isSubmitting ?? this.isSubmitting,
+        isSuccess: isSuccess ?? this.isSuccess,
+        isFailure: isFailure ?? this.isFailure,
+        isSubmitted: isSubmitted ?? this.isSubmitted);
   }
 
-  MealScheduleState updateSchedule({
-    MealSelection selection,
-    int quantityOperator
-  }) {
+  MealScheduleState updateSchedule(
+      {MealSelection selection, int quantityOperator}) {
     if (selection.schedules == null) {
       selection.schedules =
           Schedules(quantity: 0, id: selection.configurations.id);
     }
-    selection?.schedules?.quantity = selection.schedules.quantity + quantityOperator;
+    selection?.schedules?.quantity =
+        selection.schedules.quantity + quantityOperator;
 
     final date = selection.date;
     final meals = this.mealsSelection.meals ?? List<Meal>();
@@ -103,8 +106,9 @@ class MealScheduleState {
       meals.add(Meal(date: date, schedules: [selection.schedules]));
       this.mealsSelection.meals = meals;
     } else {
-      final mealOfSpecificDay = meals
-          ?.firstWhere((element) => element?.date?.isSameDayFromTimestamp(date), orElse: () => null);
+      final mealOfSpecificDay = meals?.firstWhere(
+          (element) => element?.date?.isSameDayFromTimestamp(date),
+          orElse: () => null);
 
       final scheduleOfSpecificDay = mealOfSpecificDay?.schedules?.firstWhere(
           (element) => element?.id == selection.configurations.id,
@@ -121,11 +125,10 @@ class MealScheduleState {
       }
     }
     return copyWith(
-      mealsSelection: this.mealsSelection,
-      isSubmitting: false,
-      isSuccess: true,
-      isFailure: false
-    );
+        mealsSelection: this.mealsSelection,
+        isSubmitting: false,
+        isSuccess: true,
+        isFailure: false);
   }
 
   @override
@@ -138,6 +141,7 @@ class MealScheduleState {
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
       isFailure: $isFailure,
+      isSubmitted: $isSubmitted
     }''';
   }
 }

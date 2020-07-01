@@ -100,8 +100,13 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
         shape: RoundedRectangleBorder(
           borderRadius: Dimensions.topRadius,
         ),
-        builder: (context, scrollController) =>
-            MealTimelineModalProvider(mealSelection: mealSelection));
+        builder: (context, scrollController) => MealTimelineModalProvider(
+            mealSelection: mealSelection,
+            onMealScheduleUpdated: _onMealsUpdated));
+  }
+
+  void _onMealsUpdated() {
+    _mealScheduleBloc.add(MealSchedulesLoaded());
   }
 
   _buildMealsTimeline(MealScheduleState state) {
@@ -177,7 +182,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     return Container(
       margin: Dimensions.padding_left_16,
       child: Column(
-          children: meal.schedules
+          children: meal.schedules?.where((element) => element.quantity!= null &&  element.quantity> 0)
               ?.map((e) => MealTimelineCard(
                     meal: MealSelection(
                         date: meal.date,

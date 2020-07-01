@@ -12,10 +12,15 @@ import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
 
 class MealTimelineModalProvider extends StatelessWidget {
   final MealSelection _mealSelection;
+  final void Function() _onMealScheduleUpdated;
 
-  MealTimelineModalProvider({Key key, @required MealSelection mealSelection})
+  MealTimelineModalProvider(
+      {Key key,
+      @required MealSelection mealSelection,
+      @required Function() onMealScheduleUpdated})
       : assert(mealSelection != null),
         _mealSelection = mealSelection,
+        _onMealScheduleUpdated = onMealScheduleUpdated,
         super(key: key);
 
   @override
@@ -27,7 +32,9 @@ class MealTimelineModalProvider extends StatelessWidget {
           configurationsRepository:
               context.repository<ConfigurationsRepository>())
         ..add(MealSchedulesLoaded()),
-      child: MealTimelineModal(mealSelection: _mealSelection),
+      child: MealTimelineModal(
+          mealSelection: _mealSelection,
+          onMealScheduleUpdated: _onMealScheduleUpdated),
     );
   }
 }
