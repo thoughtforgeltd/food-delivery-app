@@ -11,7 +11,7 @@ abstract class MealScheduleEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class MealSchedulesLoaded extends MealScheduleEvent{}
+class MealSchedulesLoaded extends MealScheduleEvent {}
 
 class DateChanged extends MealScheduleEvent {
   final Timestamp selectedDate;
@@ -34,7 +34,8 @@ class MealSelectionChanged extends MealScheduleEvent {
   List<Object> get props => [mealsSelection];
 
   @override
-  String toString() => 'MealSelectionChanged { mealsSelection: $mealsSelection }';
+  String toString() =>
+      'MealSelectionChanged { mealsSelection: $mealsSelection }';
 }
 
 class AddMealSchedule extends MealScheduleEvent {
@@ -72,17 +73,19 @@ class RemoveMealSchedule extends MealScheduleEvent {
 class Submitted extends MealScheduleEvent {
   final DateTime selectedDate;
   final MealSchedules mealsSelection;
+  final bool handleSubmitted;
 
   const Submitted({
     @required this.selectedDate,
     @required this.mealsSelection,
+    @required this.handleSubmitted,
   });
 
   @override
-  List<Object> get props => [selectedDate, mealsSelection];
+  List<Object> get props => [selectedDate, mealsSelection, handleSubmitted];
 
   @override
   String toString() {
-    return 'Submitted { selectedDate: $selectedDate, mealsSelection: $mealsSelection }';
+    return 'Submitted { selectedDate: $selectedDate, mealsSelection: $mealsSelection handleSubmitted:$handleSubmitted }';
   }
 }

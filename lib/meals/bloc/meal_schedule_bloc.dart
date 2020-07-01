@@ -60,8 +60,9 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
       yield* _mapAddMealScheduleToState(event.selection);
     } else if (event is RemoveMealSchedule) {
       yield* _mapRemoveMealScheduleToState(event.selection);
-    }else if (event is Submitted) {
-      yield* _mapFormSubmittedToState(event.selectedDate, event.mealsSelection);
+    } else if (event is Submitted) {
+      yield* _mapFormSubmittedToState(
+          event.selectedDate, event.mealsSelection, event.handleSubmitted);
     }
   }
 
@@ -107,14 +108,14 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
     yield state.updateSchedule(selection: mealSelection, quantityOperator: -1);
   }
 
-  Stream<MealScheduleState> _mapFormSubmittedToState(
-      DateTime selectedDate, MealSchedules mealsSelection) async* {
+  Stream<MealScheduleState> _mapFormSubmittedToState(DateTime selectedDate,
+      MealSchedules mealsSelection, bool handleSubmitted) async* {
     yield state.loading();
     try {
       final userId = await _userRepository.getUserID();
       await _mealSchedulesRepository.updateMealSchedulesForTheDay(
           userId.uid, selectedDate, mealsSelection);
-      yield state.success();
+      yield state.success(handleSubmitted: true);
     } catch (_) {
       yield state.failure();
     }

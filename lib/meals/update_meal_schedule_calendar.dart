@@ -134,7 +134,9 @@ class _UpdateMealScheduleCalendarState
   void _onMealSubmitted(MealSchedules meals) {
     _mealScheduleBloc.add(
       Submitted(
-          selectedDate: _calendarController.selectedDay, mealsSelection: meals),
+          selectedDate: _calendarController.selectedDay,
+          mealsSelection: meals,
+          handleSubmitted: true),
     );
   }
 
@@ -179,7 +181,7 @@ class _UpdateMealScheduleCalendarState
     return TableCalendar(
       startDay: state.startDate.toDate(),
       calendarController: _calendarController,
-      initialCalendarFormat: CalendarFormat.month,
+      initialCalendarFormat: CalendarFormat.week,
       startingDayOfWeek: StartingDayOfWeek.monday,
       formatAnimation: FormatAnimation.scale,
       weekendDays: [],

@@ -34,7 +34,7 @@ class MealSelectionCard extends StatelessWidget {
         child: Row(
           children: <Widget>[
             _buildMealIcon(),
-            Expanded(child: _buildMealTitle()),
+            _buildMealTitle(),
             _buildMealAddAction(),
             _buildMealQuantity(),
             _buildMealRemoveAction()
@@ -54,7 +54,7 @@ class MealSelectionCard extends StatelessWidget {
   }
 
   Widget _buildMealTitle() {
-    return Text(_meal.configurations.title);
+    return Expanded(child: Text(_meal.configurations.title));
   }
 
   Widget _buildMealAddAction() {
