@@ -7,6 +7,7 @@ import 'package:fooddeliveryapp/common/widget/snack_bar.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/menu/bloc/today_menu_bloc.dart';
 import 'package:fooddeliveryapp/menu/bloc/today_menu_state.dart';
+import 'package:fooddeliveryapp/menu/today_menu_card.dart';
 
 class TodayMenuWidget extends StatefulWidget {
   State<TodayMenuWidget> createState() => _TodayMenuWidgetState();
@@ -41,7 +42,7 @@ class _TodayMenuWidgetState extends State<TodayMenuWidget> {
                   padding: Dimensions.padding_16,
                   child:
                       Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                    _buildTodayMenu(state),
+                    buildTodayMenu(state),
                   ]),
                 ));
         },
@@ -49,8 +50,10 @@ class _TodayMenuWidgetState extends State<TodayMenuWidget> {
     );
   }
 
-  _buildTodayMenu(TodayMenuState state) {
+  buildTodayMenu(TodayMenuState state) {
     return Column(
-        children: state.menus?.meals?.map((e) => Text(e.title))?.toList());
+        children: state.menus?.meals
+            ?.map((menu) => TodayMenuCard(menu: menu))
+            ?.toList());
   }
 }
