@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
 
@@ -8,7 +9,8 @@ class MealDeliveryThemes {
       primaryColor: AppColors.colorPrimary,
       primaryColorDark: AppColors.colorPrimaryDark,
       accentColor: AppColors.colorPrimaryAccent,
-      buttonTheme: buttonTheme);
+      buttonTheme: buttonTheme,
+      textTheme: GoogleFonts.latoTextTheme());
 
   static final ButtonThemeData buttonTheme = ButtonThemeData(
       buttonColor: AppColors.colorPrimaryDark,
