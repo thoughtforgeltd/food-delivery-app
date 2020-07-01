@@ -6,6 +6,9 @@ extension DateUtilities on DateTime {
     return dateTime != null && this.year == dateTime.year && this.month == dateTime.month
         && this.day == dateTime.day;
   }
+  String toMenuDate() {
+    return DateFormat('dd-MM-yyyy', Intl.defaultLocale).format(this);
+  }
 }
 
 extension TimestampUtilities on Timestamp {
