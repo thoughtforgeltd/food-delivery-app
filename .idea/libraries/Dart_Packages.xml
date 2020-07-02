@@ -16,13 +16,6 @@
             </list>
           </value>
         </entry>
-        <entry key="archive">
-          <value>
-            <list>
-              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/archive-2.0.13/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="args">
           <value>
             <list>
@@ -41,13 +34,6 @@
           <value>
             <list>
               <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/bloc-4.0.0-dev.1/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="boolean_selector">
-          <value>
-            <list>
-              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.0.0/lib" />
             </list>
           </value>
         </entry>
@@ -247,6 +233,13 @@
             </list>
           </value>
         </entry>
+        <entry key="firebase_storage">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.1.6/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="fixnum">
           <value>
             <list>
@@ -268,17 +261,17 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_plugin_android_lifecycle">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.8/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_svg">
           <value>
             <list>
               <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-0.17.4/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="flutter_test">
-          <value>
-            <list>
-              <option value="$USER_HOME$/flutter/flutter/packages/flutter_test/lib" />
             </list>
           </value>
         </entry>
@@ -320,7 +313,7 @@
         <entry key="http">
           <value>
             <list>
-              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.0+4/lib" />
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.1/lib" />
             </list>
           </value>
         </entry>
@@ -338,10 +331,17 @@
             </list>
           </value>
         </entry>
-        <entry key="image">
+        <entry key="image_picker">
           <value>
             <list>
-              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image-2.1.12/lib" />
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.7+3/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="image_picker_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-1.1.0/lib" />
             </list>
           </value>
         </entry>
@@ -446,7 +446,7 @@
         <entry key="path">
           <value>
             <list>
-              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.6.4/lib" />
+              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.7.0/lib" />
             </list>
           </value>
         </entry>
@@ -660,13 +660,6 @@
             </list>
           </value>
         </entry>
-        <entry key="test_api">
-          <value>
-            <list>
-              <option value="$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.2.15/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="timeline_tile">
           <value>
             <list>
@@ -735,11 +728,9 @@
     <CLASSES>
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-2.1.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.39.6/lib" />
-      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/archive-2.0.13/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/args-1.6.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.4.1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/bloc-4.0.0-dev.1/lib" />
-      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.0.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/build-1.2.2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/build_config-0.4.2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/build_daemon-2.1.4/lib" />
@@ -768,17 +759,20 @@
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.4+3/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-1.0.4/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.1.1+2/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.1.6/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/fixnum-0.10.11/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_bloc-4.0.0-dev.1/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.8/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-0.17.4/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/glob-1.2.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-1.1.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/graphs-0.2.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/html-0.14.0+3/lib" />
-      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.0+4/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http_multi_server-2.2.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.4/lib" />
-      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image-2.1.12/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.7+3/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-1.1.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.16.1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/io-0.3.4/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.1+1/lib" />
@@ -793,7 +787,7 @@
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/node_interop-1.0.3/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/node_io-1.0.1+2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/package_config-1.9.3/lib" />
-      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.6.4/lib" />
+      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.7.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_drawing-0.4.1/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_parsing-0.1.4/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.11/lib" />
@@ -823,7 +817,6 @@
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.0.5/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-2.2.3/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.1.0/lib" />
-      <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.2.15/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/timeline_tile-0.1.2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/timing-0.1.1+2/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/typed_data-1.1.6/lib" />
@@ -835,7 +828,6 @@
       <root url="file://$USER_HOME$/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/yaml-2.2.0/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/packages/flutter/lib" />
-      <root url="file://$USER_HOME$/flutter/flutter/packages/flutter_test/lib" />
       <root url="file://$USER_HOME$/flutter/flutter/packages/flutter_web_plugins/lib" />
     </CLASSES>
     <JAVADOC />
