@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 @immutable
 class BottomNavigationState {
   final BottomNavigationOptions options;
-  static const DEFAULT_SELECTION = BottomNavigationOptions.meals_timeline;
+  static const DEFAULT_SELECTION = BottomNavigationOptions.today;
 
   BottomNavigationState({
     @required this.options

@@ -11,6 +11,7 @@ import 'package:fooddeliveryapp/home/bloc/bottom_navigtion_bloc.dart';
 import 'package:fooddeliveryapp/home/bloc/model/bottom_navigation_options.dart';
 import 'package:fooddeliveryapp/meals/timeline/meal_timeline_screen.dart';
 import 'package:fooddeliveryapp/meals/update_meal_schedule_screen.dart';
+import 'package:fooddeliveryapp/menu/today_menu_provider.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   State<BottomNavigationWidget> createState() => _UpdateBottomNavigationState();
@@ -55,6 +56,8 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
         return MealTimelineScreen();
       case BottomNavigationOptions.profile :
         return UpdateMealScheduleScreen();
+      case BottomNavigationOptions.today :
+        return TodayMenuProvider();
       default :
         return MealTimelineScreen();
     }

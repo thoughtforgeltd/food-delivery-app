@@ -5,6 +5,7 @@ import 'package:fooddeliveryapp/authentication/repository/user_details_repositor
 import 'package:fooddeliveryapp/design/themes.dart';
 import 'package:fooddeliveryapp/repositories/configuration_repository.dart';
 import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
+import 'package:fooddeliveryapp/repositories/today_menu_repository.dart';
 import 'package:fooddeliveryapp/splash_screen.dart';
 import 'package:fooddeliveryapp/userdetails/user_details_screen.dart';
 
@@ -37,6 +38,9 @@ void main() {
             ),
             RepositoryProvider<ConfigurationsRepository>(
               create: (context) => ConfigurationsRepository(),
+            ),
+            RepositoryProvider<TodayMenuRepository>(
+              create: (context) => TodayMenuRepository(),
             ),
           ],
           child: BlocProvider(
