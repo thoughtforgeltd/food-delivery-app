@@ -55,7 +55,14 @@ class ListDishBloc extends Bloc<ListDishEvent, ListDishState> {
   }
 
   Stream<ListDishState> _mapDeleteDishEventToState(DeleteDishEvent event) async* {
-
+    yield state.loading();
+    try {
+      await dishRepository.deleteDish(event.dish);
+      final dishes = await dishRepository.loadDishes();
+      yield state.success(dishes : dishes);
+    } catch (_) {
+      yield state.failure();
+    }
   }
 
   Stream<ListDishState> _mapEditDishEventToState(EditDishEvent event) async* {

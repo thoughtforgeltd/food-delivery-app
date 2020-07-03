@@ -79,7 +79,7 @@ class _ListDishWidgetState extends State<ListDishWidget> {
   }
 
   void onDeleteDishPressed(Dish dish) {
-    _listDishBloc.add(DeleteDishEvent(id: dish.id));
+    _listDishBloc.add(DeleteDishEvent(dish: dish));
   }
 
   _onAddPressed(String message) {
