@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class DishState {
+class AddDishState {
   final bool isTitleValid;
   final bool isDescriptionValid;
   final bool isImageAdded;
@@ -13,7 +13,7 @@ class DishState {
 
   bool get isDataValid => isTitleValid && isDescriptionValid && imagePath!= null;
 
-  DishState(
+  AddDishState(
       {@required this.isTitleValid,
       @required this.isDescriptionValid,
       @required this.isImageAdded,
@@ -22,8 +22,8 @@ class DishState {
       @required this.isFailure,
       @required this.isSubmitting});
 
-  factory DishState.empty() {
-    return DishState(
+  factory AddDishState.empty() {
+    return AddDishState(
         isTitleValid: true,
         isDescriptionValid: true,
         imagePath: null,
@@ -33,19 +33,19 @@ class DishState {
         isSubmitting: false);
   }
 
-  DishState loading() {
+  AddDishState loading() {
     return copyWith(isSubmitting: true, isSuccess: false, isFailure: false);
   }
 
-  DishState failure() {
+  AddDishState failure() {
     return copyWith(isSubmitting: false, isSuccess: false, isFailure: true);
   }
 
-  DishState success() {
+  AddDishState success() {
     return copyWith(isSubmitting: false, isSuccess: true, isFailure: false);
   }
 
-  DishState copyWith(
+  AddDishState copyWith(
       {bool isTitleValid,
       bool isDescriptionValid,
       String imagePath,
@@ -53,7 +53,7 @@ class DishState {
       bool isSubmitting,
       bool isSuccess,
       bool isFailure}) {
-    return DishState(
+    return AddDishState(
         isTitleValid: this.isTitleValid,
         isDescriptionValid: this.isDescriptionValid,
         isImageAdded: this.isImageAdded,

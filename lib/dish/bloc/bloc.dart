@@ -1,3 +1,3 @@
-export 'dish_bloc.dart';
-export 'dish_event.dart';
-export 'dish_state.dart';
+export 'add_dish_bloc.dart';
+export 'add_dish_event.dart';
+export 'add_dish_state.dart';

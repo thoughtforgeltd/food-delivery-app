@@ -11,8 +11,8 @@ class AddDishProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Add Dish')),
-      body: BlocProvider<DishBloc>(
-        create: (context) => DishBloc(dishRepository: context.repository<DishRepository>()),
+      body: BlocProvider<AddDishBloc>(
+        create: (context) => AddDishBloc(dishRepository: context.repository<DishRepository>()),
         child: AddDishWidget(),
       ),
     );
