@@ -21,61 +21,46 @@ import 'login/login_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  final UserRepository userRepository = UserRepository();
-  final UserDetailsRepository userDetailsRepository = UserDetailsRepository();
-  final MealScheduleRepository mealScheduleRepository =
-  MealScheduleRepository();
-  runApp(
-      MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider<UserRepository>(
-              create: (context) => UserRepository(),
-            ),
-            RepositoryProvider<UserDetailsRepository>(
-              create: (context) => UserDetailsRepository(),
-            ),
-            RepositoryProvider<MealScheduleRepository>(
-              create: (context) => MealScheduleRepository(),
-            ),
-            RepositoryProvider<ConfigurationsRepository>(
-              create: (context) => ConfigurationsRepository(),
-            ),
-            RepositoryProvider<TodayMenuRepository>(
-              create: (context) => TodayMenuRepository(),
-            ),
-            RepositoryProvider<DishRepository>(
-              create: (context) => DishRepository(),
-            ),
-          ],
-          child: BlocProvider(
-            create: (context) =>
-            AuthenticationBloc(
-                userRepository: userRepository,
-                userDetailsRepository: userDetailsRepository)
-              ..add(AppStarted()),
-            child: App(
-                userRepository: userRepository,
-                userDetailsRepository: userDetailsRepository,
-                mealScheduleRepository: mealScheduleRepository),
-          ),
-      )
-  );
+  runApp(getRepositoryProvider());
 }
 
+getRepositoryProvider() {
+  return MultiRepositoryProvider(providers: [
+    RepositoryProvider<UserRepository>(
+      create: (context) => UserRepository(),
+    ),
+    RepositoryProvider<UserDetailsRepository>(
+      create: (context) => UserDetailsRepository(),
+    ),
+    RepositoryProvider<MealScheduleRepository>(
+      create: (context) => MealScheduleRepository(),
+    ),
+    RepositoryProvider<ConfigurationsRepository>(
+      create: (context) => ConfigurationsRepository(),
+    ),
+    RepositoryProvider<TodayMenuRepository>(
+      create: (context) => TodayMenuRepository(),
+    ),
+    RepositoryProvider<DishRepository>(
+      create: (context) => DishRepository(),
+    ),
+  ], child: AuthenticationProvider());
+}
+
+class AuthenticationProvider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthenticationBloc(
+          userRepository: context.repository<UserRepository>(),
+          userDetailsRepository: context.repository<UserDetailsRepository>())
+        ..add(AppStarted()),
+      child: App(),
+    );
+  }
+}
 
 class App extends StatelessWidget {
-  final UserRepository _userRepository;
-  final UserDetailsRepository _userDetailsRepository;
-
-  App({Key key,
-    @required UserRepository userRepository,
-    @required MealScheduleRepository mealScheduleRepository,
-    @required UserDetailsRepository userDetailsRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository,
-        _userDetailsRepository = userDetailsRepository,
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
     debugPaintSizeEnabled = false;
@@ -88,12 +73,10 @@ class App extends StatelessWidget {
             return SplashScreen();
           }
           if (state is Unauthenticated) {
-            return LoginScreen(userRepository: _userRepository);
+            return LoginScreen();
           }
           if (state is Authenticated) {
-            return UserDetailsScreen(
-                userDetailsRepository: _userDetailsRepository,
-                userRepository: _userRepository);
+            return UserDetailsScreen();
           }
           if (state is UserDetailsEntered) {
             return HomeScreen(name: state.details);
