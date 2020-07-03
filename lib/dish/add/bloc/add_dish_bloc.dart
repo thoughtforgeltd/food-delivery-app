@@ -24,8 +24,7 @@ class AddDishBloc extends Bloc<AddDishEvent, AddDishState> {
     TransitionFunction<AddDishEvent, AddDishState> transitionFn,
   ) {
     final debounceStream = events.where((event) {
-      return (event is LoadDishEvent ||
-          event is OnAddDishPressedEvent ||
+      return (event is OnAddDishPressedEvent ||
           event is DishTitleChangedEvent ||
           event is DishDescriptionChangedEvent ||
           event is DishAddedEvent ||

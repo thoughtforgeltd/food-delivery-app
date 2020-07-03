@@ -8,8 +8,6 @@ abstract class AddDishEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadDishEvent extends AddDishEvent {}
-
 class DishAddedEvent extends AddDishEvent {}
 
 class DishTitleChangedEvent extends AddDishEvent {

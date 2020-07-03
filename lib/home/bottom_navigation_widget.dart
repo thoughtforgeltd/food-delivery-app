@@ -5,13 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/authentication_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/authentication_event.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
-import 'package:fooddeliveryapp/dish/widget/add_dish_provider.dart';
+import 'package:fooddeliveryapp/dish/add/widget/widget.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_event.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_state.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigtion_bloc.dart';
 import 'package:fooddeliveryapp/home/bloc/model/bottom_navigation_options.dart';
 import 'package:fooddeliveryapp/meals/timeline/meal_timeline_screen.dart';
-import 'package:fooddeliveryapp/meals/update_meal_schedule_screen.dart';
 import 'package:fooddeliveryapp/menu/today_menu_provider.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
