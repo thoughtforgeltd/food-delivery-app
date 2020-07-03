@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/authentication_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/authentication_event.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
-import 'package:fooddeliveryapp/dish/add/widget/widget.dart';
+import 'package:fooddeliveryapp/dish/list/widget/widget.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_event.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigation_state.dart';
 import 'package:fooddeliveryapp/home/bloc/bottom_navigtion_bloc.dart';
@@ -55,7 +55,7 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
       case BottomNavigationOptions.meals_timeline :
         return MealTimelineScreen();
       case BottomNavigationOptions.profile :
-        return AddDishProvider();
+        return ListDishProvider();
       case BottomNavigationOptions.today :
         return TodayMenuProvider();
       default :

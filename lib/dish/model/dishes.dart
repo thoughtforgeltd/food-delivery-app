@@ -17,7 +17,7 @@ class Dishes {
                   description: dish.description,
                   note: dish.note,
                   image: dish.image);
-            }) ??
+            })?.toList() ??
             List());
   }
 
