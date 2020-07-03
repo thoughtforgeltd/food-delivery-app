@@ -15,6 +15,7 @@ import 'authentication/bloc/authentication_event.dart';
 import 'authentication/bloc/authentication_state.dart';
 import 'authentication/repository/user_repository.dart';
 import 'common/blog_delegate.dart';
+import 'dish/add/widget/widget.dart';
 import 'home/home_screen.dart';
 import 'login/login_screen.dart';
 
@@ -65,6 +66,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPaintSizeEnabled = false;
     return MaterialApp(
+      routes: {
+        '/addDish': (context) => AddDishProvider(),
+      },
       theme: MealDeliveryThemes.lightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         // ignore: missing_return

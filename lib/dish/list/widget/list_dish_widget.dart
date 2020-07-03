@@ -26,33 +26,42 @@ class _ListDishWidgetState extends State<ListDishWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ListDishBloc, ListDishState>(
-      listener: (context, state) {
-        if (state.isFailure) {
-          Scaffold.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              getAppSnackBar(
-                'Error while loading Dishes..',
-                Icon(Icons.error),
-              ),
-            );
-        }
-      },
-      child: BlocBuilder<ListDishBloc, ListDishState>(
-        builder: (context, state) {
-          return state.isLoading
-              ? buildLoadingWidget()
-              : SingleChildScrollView(
-                  child: Container(
-                  padding: Dimensions.padding_16,
-                  child:
-                      Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                    buildTodayMenu(state),
-                  ]),
+        listener: (context, state) {
+      if (state.isFailure) {
+        Scaffold.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            getAppSnackBar(
+              'Error while loading Dishes..',
+              Icon(Icons.error),
+            ),
+          );
+      }
+    }, child: BlocBuilder<ListDishBloc, ListDishState>(
+      builder: (context, state) {
+        return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/addDish',
+                    arguments: AddDishArguments(
+                  onAddPressed: _onAddPressed
                 ));
-        },
-      ),
-    );
+              },
+            ),
+            body: state.isLoading
+                ? buildLoadingWidget()
+                : SingleChildScrollView(
+                    child: Container(
+                    padding: Dimensions.padding_16,
+                    child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          buildTodayMenu(state),
+                        ]),
+                  )));
+      },
+    ));
   }
 
   buildTodayMenu(ListDishState state) {
@@ -71,5 +80,9 @@ class _ListDishWidgetState extends State<ListDishWidget> {
 
   void onDeleteDishPressed(Dish dish) {
     _listDishBloc.add(DeleteDishEvent(id: dish.id));
+  }
+
+  _onAddPressed(String message) {
+    _listDishBloc.add(LoadDishesEvent());
   }
 }

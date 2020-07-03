@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/dish/add/bloc/bloc.dart';
+import 'package:fooddeliveryapp/dish/list/bloc/bloc.dart';
+import 'package:fooddeliveryapp/dish/model/model.dart';
 
 class AddDishWidget extends StatefulWidget {
   State<AddDishWidget> createState() => _AddDishWidgetState();
@@ -69,6 +71,7 @@ class _AddDishWidgetState extends State<AddDishWidget> {
             );
         }
         if (state.isSuccess) {
+          (ModalRoute.of(context).settings.arguments as AddDishArguments)?.onAddPressed("");
           Navigator.pop(context);
         }
       },
