@@ -8,24 +8,23 @@ import 'package:rxdart/rxdart.dart';
 
 import 'bloc.dart';
 
-class DishBloc extends Bloc<DishEvent, DishState> {
+class AddDishBloc extends Bloc<AddDishEvent, AddDishState> {
   final DishRepository dishRepository;
 
-  DishBloc({@required DishRepository dishRepository})
+  AddDishBloc({@required DishRepository dishRepository})
       : assert(dishRepository != null),
         dishRepository = dishRepository;
 
   @override
-  DishState get initialState => DishState.empty();
+  AddDishState get initialState => AddDishState.empty();
 
   @override
-  Stream<Transition<DishEvent, DishState>> transformEvents(
-    Stream<DishEvent> events,
-    TransitionFunction<DishEvent, DishState> transitionFn,
+  Stream<Transition<AddDishEvent, AddDishState>> transformEvents(
+    Stream<AddDishEvent> events,
+    TransitionFunction<AddDishEvent, AddDishState> transitionFn,
   ) {
     final debounceStream = events.where((event) {
-      return (event is LoadDishEvent ||
-          event is AddDishEvent ||
+      return (event is OnAddDishPressedEvent ||
           event is DishTitleChangedEvent ||
           event is DishDescriptionChangedEvent ||
           event is DishAddedEvent ||
@@ -38,10 +37,10 @@ class DishBloc extends Bloc<DishEvent, DishState> {
   }
 
   @override
-  Stream<DishState> mapEventToState(
-    DishEvent event,
+  Stream<AddDishState> mapEventToState(
+    AddDishEvent event,
   ) async* {
-    if (event is AddDishEvent) {
+    if (event is OnAddDishPressedEvent) {
       yield* _mapDishAddPressedEventToState(event);
     } else if (event is DishTitleChangedEvent) {
       yield* _mapTitleChangedToState(event.title);
@@ -52,19 +51,19 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     }
   }
 
-  Stream<DishState> _mapTitleChangedToState(String title) async* {
+  Stream<AddDishState> _mapTitleChangedToState(String title) async* {
     yield state.copyWith(
       isTitleValid: Validators.isEmpty(title),
     );
   }
 
-  Stream<DishState> _mapDescriptionChangedToState(String description) async* {
+  Stream<AddDishState> _mapDescriptionChangedToState(String description) async* {
     yield state.copyWith(
       isDescriptionValid: Validators.isEmpty(description),
     );
   }
 
-  Stream<DishState> _mapImageAddedToState(String path) async* {
+  Stream<AddDishState> _mapImageAddedToState(String path) async* {
     final image = await ImagePicker().getImage(source: ImageSource.gallery);
     yield state.copyWith(
       imagePath: image.path,
@@ -72,7 +71,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     );
   }
 
-  Stream<DishState> _mapDishAddPressedEventToState(AddDishEvent event) async* {
+  Stream<AddDishState> _mapDishAddPressedEventToState(OnAddDishPressedEvent event) async* {
     yield state.loading();
     try {
       final url = await dishRepository.uploadImage(event.imagePath);

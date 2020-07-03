@@ -8,11 +8,11 @@ part of 'dish.dart';
 
 Dish _$DishFromJson(Map<String, dynamic> json) {
   return Dish(
-    id: json['id'] as String,
+    id: json['id'] ?? json['id'] as String,
     title: json['title'] as String,
     description: json['description'] as String,
     image: json['image'] as String,
-    note: json['note'] as String,
+    note: json['note'] ?? json['note'] as String,
   );
 }
 

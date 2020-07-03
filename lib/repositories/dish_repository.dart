@@ -24,4 +24,9 @@ class DishRepository {
   Future<void> addDish(Dish dish) async {
     return _collection.add(dish.toJson());
   }
+
+  Future<Dishes> loadDishes() async {
+    final collection = await _collection.getDocuments();
+    return Future.value(Dishes.fromDocuments(collection.documents));
+  }
 }

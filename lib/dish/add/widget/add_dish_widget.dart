@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
-import 'package:fooddeliveryapp/dish/bloc/bloc.dart';
+import 'package:fooddeliveryapp/dish/add/bloc/bloc.dart';
+import 'package:fooddeliveryapp/dish/list/bloc/bloc.dart';
+import 'package:fooddeliveryapp/dish/model/model.dart';
 
 class AddDishWidget extends StatefulWidget {
   State<AddDishWidget> createState() => _AddDishWidgetState();
@@ -15,27 +17,27 @@ class _AddDishWidgetState extends State<AddDishWidget> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
-  DishBloc _dishBloc;
+  AddDishBloc _dishBloc;
 
   bool get isPopulated =>
       _titleController.text.isNotEmpty &&
       _descriptionController.text.isNotEmpty;
 
-  bool isAddButtonEnabled(DishState state) {
+  bool isAddButtonEnabled(AddDishState state) {
     return state.isDataValid && isPopulated && !state.isSubmitting;
   }
 
   @override
   void initState() {
     super.initState();
-    _dishBloc = BlocProvider.of<DishBloc>(context);
+    _dishBloc = BlocProvider.of<AddDishBloc>(context);
     _titleController.addListener(_onTitleChanged);
     _descriptionController.addListener(_onPasswordChanged);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DishBloc, DishState>(
+    return BlocListener<AddDishBloc, AddDishState>(
       listener: (context, state) {
         if (state.isFailure) {
           Scaffold.of(context)
@@ -69,10 +71,11 @@ class _AddDishWidgetState extends State<AddDishWidget> {
             );
         }
         if (state.isSuccess) {
+          (ModalRoute.of(context).settings.arguments as AddDishArguments)?.onAddPressed("");
           Navigator.pop(context);
         }
       },
-      child: BlocBuilder<DishBloc, DishState>(
+      child: BlocBuilder<AddDishBloc, AddDishState>(
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.all(20.0),
@@ -179,9 +182,9 @@ class _AddDishWidgetState extends State<AddDishWidget> {
     );
   }
 
-  void _onFormSubmitted(DishState state) {
+  void _onFormSubmitted(AddDishState state) {
     _dishBloc.add(
-      AddDishEvent(
+      OnAddDishPressedEvent(
           title: _titleController.text,
           description: _descriptionController.text,
           note: _noteController.text,
