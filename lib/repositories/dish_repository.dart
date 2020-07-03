@@ -29,4 +29,14 @@ class DishRepository {
     final collection = await _collection.getDocuments();
     return Future.value(Dishes.fromDocuments(collection.documents));
   }
+
+  Future<void> deleteDish(Dish dish) async {
+    final document = _collection.document(dish.id);
+    var fileUrl = Uri.decodeFull(path.basename(dish.image))
+        .replaceAll(new RegExp(r'(\?alt).*'), '');
+    await _storage.child(_storagePath + path.basename(fileUrl)).delete();
+    await Firestore.instance.runTransaction((Transaction myTransaction) async {
+      await myTransaction.delete(document);
+    });
+  }
 }
