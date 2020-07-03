@@ -6,6 +6,7 @@ import 'package:fooddeliveryapp/common/widget/loading.dart';
 import 'package:fooddeliveryapp/common/widget/snack_bar.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/dish/list/bloc/bloc.dart';
+import 'package:fooddeliveryapp/dish/model/model.dart';
 
 import 'widget.dart';
 
@@ -14,6 +15,14 @@ class ListDishWidget extends StatefulWidget {
 }
 
 class _ListDishWidgetState extends State<ListDishWidget> {
+  ListDishBloc _listDishBloc;
+
+  @override
+  void initState() {
+    _listDishBloc = BlocProvider.of<ListDishBloc>(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<ListDishBloc, ListDishState>(
@@ -49,7 +58,18 @@ class _ListDishWidgetState extends State<ListDishWidget> {
   buildTodayMenu(ListDishState state) {
     return Column(
         children: state.dishes?.dishes
-            ?.map((menu) => DishCard(dish: menu))
+            ?.map((menu) => DishCard(
+                dish: menu,
+                onEditPressed: onEditDishPressed,
+                onDeletePressed: onDeleteDishPressed))
             ?.toList());
+  }
+
+  void onEditDishPressed(Dish dish) {
+    _listDishBloc.add(EditDishEvent(id: dish.id));
+  }
+
+  void onDeleteDishPressed(Dish dish) {
+    _listDishBloc.add(DeleteDishEvent(id: dish.id));
   }
 }

@@ -11,4 +11,5 @@ class AppColors{
   static final colorWhite = Colors.white;
   static final colorDisable = colorPrimaryDark.withOpacity(alpha);
   static final colorTransparent = Colors.transparent;
+  static final colorError = Colors.red;
 }
