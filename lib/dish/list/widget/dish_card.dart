@@ -30,9 +30,7 @@ class DishCard extends StatelessWidget {
       actionExtentRatio: 0.25,
       child: Card(
           elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: Dimensions.radius_4,
-          ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Row(
             children: <Widget>[_buildMenuIcon(), _buildDishDetails()],
           )),
@@ -55,13 +53,9 @@ class DishCard extends StatelessWidget {
 
   Widget _buildMenuIcon() {
     return Container(
-      padding: Dimensions.padding_8,
-      child: ClipRRect(
-          borderRadius: Dimensions.radius_4,
-          child: _dish.image != null
-              ? Image.network(_dish.image,
-                  height: 80, width: 80, fit: BoxFit.cover)
-              : Icon(Icons.error, color: AppColors.colorError)),
+      child: _dish.image != null
+          ? Image.network(_dish.image, height: 80, width: 80, fit: BoxFit.cover)
+          : Icon(Icons.error, color: AppColors.colorError),
     );
   }
 
@@ -79,14 +73,14 @@ class DishCard extends StatelessWidget {
   _buildDishTitle() {
     return Container(
       margin: Dimensions.padding_4,
-      child: Subtitle1(text : _dish.title),
+      child: Subtitle1(text: _dish.title),
     );
   }
 
   _buildDishDescription() {
     return Container(
       margin: Dimensions.padding_4,
-      child: BodyText1(text : _dish.description),
+      child: BodyText1(text: _dish.description),
     );
   }
 }
