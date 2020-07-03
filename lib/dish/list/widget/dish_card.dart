@@ -53,9 +53,14 @@ class DishCard extends StatelessWidget {
 
   Widget _buildMenuIcon() {
     return Container(
-      child: _dish.image != null
-          ? Image.network(_dish.image, height: 80, width: 80, fit: BoxFit.cover)
-          : Icon(Icons.error, color: AppColors.colorError),
+      padding: Dimensions.padding_4,
+      child: ClipRRect(
+        borderRadius: Dimensions.radius_4,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: _dish.image != null
+            ? Image.network(_dish.image, height: 80, width: 80, fit: BoxFit.cover)
+            : Icon(Icons.error, color: AppColors.colorError),
+      )
     );
   }
 
