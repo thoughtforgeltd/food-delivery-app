@@ -9,16 +9,6 @@ import 'package:fooddeliveryapp/userdetails/bloc/user_details_bloc.dart';
 import 'package:fooddeliveryapp/userdetails/user_details_form.dart';
 
 class UserDetailsScreen extends StatelessWidget {
-  final UserDetailsRepository _userDetailsRepository;
-  final UserRepository _userRepository;
-
-  UserDetailsScreen({Key key, @required UserDetailsRepository userDetailsRepository,
-    @required UserRepository userRepository})
-      : assert(userDetailsRepository != null && userRepository != null),
-        _userDetailsRepository = userDetailsRepository,
-        _userRepository = userRepository,
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +25,8 @@ class UserDetailsScreen extends StatelessWidget {
         ],),
       body: Center(
         child: BlocProvider<UserDetailsBloc>(
-          create: (context) => UserDetailsBloc(userDetailsRepository: _userDetailsRepository,
-          userRepository: _userRepository),
+          create: (context) => UserDetailsBloc(userDetailsRepository: context.repository<UserDetailsRepository>(),
+          userRepository: context.repository<UserRepository>()),
           child: UserDetailsForm(),
         ),
       ),
