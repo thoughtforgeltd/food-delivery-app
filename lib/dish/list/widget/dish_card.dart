@@ -4,7 +4,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fooddeliveryapp/common/widget/text/text.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
-import 'package:fooddeliveryapp/design/text_styles.dart';
 import 'package:fooddeliveryapp/dish/model/model.dart';
 
 class DishCard extends StatelessWidget {
