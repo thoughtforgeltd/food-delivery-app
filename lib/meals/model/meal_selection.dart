@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fooddeliveryapp/meals/model/schedule.dart';
 
-import 'meal_type.dart';
+import 'model.dart';
 
 class MealSelection{
   Timestamp date;

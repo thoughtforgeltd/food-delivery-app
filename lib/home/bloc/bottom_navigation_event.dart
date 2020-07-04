@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fooddeliveryapp/home/bloc/model/bottom_navigation_options.dart';
+import 'package:fooddeliveryapp/home/model/model.dart';
 import 'package:meta/meta.dart';
 
 abstract class BottomNavigationEvent extends Equatable {

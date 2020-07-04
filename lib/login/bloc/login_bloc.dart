@@ -1,12 +1,11 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
 import 'package:fooddeliveryapp/common/validators.dart';
+import 'package:fooddeliveryapp/login/bloc/bloc.dart';
+import 'package:fooddeliveryapp/repositories/repositories.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-
-import 'login_event.dart';
-import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   UserRepository _userRepository;
