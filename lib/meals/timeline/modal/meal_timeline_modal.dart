@@ -1,17 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fooddeliveryapp/common/widget/loading.dart';
-import 'package:fooddeliveryapp/common/widget/snack_bar.dart';
-import 'package:fooddeliveryapp/common/widget/text_button.dart';
+import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
-import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
-import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
-import 'package:fooddeliveryapp/meals/bloc/meal_schedule_state.dart';
-import 'package:fooddeliveryapp/meals/meal_selection_card.dart';
-import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
+import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
+import 'package:fooddeliveryapp/meals/model/model.dart';
+import 'package:fooddeliveryapp/meals/schedule/widget.dart';
 
 class MealTimelineModal extends StatefulWidget {
   final MealSelection _mealSelection;

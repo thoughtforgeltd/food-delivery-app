@@ -1,13 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
-import 'package:fooddeliveryapp/meals/bloc/meal_schedule_bloc.dart';
-import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
-import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
-import 'package:fooddeliveryapp/meals/timeline/modal/meal_timeline_modal.dart';
-import 'package:fooddeliveryapp/repositories/configuration_repository.dart';
-import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
+import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
+import 'package:fooddeliveryapp/meals/model/model.dart';
+import 'package:fooddeliveryapp/meals/timeline/modal/modal.dart';
 
 class MealTimelineModalProvider extends StatelessWidget {
   final MealSelection _mealSelection;
@@ -25,11 +20,8 @@ class MealTimelineModalProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MealScheduleBloc>(
-      create: (context) => MealScheduleBloc(
-          userRepository: context.repository<UserRepository>(),
-          mealScheduleRepository: context.repository<MealScheduleRepository>(),
-          configurationsRepository:
-              context.repository<ConfigurationsRepository>())
+      create: (context) =>
+      BlocProvider.of(context)
         ..add(MealSchedulesLoaded()),
       child: MealTimelineModal(
           mealSelection: _mealSelection,

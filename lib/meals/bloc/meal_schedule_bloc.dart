@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
-import 'package:fooddeliveryapp/meals/bloc/meal_schedule_event.dart';
-import 'package:fooddeliveryapp/meals/bloc/meal_schedule_state.dart';
-import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
-import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
-import 'package:fooddeliveryapp/repositories/configuration_repository.dart';
-import 'package:fooddeliveryapp/repositories/meal_schedule_repository.dart';
+import 'package:fooddeliveryapp/meals/model/model.dart';
+import 'package:fooddeliveryapp/repositories/repositories.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'bloc.dart';
 
 class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
   final MealScheduleRepository _mealSchedulesRepository;

@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fooddeliveryapp/meals/model/meal.dart';
-import 'package:fooddeliveryapp/meals/model/meal_schedules.dart';
-import 'package:fooddeliveryapp/meals/model/meal_selection.dart';
-import 'package:fooddeliveryapp/meals/model/meal_type_configurations.dart';
-import 'package:fooddeliveryapp/meals/model/schedule.dart';
-import 'package:meta/meta.dart';
+import 'package:fooddeliveryapp/meals/model/model.dart';
 import 'package:fooddeliveryapp/utilities/date_utilities.dart';
+import 'package:meta/meta.dart';
 
 @immutable
 class MealScheduleState {

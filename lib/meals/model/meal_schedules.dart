@@ -1,5 +1,6 @@
-import 'package:fooddeliveryapp/meals/model/meal.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'model.dart';
 
 part 'meal_schedules.g.dart';
 

@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
 import 'package:fooddeliveryapp/common/validators.dart';
-import 'package:fooddeliveryapp/register/bloc/register_event.dart';
-import 'package:fooddeliveryapp/register/bloc/register_state.dart';
+import 'package:fooddeliveryapp/register/bloc/bloc.dart';
+import 'package:fooddeliveryapp/repositories/repositories.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 

@@ -1,10 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fooddeliveryapp/authentication/repository/user_details_repository.dart';
-import 'package:fooddeliveryapp/authentication/repository/user_repository.dart';
+import 'package:fooddeliveryapp/repositories/repositories.dart';
 import 'package:meta/meta.dart';
 
-import 'authentication_event.dart';
-import 'authentication_state.dart';
+import 'bloc.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
