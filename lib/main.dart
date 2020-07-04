@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/design/themes.dart';
-import 'package:fooddeliveryapp/user/details/widget/widget.dart';
+import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 import 'authentication/bloc/bloc.dart';
 import 'common/blog_delegate.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/validators.dart';
-import 'package:fooddeliveryapp/user/details/bloc/bloc.dart';
-import 'package:fooddeliveryapp/userdetails/user_details_alias.dart';
+import 'package:fooddeliveryapp/user/user_details_alias.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 

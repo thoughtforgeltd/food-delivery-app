@@ -9,8 +9,7 @@ import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/menu/bloc/bloc.dart';
 import 'package:fooddeliveryapp/register/bloc/bloc.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
-import 'package:fooddeliveryapp/user/details/bloc/bloc.dart';
-import 'package:fooddeliveryapp/userdetails/user_details_alias.dart';
+import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 import '../main.dart';
 

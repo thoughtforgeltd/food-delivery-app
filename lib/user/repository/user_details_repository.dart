@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
-import 'package:fooddeliveryapp/userdetails/user_details_alias.dart';
+import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 class UserDetailsRepository {
   final CollectionReference _collection;
