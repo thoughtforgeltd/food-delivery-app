@@ -1,4 +1,4 @@
-import 'package:fooddeliveryapp/menu/model/menus.dart';
+import 'package:fooddeliveryapp/menu/model/model.dart';
 import 'package:meta/meta.dart';
 
 @immutable

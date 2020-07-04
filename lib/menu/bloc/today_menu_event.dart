@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fooddeliveryapp/menu/model/menus.dart';
+import 'package:fooddeliveryapp/menu/model/model.dart';
 import 'package:meta/meta.dart';
 
 abstract class TodayMenuEvent extends Equatable {

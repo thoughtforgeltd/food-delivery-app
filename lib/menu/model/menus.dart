@@ -1,4 +1,4 @@
-import 'package:fooddeliveryapp/menu/model/menu.dart';
+import 'package:fooddeliveryapp/menu/model/model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'menus.g.dart';
