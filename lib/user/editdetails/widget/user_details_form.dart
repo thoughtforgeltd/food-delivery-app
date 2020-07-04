@@ -6,17 +6,17 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import 'widget.dart';
 
-class UserDetailsForm extends StatefulWidget {
-  State<UserDetailsForm> createState() => _UserDetailsFormState();
+class EditUserDetailsForm extends StatefulWidget {
+  State<EditUserDetailsForm> createState() => _EditUserDetailsFormState();
 }
 
-class _UserDetailsFormState extends State<UserDetailsForm> {
+class _EditUserDetailsFormState extends State<EditUserDetailsForm> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
-  UserDetailsBloc _userDetailsBloc;
+  EditUserDetailsBloc _userDetailsBloc;
 
   bool get isPopulated =>
       _firstNameController.text.isNotEmpty &&
@@ -24,14 +24,14 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
       _addressController.text.isNotEmpty &&
       _phoneController.text.isNotEmpty;
 
-  bool isButtonEnabled(UserDetailsState state) {
+  bool isButtonEnabled(EditUserDetailsState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
 
   @override
   void initState() {
     super.initState();
-    _userDetailsBloc = BlocProvider.of<UserDetailsBloc>(context);
+    _userDetailsBloc = BlocProvider.of<EditUserDetailsBloc>(context);
     _firstNameController.addListener(_onFirstNameChanged);
     _lastNameController.addListener(_onLastNameChanged);
     _addressController.addListener(_onAddressChanged);
@@ -40,7 +40,7 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserDetailsBloc, UserDetailsState>(
+    return BlocListener<EditUserDetailsBloc, EditUserDetailsState>(
       listener: (context, state) {
         if (state.isSubmitting) {
           Scaffold.of(context)
@@ -77,7 +77,7 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
             );
         }
       },
-      child: BlocBuilder<UserDetailsBloc, UserDetailsState>(
+      child: BlocBuilder<EditUserDetailsBloc, EditUserDetailsState>(
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.all(20),
@@ -139,7 +139,7 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
                         phoneNumber: "", dialCode: "+44", isoCode: "GB"),
                   ),
                   Padding(padding: EdgeInsets.all(10)),
-                  UserDetailsButton(
+                  EditUserDetailsButton(
                     onPressed: isButtonEnabled(state)
                         ? () => _onFormSubmitted(state)
                         : null,
@@ -186,7 +186,7 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
     );
   }
 
-  void _onFormSubmitted(UserDetailsState state) {
+  void _onFormSubmitted(EditUserDetailsState state) {
     _userDetailsBloc.add(
       Submitted(
         firstName: _firstNameController.text,

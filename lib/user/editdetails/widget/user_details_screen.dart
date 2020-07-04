@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
-class UserDetailsScreen extends StatelessWidget {
+class EditUserDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,9 +20,9 @@ class UserDetailsScreen extends StatelessWidget {
           )
         ],),
       body: Center(
-        child: BlocProvider<UserDetailsBloc>(
+        child: BlocProvider<EditUserDetailsBloc>(
           create: (context) => BlocProvider.of(context),
-          child: UserDetailsForm(),
+          child: EditUserDetailsForm(),
         ),
       ),
     );

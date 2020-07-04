@@ -68,8 +68,8 @@ getBlocsProvider() {
     /**
      * User Details
      */
-    BlocProvider<UserDetailsBloc>(
-        create: (BuildContext context) => UserDetailsBloc(
+    BlocProvider<EditUserDetailsBloc>(
+        create: (BuildContext context) => EditUserDetailsBloc(
             userDetailsRepository:
                 context.repository<UserDetailsRepository>())),
   ], child: AuthenticationProvider());

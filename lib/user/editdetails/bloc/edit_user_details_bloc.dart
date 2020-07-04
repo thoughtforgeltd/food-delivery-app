@@ -4,20 +4,22 @@ import 'package:fooddeliveryapp/user/user_details_alias.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
+class EditUserDetailsBloc
+    extends Bloc<EditUserDetailsEvent, EditUserDetailsState> {
   final UserDetailsRepository _userDetailsRepository;
 
-  UserDetailsBloc({@required UserDetailsRepository userDetailsRepository})
+  EditUserDetailsBloc({@required UserDetailsRepository userDetailsRepository})
       : assert(userDetailsRepository != null),
         _userDetailsRepository = userDetailsRepository;
 
   @override
-  UserDetailsState get initialState => UserDetailsState.empty();
+  EditUserDetailsState get initialState => EditUserDetailsState.empty();
 
   @override
-  Stream<Transition<UserDetailsEvent, UserDetailsState>> transformEvents(
-    Stream<UserDetailsEvent> events,
-    TransitionFunction<UserDetailsEvent, UserDetailsState> transitionFn,
+  Stream<Transition<EditUserDetailsEvent, EditUserDetailsState>>
+      transformEvents(
+    Stream<EditUserDetailsEvent> events,
+    TransitionFunction<EditUserDetailsEvent, EditUserDetailsState> transitionFn,
   ) {
     final nonDebounceStream = events.where((event) {
       return (event is! FirstNameChanged &&
@@ -38,9 +40,8 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
   }
 
   @override
-  Stream<UserDetailsState> mapEventToState(
-    UserDetailsEvent event,
-  ) async* {
+  Stream<EditUserDetailsState> mapEventToState(
+      EditUserDetailsEvent event,) async* {
     if (event is FirstNameChanged) {
       yield* _mapFirstNameChangedToState(event.firstName);
     } else if (event is LastNameChanged) {
@@ -55,44 +56,46 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
     }
   }
 
-  Stream<UserDetailsState> _mapFirstNameChangedToState(
+  Stream<EditUserDetailsState> _mapFirstNameChangedToState(
       String firstName) async* {
     yield state.update(
       isFirstNameValid: Validators.isEmpty(firstName),
     );
   }
 
-  Stream<UserDetailsState> _mapLastNameChangedToState(String lastName) async* {
+  Stream<EditUserDetailsState> _mapLastNameChangedToState(
+      String lastName) async* {
     yield state.update(
       isLastNameValid: Validators.isEmpty(lastName),
     );
   }
 
-  Stream<UserDetailsState> _mapAddressChangedToState(String address) async* {
+  Stream<EditUserDetailsState> _mapAddressChangedToState(
+      String address) async* {
     yield state.update(
       isAddressValid: Validators.isEmpty(address),
     );
   }
 
-  Stream<UserDetailsState> _mapPhoneChangedToState(String phone) async* {
+  Stream<EditUserDetailsState> _mapPhoneChangedToState(String phone) async* {
     yield state.update(
       phone: phone,
       isPhoneValid: Validators.isEmpty(phone),
     );
   }
 
-  Stream<UserDetailsState> _mapFormSubmittedToState(
-      String firstName, String lastName, String address, String phone) async* {
-    yield UserDetailsState.loading();
+  Stream<EditUserDetailsState> _mapFormSubmittedToState(String firstName,
+      String lastName, String address, String phone) async* {
+    yield EditUserDetailsState.loading();
     try {
       await _userDetailsRepository.updateUserDetails(UserDetails(
           firstName: firstName,
           lastName: lastName,
           address: address,
           phone: phone));
-      yield UserDetailsState.success();
+      yield EditUserDetailsState.success();
     } catch (_) {
-      yield UserDetailsState.failure();
+      yield EditUserDetailsState.failure();
     }
   }
 }

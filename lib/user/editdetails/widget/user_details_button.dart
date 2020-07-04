@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class UserDetailsButton extends StatelessWidget {
+class EditUserDetailsButton extends StatelessWidget {
   final VoidCallback _onPressed;
 
-  UserDetailsButton({Key key, VoidCallback onPressed})
+  EditUserDetailsButton({Key key, VoidCallback onPressed})
       : _onPressed = onPressed,
         super(key: key);
 

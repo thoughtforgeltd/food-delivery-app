@@ -20,6 +20,14 @@ class UserDetailsRepository {
         .setData(userDetails.toJson(), merge: true);
   }
 
+  Future<UserDetails> loadUserDetails() async {
+    final user = await _userRepository.getUserID();
+    final document = await _collection.document(user.uid).get();
+    final details = UserDetails.fromJson(document.data);
+    details.email = user.email;
+    return Future.value(details);
+  }
+
   Future<DocumentSnapshot> isUserDetailsEntered(String userID) {
     return _collection.document(userID).get();
   }

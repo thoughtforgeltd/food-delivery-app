@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 @immutable
-class UserDetailsState {
+class EditUserDetailsState {
   final bool isFirstNameValid;
   final bool isLastNameValid;
   final bool isAddressValid;
@@ -14,7 +14,7 @@ class UserDetailsState {
   bool get isFormValid =>
       isFirstNameValid && isLastNameValid && isAddressValid && isPhoneValid;
 
-  UserDetailsState({
+  EditUserDetailsState({
     @required this.isFirstNameValid,
     @required this.isLastNameValid,
     @required this.isAddressValid,
@@ -25,8 +25,8 @@ class UserDetailsState {
     @required this.phone,
   });
 
-  factory UserDetailsState.empty() {
-    return UserDetailsState(
+  factory EditUserDetailsState.empty() {
+    return EditUserDetailsState(
       isFirstNameValid: true,
       isLastNameValid: true,
       isAddressValid: true,
@@ -38,8 +38,8 @@ class UserDetailsState {
     );
   }
 
-  factory UserDetailsState.loading() {
-    return UserDetailsState(
+  factory EditUserDetailsState.loading() {
+    return EditUserDetailsState(
       isFirstNameValid: true,
       isLastNameValid: true,
       isAddressValid: true,
@@ -51,8 +51,8 @@ class UserDetailsState {
     );
   }
 
-  factory UserDetailsState.failure() {
-    return UserDetailsState(
+  factory EditUserDetailsState.failure() {
+    return EditUserDetailsState(
       isFirstNameValid: true,
       isLastNameValid: true,
       isAddressValid: true,
@@ -64,8 +64,8 @@ class UserDetailsState {
     );
   }
 
-  factory UserDetailsState.success() {
-    return UserDetailsState(
+  factory EditUserDetailsState.success() {
+    return EditUserDetailsState(
       isFirstNameValid: true,
       isLastNameValid: true,
       isAddressValid: true,
@@ -77,7 +77,7 @@ class UserDetailsState {
     );
   }
 
-  UserDetailsState update({
+  EditUserDetailsState update({
     bool isFirstNameValid,
     bool isLastNameValid,
     bool isAddressValid,
@@ -96,7 +96,7 @@ class UserDetailsState {
     );
   }
 
-  UserDetailsState copyWith({
+  EditUserDetailsState copyWith({
     bool isFirstNameValid,
     bool isLastNameValid,
     bool isAddressValid,
@@ -107,7 +107,7 @@ class UserDetailsState {
     bool isFailure,
     String phone,
   }) {
-    return UserDetailsState(
+    return EditUserDetailsState(
       isFirstNameValid: isFirstNameValid ?? this.isFirstNameValid,
       isLastNameValid: isLastNameValid ?? this.isLastNameValid,
       isAddressValid: isAddressValid ?? this.isAddressValid,

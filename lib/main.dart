@@ -48,7 +48,7 @@ class App extends StatelessWidget {
             return LoginScreen();
           }
           if (state is Authenticated) {
-            return UserDetailsScreen();
+            return EditUserDetailsScreen();
           }
           if (state is UserDetailsEntered) {
             return HomeScreen();

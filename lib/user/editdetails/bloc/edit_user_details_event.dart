@@ -3,14 +3,14 @@ import 'dart:ui';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-abstract class UserDetailsEvent extends Equatable {
-  const UserDetailsEvent();
+abstract class EditUserDetailsEvent extends Equatable {
+  const EditUserDetailsEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class FirstNameChanged extends UserDetailsEvent {
+class FirstNameChanged extends EditUserDetailsEvent {
   final String firstName;
 
   const FirstNameChanged({@required this.firstName});
@@ -22,7 +22,7 @@ class FirstNameChanged extends UserDetailsEvent {
   String toString() => 'FirstNameChanged { firstName :$firstName }';
 }
 
-class LastNameChanged extends UserDetailsEvent {
+class LastNameChanged extends EditUserDetailsEvent {
   final String lastName;
 
   const LastNameChanged({@required this.lastName});
@@ -34,7 +34,7 @@ class LastNameChanged extends UserDetailsEvent {
   String toString() => 'LastNameChanged { lastName :$lastName }';
 }
 
-class AddressChanged extends UserDetailsEvent {
+class AddressChanged extends EditUserDetailsEvent {
   final String address;
 
   const AddressChanged({@required this.address});
@@ -46,7 +46,7 @@ class AddressChanged extends UserDetailsEvent {
   String toString() => 'AddressChanged { address: $address }';
 }
 
-class PhoneChanged extends UserDetailsEvent {
+class PhoneChanged extends EditUserDetailsEvent {
   final String phone;
 
   const PhoneChanged({@required this.phone});
@@ -58,7 +58,7 @@ class PhoneChanged extends UserDetailsEvent {
   String toString() => 'PhoneChanged { phone: $phone }';
 }
 
-class Submitted extends UserDetailsEvent {
+class Submitted extends EditUserDetailsEvent {
   final String firstName;
   final String lastName;
   final String address;
