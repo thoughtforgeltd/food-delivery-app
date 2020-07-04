@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
 import 'package:fooddeliveryapp/user/details/bloc/bloc.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import 'widget.dart';
 
@@ -34,7 +35,7 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
     _firstNameController.addListener(_onFirstNameChanged);
     _lastNameController.addListener(_onLastNameChanged);
     _addressController.addListener(_onAddressChanged);
-    _phoneController.addListener(_onPhoneChanged);
+//    _phoneController.addListener(_onPhoneChanged);
   }
 
   @override
@@ -93,7 +94,9 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
                     autocorrect: false,
                     autovalidate: true,
                     validator: (_) {
-                      return !state.isFirstNameValid ? 'First Name can not be empty' : null;
+                      return !state.isFirstNameValid
+                          ? 'First Name can not be empty'
+                          : null;
                     },
                   ),
                   TextFormField(
@@ -105,7 +108,9 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
                     autocorrect: false,
                     autovalidate: true,
                     validator: (_) {
-                      return !state.isLastNameValid ? 'Last Name can not be empty' : null;
+                      return !state.isLastNameValid
+                          ? 'Last Name can not be empty'
+                          : null;
                     },
                   ),
                   TextFormField(
@@ -117,27 +122,26 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
                     autocorrect: false,
                     autovalidate: true,
                     validator: (_) {
-                      return !state.isAddressValid ? 'Address can not be empty' : null;
+                      return !state.isAddressValid
+                          ? 'Address can not be empty'
+                          : null;
                     },
                   ),
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.phone),
-                      labelText: 'Phone',
+                  InternationalPhoneNumberInput(
+                    selectorTextStyle: Theme.of(context).textTheme.bodyText1,
+                    inputDecoration: InputDecoration(
+                      labelText: 'Phone Number',
                     ),
-                    autocorrect: false,
-                    autovalidate: true,
-                    validator: (_) {
-                      return !state.isLastNameValid ? 'Phone can not be empty' : null;
-                    },
+                    textFieldController: _phoneController,
+                    maxLength: 11,
+                    onInputChanged: _onPhoneChanged,
+                    initialValue: PhoneNumber(
+                        phoneNumber: "", dialCode: "+44", isoCode: "GB"),
                   ),
-                  Padding(
-                      padding: EdgeInsets.all(10)
-                  ),
+                  Padding(padding: EdgeInsets.all(10)),
                   UserDetailsButton(
                     onPressed: isButtonEnabled(state)
-                        ? _onFormSubmitted
+                        ? () => _onFormSubmitted(state)
                         : null,
                   ),
                 ],
@@ -176,19 +180,19 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
     );
   }
 
-  void _onPhoneChanged() {
+  void _onPhoneChanged(PhoneNumber number) {
     _userDetailsBloc.add(
-      PhoneChanged(phone: _phoneController.text),
+      PhoneChanged(phone: number.toString()),
     );
   }
 
-  void _onFormSubmitted() {
+  void _onFormSubmitted(UserDetailsState state) {
     _userDetailsBloc.add(
       Submitted(
         firstName: _firstNameController.text,
         lastName: _lastNameController.text,
         address: _addressController.text,
-        phone: _phoneController.text,
+        phone: state.phone,
       ),
     );
   }

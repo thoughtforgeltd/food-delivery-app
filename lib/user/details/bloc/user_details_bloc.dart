@@ -1,20 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/validators.dart';
-import 'package:fooddeliveryapp/repositories/repositories.dart';
 import 'package:fooddeliveryapp/user/details/bloc/bloc.dart';
+import 'package:fooddeliveryapp/userdetails/user_details_alias.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
   final UserDetailsRepository _userDetailsRepository;
-  final UserRepository _userRepository;
 
-  UserDetailsBloc(
-      {@required UserDetailsRepository userDetailsRepository,
-      @required UserRepository userRepository})
-      : assert(userDetailsRepository != null && userRepository != null),
-        _userDetailsRepository = userDetailsRepository,
-        _userRepository = userRepository;
+  UserDetailsBloc({@required UserDetailsRepository userDetailsRepository})
+      : assert(userDetailsRepository != null),
+        _userDetailsRepository = userDetailsRepository;
 
   @override
   UserDetailsState get initialState => UserDetailsState.empty();
@@ -81,6 +77,7 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
 
   Stream<UserDetailsState> _mapPhoneChangedToState(String phone) async* {
     yield state.update(
+      phone: phone,
       isPhoneValid: Validators.isEmpty(phone),
     );
   }
@@ -89,9 +86,11 @@ class UserDetailsBloc extends Bloc<UserDetailsEvent, UserDetailsState> {
       String firstName, String lastName, String address, String phone) async* {
     yield UserDetailsState.loading();
     try {
-      final userId = await _userRepository.getUserID();
-      await _userDetailsRepository.updateUserDetails(
-          userId.uid, firstName, lastName, address, phone);
+      await _userDetailsRepository.updateUserDetails(UserDetails(
+          firstName: firstName,
+          lastName: lastName,
+          address: address,
+          phone: phone));
       yield UserDetailsState.success();
     } catch (_) {
       yield UserDetailsState.failure();

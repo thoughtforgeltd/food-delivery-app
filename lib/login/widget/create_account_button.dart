@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fooddeliveryapp/register/register_screen.dart';
+import 'package:fooddeliveryapp/register/widget/widget.dart';
 
 class CreateAccountButton extends StatelessWidget {
 

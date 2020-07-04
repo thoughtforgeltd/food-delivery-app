@@ -9,6 +9,7 @@ class UserDetailsState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final String phone;
 
   bool get isFormValid =>
       isFirstNameValid && isLastNameValid && isAddressValid && isPhoneValid;
@@ -21,6 +22,7 @@ class UserDetailsState {
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
+    @required this.phone,
   });
 
   factory UserDetailsState.empty() {
@@ -32,6 +34,7 @@ class UserDetailsState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
+      phone: null,
     );
   }
 
@@ -44,6 +47,7 @@ class UserDetailsState {
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
+      phone: null,
     );
   }
 
@@ -56,6 +60,7 @@ class UserDetailsState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: true,
+      phone: null,
     );
   }
 
@@ -68,6 +73,7 @@ class UserDetailsState {
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
+      phone: null,
     );
   }
 
@@ -76,6 +82,7 @@ class UserDetailsState {
     bool isLastNameValid,
     bool isAddressValid,
     bool isPhoneValid,
+    String phone,
   }) {
     return copyWith(
       isFirstNameValid: isFirstNameValid,
@@ -85,6 +92,7 @@ class UserDetailsState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
+      phone: phone,
     );
   }
 
@@ -97,6 +105,7 @@ class UserDetailsState {
     bool isSubmitting,
     bool isSuccess,
     bool isFailure,
+    String phone,
   }) {
     return UserDetailsState(
       isFirstNameValid: isFirstNameValid ?? this.isFirstNameValid,
@@ -106,6 +115,7 @@ class UserDetailsState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+      phone: phone ?? this.phone,
     );
   }
 
@@ -119,6 +129,7 @@ class UserDetailsState {
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
       isFailure: $isFailure,
+      phone: $phone,
     }''';
   }
 }
