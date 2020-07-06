@@ -13,37 +13,54 @@ class UserDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Card(
-          elevation: 5,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Row(
-            children: <Widget>[_buildDishDetails()],
-          )),
-    );
+        child: Card(
+            elevation: 5,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Container(
+                padding: Dimensions.padding_16,
+                child: Wrap(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[_buildUserDetails()],
+                    ),
+                  ],
+                ))));
   }
 
-  Widget _buildDishDetails() {
+  Widget _buildUserDetails() {
     return Expanded(
         child: Container(
             padding: Dimensions.padding_left_8,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[_buildDishTitle(), _buildDishDescription()],
+              children: <Widget>[
+                _buildUserName(),
+                _buildEmail(),
+                _buildContact()
+              ],
             )));
   }
 
-  _buildDishTitle() {
+  _buildUserName() {
     return Container(
       margin: Dimensions.padding_4,
-      child: Subtitle1(text: _userDetail.firstName),
+      child:
+      Headline6(text: "${_userDetail.firstName} ${_userDetail.lastName}"),
     );
   }
 
-  _buildDishDescription() {
+  _buildEmail() {
     return Container(
       margin: Dimensions.padding_4,
-      child: BodyText1(text: _userDetail.lastName),
+      child: BodyText1(text: _userDetail.email),
+    );
+  }
+
+  _buildContact() {
+    return Container(
+      margin: Dimensions.padding_4,
+      child: BodyText1(text: _userDetail.phone),
     );
   }
 }

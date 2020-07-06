@@ -33,10 +33,12 @@ class _UserDetailWidgetState extends State<UserDetailWidget> {
         builder: (context, state) {
           return state.isLoading
               ? buildLoadingWidget()
-              : Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: UserDetailCard(userDetail: state.details),
-                );
+              : state.isSuccess
+                  ? Container(
+                      padding: EdgeInsets.all(20.0),
+                      child: UserDetailCard(userDetail: state.details),
+                    )
+                  : Container();
         },
       ),
     );
