@@ -9,10 +9,15 @@ class EditUserDetailsState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final String imagePath;
   final String phone;
 
   bool get isFormValid =>
-      isFirstNameValid && isLastNameValid && isAddressValid && isPhoneValid;
+      isFirstNameValid &&
+      isLastNameValid &&
+      isAddressValid &&
+      isPhoneValid &&
+      imagePath != null;
 
   EditUserDetailsState({
     @required this.isFirstNameValid,
@@ -23,6 +28,7 @@ class EditUserDetailsState {
     @required this.isSuccess,
     @required this.isFailure,
     @required this.phone,
+    @required this.imagePath,
   });
 
   factory EditUserDetailsState.empty() {
@@ -35,6 +41,7 @@ class EditUserDetailsState {
       isSuccess: false,
       isFailure: false,
       phone: null,
+        imagePath: null
     );
   }
 
@@ -48,6 +55,7 @@ class EditUserDetailsState {
       isSuccess: false,
       isFailure: false,
       phone: null,
+        imagePath: null
     );
   }
 
@@ -61,6 +69,7 @@ class EditUserDetailsState {
       isSuccess: false,
       isFailure: true,
       phone: null,
+        imagePath: null
     );
   }
 
@@ -74,6 +83,7 @@ class EditUserDetailsState {
       isSuccess: true,
       isFailure: false,
       phone: null,
+        imagePath: null
     );
   }
 
@@ -83,6 +93,7 @@ class EditUserDetailsState {
     bool isAddressValid,
     bool isPhoneValid,
     String phone,
+    String imagePath,
   }) {
     return copyWith(
       isFirstNameValid: isFirstNameValid,
@@ -93,6 +104,7 @@ class EditUserDetailsState {
       isSuccess: false,
       isFailure: false,
       phone: phone,
+        imagePath: imagePath
     );
   }
 
@@ -106,6 +118,7 @@ class EditUserDetailsState {
     bool isSuccess,
     bool isFailure,
     String phone,
+    String imagePath,
   }) {
     return EditUserDetailsState(
       isFirstNameValid: isFirstNameValid ?? this.isFirstNameValid,
@@ -116,6 +129,7 @@ class EditUserDetailsState {
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
       phone: phone ?? this.phone,
+      imagePath: imagePath ?? this.imagePath,
     );
   }
 
@@ -130,6 +144,7 @@ class EditUserDetailsState {
       isSuccess: $isSuccess,
       isFailure: $isFailure,
       phone: $phone,
+      imagePath: $imagePath,
     }''';
   }
 }

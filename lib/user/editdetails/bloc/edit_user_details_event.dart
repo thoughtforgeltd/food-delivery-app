@@ -58,24 +58,38 @@ class PhoneChanged extends EditUserDetailsEvent {
   String toString() => 'PhoneChanged { phone: $phone }';
 }
 
+class ProfileImageAddedEvent extends EditUserDetailsEvent {
+  final String path;
+
+  const ProfileImageAddedEvent({@required this.path});
+
+  @override
+  List<Object> get props => [path];
+
+  @override
+  String toString() => 'PhoneChanged { path: $path }';
+}
+
 class Submitted extends EditUserDetailsEvent {
   final String firstName;
   final String lastName;
   final String address;
   final String phone;
+  final String path;
 
   const Submitted({
     @required this.firstName,
     @required this.lastName,
     @required this.address,
     @required this.phone,
+    @required this.path,
   });
 
   @override
-  List<Object> get props => [firstName, lastName, address, phone];
+  List<Object> get props => [firstName, lastName, address, phone, path];
 
   @override
   String toString() {
-    return 'Submitted { firstName: $firstName, lastName: $lastName, address: $address, phone: $phone}';
+    return 'Submitted { firstName: $firstName, lastName: $lastName, address: $address, phone: $phone, path: $path}';
   }
 }

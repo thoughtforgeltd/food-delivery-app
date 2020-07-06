@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
@@ -20,9 +22,9 @@ class _EditUserDetailsFormState extends State<EditUserDetailsForm> {
 
   bool get isPopulated =>
       _firstNameController.text.isNotEmpty &&
-      _lastNameController.text.isNotEmpty &&
-      _addressController.text.isNotEmpty &&
-      _phoneController.text.isNotEmpty;
+          _lastNameController.text.isNotEmpty &&
+          _addressController.text.isNotEmpty &&
+          _phoneController.text.isNotEmpty;
 
   bool isButtonEnabled(EditUserDetailsState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
@@ -35,7 +37,6 @@ class _EditUserDetailsFormState extends State<EditUserDetailsForm> {
     _firstNameController.addListener(_onFirstNameChanged);
     _lastNameController.addListener(_onLastNameChanged);
     _addressController.addListener(_onAddressChanged);
-//    _phoneController.addListener(_onPhoneChanged);
   }
 
   @override
@@ -84,6 +85,21 @@ class _EditUserDetailsFormState extends State<EditUserDetailsForm> {
             child: Form(
               child: ListView(
                 children: <Widget>[
+                  InkWell(
+                    onTap: () => _onAddImagePressed(state.imagePath),
+                    child: Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: state.imagePath == null
+                            ? Icon(Icons.add_a_photo, size: 50)
+                            : SizedBox(
+                                width: 250,
+                                height: 250,
+                                child: Image.file(File(state.imagePath),
+                                    fit: BoxFit.cover)),
+                      ),
+                    ),
+                  ),
                   TextFormField(
                     controller: _firstNameController,
                     decoration: InputDecoration(
@@ -186,13 +202,20 @@ class _EditUserDetailsFormState extends State<EditUserDetailsForm> {
     );
   }
 
+  void _onAddImagePressed(String path) {
+    _userDetailsBloc.add(
+      ProfileImageAddedEvent(path: path),
+    );
+  }
+
   void _onFormSubmitted(EditUserDetailsState state) {
     _userDetailsBloc.add(
       Submitted(
-        firstName: _firstNameController.text,
-        lastName: _lastNameController.text,
-        address: _addressController.text,
-        phone: state.phone,
+          firstName: _firstNameController.text,
+          lastName: _lastNameController.text,
+          address: _addressController.text,
+          phone: state.phone,
+          path: state.imagePath
       ),
     );
   }

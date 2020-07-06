@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/validators.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -41,7 +42,8 @@ class EditUserDetailsBloc
 
   @override
   Stream<EditUserDetailsState> mapEventToState(
-      EditUserDetailsEvent event,) async* {
+    EditUserDetailsEvent event,
+  ) async* {
     if (event is FirstNameChanged) {
       yield* _mapFirstNameChangedToState(event.firstName);
     } else if (event is LastNameChanged) {
@@ -50,9 +52,12 @@ class EditUserDetailsBloc
       yield* _mapAddressChangedToState(event.address);
     } else if (event is PhoneChanged) {
       yield* _mapPhoneChangedToState(event.phone);
+    }
+    if (event is ProfileImageAddedEvent) {
+      yield* _mapImageAddedToState(event.path);
     } else if (event is Submitted) {
-      yield* _mapFormSubmittedToState(
-          event.firstName, event.lastName, event.address, event.phone);
+      yield* _mapFormSubmittedToState(event.firstName, event.lastName,
+          event.address, event.phone, event.path);
     }
   }
 
@@ -77,6 +82,11 @@ class EditUserDetailsBloc
     );
   }
 
+  Stream<EditUserDetailsState> _mapImageAddedToState(String path) async* {
+    final image = await ImagePicker().getImage(source: ImageSource.gallery);
+    yield state.copyWith(imagePath: image.path);
+  }
+
   Stream<EditUserDetailsState> _mapPhoneChangedToState(String phone) async* {
     yield state.update(
       phone: phone,
@@ -85,14 +95,16 @@ class EditUserDetailsBloc
   }
 
   Stream<EditUserDetailsState> _mapFormSubmittedToState(String firstName,
-      String lastName, String address, String phone) async* {
+      String lastName, String address, String phone, String path) async* {
     yield EditUserDetailsState.loading();
     try {
+      final url = await _userDetailsRepository.uploadImage(path);
       await _userDetailsRepository.updateUserDetails(UserDetails(
           firstName: firstName,
           lastName: lastName,
           address: address,
-          phone: phone));
+          phone: phone,
+          image: url));
       yield EditUserDetailsState.success();
     } catch (_) {
       yield EditUserDetailsState.failure();

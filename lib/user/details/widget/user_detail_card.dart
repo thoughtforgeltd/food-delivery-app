@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fooddeliveryapp/common/widget/text/text.dart';
+import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
@@ -17,14 +18,30 @@ class UserDetailCard extends StatelessWidget {
             elevation: 5,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: Container(
-                padding: Dimensions.padding_16,
+                padding: Dimensions.padding_8,
                 child: Wrap(
                   children: <Widget>[
                     Row(
-                      children: <Widget>[_buildUserDetails()],
+                      children: <Widget>[
+                        _buildUserImage(),
+                        _buildUserDetails()
+                      ],
                     ),
                   ],
                 ))));
+  }
+
+  Widget _buildUserImage() {
+    return Container(
+        padding: Dimensions.padding_4,
+        child: ClipRRect(
+          borderRadius: Dimensions.radius_4,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: _userDetail.image != null
+              ? Image.network(_userDetail.image,
+                  height: 100, width: 100, fit: BoxFit.cover)
+              : Icon(Icons.error, color: AppColors.colorError),
+        ));
   }
 
   Widget _buildUserDetails() {

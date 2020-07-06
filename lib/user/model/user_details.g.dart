@@ -13,6 +13,7 @@ UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) {
     lastName: json['lastName'] as String,
     address: json['address'] as String,
     phone: json['phone'] as String,
+    image: json['image'] as String,
   );
 }
 
@@ -23,4 +24,5 @@ Map<String, dynamic> _$UserDetailsToJson(UserDetails instance) =>
       'lastName': instance.lastName,
       'address': instance.address,
       'phone': instance.phone,
+      'image': instance.image,
     };
