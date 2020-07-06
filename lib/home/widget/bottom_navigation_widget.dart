@@ -3,11 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
-import 'package:fooddeliveryapp/dish/list/widget/widget.dart';
 import 'package:fooddeliveryapp/home/bloc/bloc.dart';
 import 'package:fooddeliveryapp/home/model/model.dart';
 import 'package:fooddeliveryapp/meals/timeline/widget/widget.dart';
 import 'package:fooddeliveryapp/menu/widget/widget.dart';
+import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   State<BottomNavigationWidget> createState() => _UpdateBottomNavigationState();
@@ -46,15 +46,15 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
     });
   }
 
-  Widget _getDestination(BottomNavigationState state){
-    switch(state.options){
-      case BottomNavigationOptions.meals_timeline :
+  Widget _getDestination(BottomNavigationState state) {
+    switch (state.options) {
+      case BottomNavigationOptions.meals_timeline:
         return MealTimelineScreen();
-      case BottomNavigationOptions.profile :
-        return ListDishProvider();
-      case BottomNavigationOptions.today :
+      case BottomNavigationOptions.profile:
+        return UserDetailProvider();
+      case BottomNavigationOptions.today:
         return TodayMenuProvider();
-      default :
+      default:
         return MealTimelineScreen();
     }
   }
@@ -64,18 +64,16 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
       currentIndex: state.options.index,
       selectedItemColor: AppColors.colorPrimaryAccent,
       showUnselectedLabels: false,
-      onTap:(int index) {
+      onTap: (int index) {
         _bottomNavigationBloc.add(BottomNavigationChanged(
-          options: BottomNavigationOptions.values.firstWhere(
-                  (element) => element.index == index,
-              orElse: () => BottomNavigationState.DEFAULT_SELECTION
-          )
-        ));
+            options: BottomNavigationOptions.values.firstWhere(
+                    (element) => element.index == index,
+                orElse: () => BottomNavigationState.DEFAULT_SELECTION)));
       },
-      items: BottomNavigationOptions.values.map((BottomNavigationOptions options){
+      items:
+      BottomNavigationOptions.values.map((BottomNavigationOptions options) {
         return BottomNavigationBarItem(
-          icon: new Icon(options.icon),
-          title: new Text(options.title));
+            icon: new Icon(options.icon), title: new Text(options.title));
       }).toList(),
     );
   }

@@ -68,6 +68,10 @@ getBlocsProvider() {
     /**
      * User Details
      */
+    BlocProvider<UserDetailBloc>(
+        create: (BuildContext context) => UserDetailBloc(
+            userDetailsRepository:
+                context.repository<UserDetailsRepository>())),
     BlocProvider<EditUserDetailsBloc>(
         create: (BuildContext context) => EditUserDetailsBloc(
             userDetailsRepository:
