@@ -57,5 +57,15 @@ class _UserDetailWidgetState extends State<UserDetailWidget> {
             ?.toList());
   }
 
-  onActionPressed(UserProfileActions action) {}
+  onActionPressed(UserProfileActions action) {
+    switch (action) {
+      case UserProfileActions.edit_profile:
+        break;
+      case UserProfileActions.contact_us:
+        break;
+      case UserProfileActions.console:
+        Navigator.of(context).pushNamed('/console');
+        break;
+    }
+  }
 }

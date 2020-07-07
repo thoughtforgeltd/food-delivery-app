@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fooddeliveryapp/console/console.dart';
 import 'package:fooddeliveryapp/design/themes.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
@@ -36,6 +37,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/addDish': (context) => AddDishProvider(),
+        '/console': (context) => ConsoleProvider(),
       },
       theme: MealDeliveryThemes.lightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(

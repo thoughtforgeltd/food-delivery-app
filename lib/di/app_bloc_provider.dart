@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
+import 'package:fooddeliveryapp/console/console.dart';
 import 'package:fooddeliveryapp/dish/add/bloc/bloc.dart';
 import 'package:fooddeliveryapp/dish/list/bloc/bloc.dart';
 import 'package:fooddeliveryapp/home/bloc/bloc.dart';
@@ -76,5 +77,9 @@ getBlocsProvider() {
         create: (BuildContext context) => EditUserDetailsBloc(
             userDetailsRepository:
                 context.repository<UserDetailsRepository>())),
+    /**
+     * Console
+     */
+    BlocProvider<ConsoleBloc>(create: (BuildContext context) => ConsoleBloc()),
   ], child: AuthenticationProvider());
 }
