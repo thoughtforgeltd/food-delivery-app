@@ -10,6 +10,7 @@ class UserDetails {
   String address;
   String phone;
   String image;
+  bool admin;
 
   UserDetails(
       {this.email,
@@ -17,7 +18,8 @@ class UserDetails {
       this.lastName,
       this.address,
       this.phone,
-      this.image});
+      this.image,
+      this.admin});
 
   factory UserDetails.fromJson(Map<String, dynamic> json) =>
       _$UserDetailsFromJson(json);
@@ -33,6 +35,7 @@ class UserDetails {
       address: $address,
       phone: $phone,
       image: $image,
+      admin: $admin,
     }''';
   }
 }
