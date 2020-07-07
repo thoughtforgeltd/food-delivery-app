@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 @immutable
 class UserDetailState {
   final UserDetails details;
+  final List<UserProfileActions> actions = UserProfileActions.values;
   final bool isLoading;
   final bool isSuccess;
   final bool isFailure;
@@ -45,6 +46,7 @@ class UserDetailState {
   String toString() {
     return '''UserDetailState {
       details: $details,
+      actions: $actions,
       isLoading: $isLoading,
       isSuccess: $isSuccess,
       isFailure: $isFailure,

@@ -36,11 +36,26 @@ class _UserDetailWidgetState extends State<UserDetailWidget> {
               : state.isSuccess
                   ? Container(
                       padding: EdgeInsets.all(20.0),
-                      child: UserDetailCard(userDetail: state.details),
+                      child: Column(
+                        children: <Widget>[
+                          UserDetailCard(userDetail: state.details),
+                          _buildActionsList(state)
+                        ],
+                      ),
                     )
                   : Container();
         },
       ),
     );
   }
+
+  _buildActionsList(UserDetailState state) {
+    return Column(
+        children: state.actions
+            ?.map((action) =>
+                UserActionCard(action: action, onPressed: onActionPressed))
+            ?.toList());
+  }
+
+  onActionPressed(UserProfileActions action) {}
 }
