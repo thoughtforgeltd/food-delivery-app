@@ -1,3 +1,3 @@
-export 'user_details_bloc.dart';
-export 'user_details_event.dart';
-export 'user_details_state.dart';
+export 'user_detail_bloc.dart';
+export 'user_detail_event.dart';
+export 'user_detail_state.dart';

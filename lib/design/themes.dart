@@ -10,7 +10,7 @@ class MealDeliveryThemes {
       primaryColorDark: AppColors.colorPrimaryDark,
       accentColor: AppColors.colorPrimaryAccent,
       buttonTheme: buttonTheme,
-      textTheme: GoogleFonts.latoTextTheme());
+      textTheme: GoogleFonts.robotoTextTheme());
 
   static final ButtonThemeData buttonTheme = ButtonThemeData(
       buttonColor: AppColors.colorPrimaryDark,

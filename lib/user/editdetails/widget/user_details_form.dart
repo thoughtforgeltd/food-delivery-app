@@ -1,45 +1,47 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
-import 'package:fooddeliveryapp/user/details/bloc/bloc.dart';
+import 'package:fooddeliveryapp/user/user_details_alias.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import 'widget.dart';
 
-class UserDetailsForm extends StatefulWidget {
-  State<UserDetailsForm> createState() => _UserDetailsFormState();
+class EditUserDetailsForm extends StatefulWidget {
+  State<EditUserDetailsForm> createState() => _EditUserDetailsFormState();
 }
 
-class _UserDetailsFormState extends State<UserDetailsForm> {
+class _EditUserDetailsFormState extends State<EditUserDetailsForm> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
-  UserDetailsBloc _userDetailsBloc;
+  EditUserDetailsBloc _userDetailsBloc;
 
   bool get isPopulated =>
       _firstNameController.text.isNotEmpty &&
-      _lastNameController.text.isNotEmpty &&
-      _addressController.text.isNotEmpty &&
-      _phoneController.text.isNotEmpty;
+          _lastNameController.text.isNotEmpty &&
+          _addressController.text.isNotEmpty &&
+          _phoneController.text.isNotEmpty;
 
-  bool isButtonEnabled(UserDetailsState state) {
+  bool isButtonEnabled(EditUserDetailsState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
 
   @override
   void initState() {
     super.initState();
-    _userDetailsBloc = BlocProvider.of<UserDetailsBloc>(context);
+    _userDetailsBloc = BlocProvider.of<EditUserDetailsBloc>(context);
     _firstNameController.addListener(_onFirstNameChanged);
     _lastNameController.addListener(_onLastNameChanged);
     _addressController.addListener(_onAddressChanged);
-    _phoneController.addListener(_onPhoneChanged);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserDetailsBloc, UserDetailsState>(
+    return BlocListener<EditUserDetailsBloc, EditUserDetailsState>(
       listener: (context, state) {
         if (state.isSubmitting) {
           Scaffold.of(context)
@@ -76,13 +78,28 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
             );
         }
       },
-      child: BlocBuilder<UserDetailsBloc, UserDetailsState>(
+      child: BlocBuilder<EditUserDetailsBloc, EditUserDetailsState>(
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.all(20),
             child: Form(
               child: ListView(
                 children: <Widget>[
+                  InkWell(
+                    onTap: () => _onAddImagePressed(state.imagePath),
+                    child: Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: state.imagePath == null
+                            ? Icon(Icons.add_a_photo, size: 50)
+                            : SizedBox(
+                                width: 250,
+                                height: 250,
+                                child: Image.file(File(state.imagePath),
+                                    fit: BoxFit.cover)),
+                      ),
+                    ),
+                  ),
                   TextFormField(
                     controller: _firstNameController,
                     decoration: InputDecoration(
@@ -93,7 +110,9 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
                     autocorrect: false,
                     autovalidate: true,
                     validator: (_) {
-                      return !state.isFirstNameValid ? 'First Name can not be empty' : null;
+                      return !state.isFirstNameValid
+                          ? 'First Name can not be empty'
+                          : null;
                     },
                   ),
                   TextFormField(
@@ -105,7 +124,9 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
                     autocorrect: false,
                     autovalidate: true,
                     validator: (_) {
-                      return !state.isLastNameValid ? 'Last Name can not be empty' : null;
+                      return !state.isLastNameValid
+                          ? 'Last Name can not be empty'
+                          : null;
                     },
                   ),
                   TextFormField(
@@ -117,27 +138,26 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
                     autocorrect: false,
                     autovalidate: true,
                     validator: (_) {
-                      return !state.isAddressValid ? 'Address can not be empty' : null;
+                      return !state.isAddressValid
+                          ? 'Address can not be empty'
+                          : null;
                     },
                   ),
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.phone),
-                      labelText: 'Phone',
+                  InternationalPhoneNumberInput(
+                    selectorTextStyle: Theme.of(context).textTheme.bodyText1,
+                    inputDecoration: InputDecoration(
+                      labelText: 'Phone Number',
                     ),
-                    autocorrect: false,
-                    autovalidate: true,
-                    validator: (_) {
-                      return !state.isLastNameValid ? 'Phone can not be empty' : null;
-                    },
+                    textFieldController: _phoneController,
+                    maxLength: 11,
+                    onInputChanged: _onPhoneChanged,
+                    initialValue: PhoneNumber(
+                        phoneNumber: "", dialCode: "+44", isoCode: "GB"),
                   ),
-                  Padding(
-                      padding: EdgeInsets.all(10)
-                  ),
-                  UserDetailsButton(
+                  Padding(padding: EdgeInsets.all(10)),
+                  EditUserDetailsButton(
                     onPressed: isButtonEnabled(state)
-                        ? _onFormSubmitted
+                        ? () => _onFormSubmitted(state)
                         : null,
                   ),
                 ],
@@ -176,19 +196,26 @@ class _UserDetailsFormState extends State<UserDetailsForm> {
     );
   }
 
-  void _onPhoneChanged() {
+  void _onPhoneChanged(PhoneNumber number) {
     _userDetailsBloc.add(
-      PhoneChanged(phone: _phoneController.text),
+      PhoneChanged(phone: number.toString()),
     );
   }
 
-  void _onFormSubmitted() {
+  void _onAddImagePressed(String path) {
+    _userDetailsBloc.add(
+      ProfileImageAddedEvent(path: path),
+    );
+  }
+
+  void _onFormSubmitted(EditUserDetailsState state) {
     _userDetailsBloc.add(
       Submitted(
-        firstName: _firstNameController.text,
-        lastName: _lastNameController.text,
-        address: _addressController.text,
-        phone: _phoneController.text,
+          firstName: _firstNameController.text,
+          lastName: _lastNameController.text,
+          address: _addressController.text,
+          phone: state.phone,
+          path: state.imagePath
       ),
     );
   }

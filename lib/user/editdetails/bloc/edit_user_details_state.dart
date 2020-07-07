@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 @immutable
-class UserDetailsState {
+class EditUserDetailsState {
   final bool isFirstNameValid;
   final bool isLastNameValid;
   final bool isAddressValid;
@@ -9,11 +9,17 @@ class UserDetailsState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final String imagePath;
+  final String phone;
 
   bool get isFormValid =>
-      isFirstNameValid && isLastNameValid && isAddressValid && isPhoneValid;
+      isFirstNameValid &&
+      isLastNameValid &&
+      isAddressValid &&
+      isPhoneValid &&
+      imagePath != null;
 
-  UserDetailsState({
+  EditUserDetailsState({
     @required this.isFirstNameValid,
     @required this.isLastNameValid,
     @required this.isAddressValid,
@@ -21,10 +27,12 @@ class UserDetailsState {
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
+    @required this.phone,
+    @required this.imagePath,
   });
 
-  factory UserDetailsState.empty() {
-    return UserDetailsState(
+  factory EditUserDetailsState.empty() {
+    return EditUserDetailsState(
       isFirstNameValid: true,
       isLastNameValid: true,
       isAddressValid: true,
@@ -32,11 +40,13 @@ class UserDetailsState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
+      phone: null,
+        imagePath: null
     );
   }
 
-  factory UserDetailsState.loading() {
-    return UserDetailsState(
+  factory EditUserDetailsState.loading() {
+    return EditUserDetailsState(
       isFirstNameValid: true,
       isLastNameValid: true,
       isAddressValid: true,
@@ -44,11 +54,13 @@ class UserDetailsState {
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
+      phone: null,
+        imagePath: null
     );
   }
 
-  factory UserDetailsState.failure() {
-    return UserDetailsState(
+  factory EditUserDetailsState.failure() {
+    return EditUserDetailsState(
       isFirstNameValid: true,
       isLastNameValid: true,
       isAddressValid: true,
@@ -56,11 +68,13 @@ class UserDetailsState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: true,
+      phone: null,
+        imagePath: null
     );
   }
 
-  factory UserDetailsState.success() {
-    return UserDetailsState(
+  factory EditUserDetailsState.success() {
+    return EditUserDetailsState(
       isFirstNameValid: true,
       isLastNameValid: true,
       isAddressValid: true,
@@ -68,14 +82,18 @@ class UserDetailsState {
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
+      phone: null,
+        imagePath: null
     );
   }
 
-  UserDetailsState update({
+  EditUserDetailsState update({
     bool isFirstNameValid,
     bool isLastNameValid,
     bool isAddressValid,
     bool isPhoneValid,
+    String phone,
+    String imagePath,
   }) {
     return copyWith(
       isFirstNameValid: isFirstNameValid,
@@ -85,10 +103,12 @@ class UserDetailsState {
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
+      phone: phone,
+        imagePath: imagePath
     );
   }
 
-  UserDetailsState copyWith({
+  EditUserDetailsState copyWith({
     bool isFirstNameValid,
     bool isLastNameValid,
     bool isAddressValid,
@@ -97,8 +117,10 @@ class UserDetailsState {
     bool isSubmitting,
     bool isSuccess,
     bool isFailure,
+    String phone,
+    String imagePath,
   }) {
-    return UserDetailsState(
+    return EditUserDetailsState(
       isFirstNameValid: isFirstNameValid ?? this.isFirstNameValid,
       isLastNameValid: isLastNameValid ?? this.isLastNameValid,
       isAddressValid: isAddressValid ?? this.isAddressValid,
@@ -106,6 +128,8 @@ class UserDetailsState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+      phone: phone ?? this.phone,
+      imagePath: imagePath ?? this.imagePath,
     );
   }
 
@@ -119,6 +143,8 @@ class UserDetailsState {
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
       isFailure: $isFailure,
+      phone: $phone,
+      imagePath: $imagePath,
     }''';
   }
 }

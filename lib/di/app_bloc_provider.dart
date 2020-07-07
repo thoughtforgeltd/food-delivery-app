@@ -9,7 +9,7 @@ import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/menu/bloc/bloc.dart';
 import 'package:fooddeliveryapp/register/bloc/bloc.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
-import 'package:fooddeliveryapp/user/details/bloc/bloc.dart';
+import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 import '../main.dart';
 
@@ -68,9 +68,13 @@ getBlocsProvider() {
     /**
      * User Details
      */
-    BlocProvider<UserDetailsBloc>(
-        create: (BuildContext context) => UserDetailsBloc(
-            userDetailsRepository: context.repository<UserDetailsRepository>(),
-            userRepository: context.repository<UserRepository>())),
+    BlocProvider<UserDetailBloc>(
+        create: (BuildContext context) => UserDetailBloc(
+            userDetailsRepository:
+                context.repository<UserDetailsRepository>())),
+    BlocProvider<EditUserDetailsBloc>(
+        create: (BuildContext context) => EditUserDetailsBloc(
+            userDetailsRepository:
+                context.repository<UserDetailsRepository>())),
   ], child: AuthenticationProvider());
 }

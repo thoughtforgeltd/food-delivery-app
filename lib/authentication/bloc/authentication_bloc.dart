@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
+import 'package:fooddeliveryapp/user/user_details_alias.dart';
 import 'package:meta/meta.dart';
 
 import 'bloc.dart';
