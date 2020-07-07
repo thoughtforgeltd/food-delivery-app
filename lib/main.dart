@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/console/console.dart';
 import 'package:fooddeliveryapp/design/themes.dart';
+import 'package:fooddeliveryapp/dish/list/widget/list_dish_provider.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 import 'authentication/bloc/bloc.dart';
@@ -38,6 +39,8 @@ class App extends StatelessWidget {
       routes: {
         '/addDish': (context) => AddDishProvider(),
         '/console': (context) => ConsoleProvider(),
+        '/dishes': (context) => ListDishProvider(),
+        '/add_dish': (context) => AddDishProvider(),
       },
       theme: MealDeliveryThemes.lightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(

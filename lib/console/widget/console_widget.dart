@@ -29,5 +29,16 @@ class _ConsoleWidgetState extends State<ConsoleWidget> {
             ?.toList());
   }
 
-  onActionPressed(ConsoleActions action) {}
+  onActionPressed(ConsoleActions action) {
+    switch (action) {
+      case ConsoleActions.dishes:
+        Navigator.of(context).pushNamed('/dishes');
+        break;
+      case ConsoleActions.add_dish:
+        Navigator.of(context).pushNamed('/add_dish');
+        break;
+      case ConsoleActions.meal_types:
+        break;
+    }
+  }
 }
