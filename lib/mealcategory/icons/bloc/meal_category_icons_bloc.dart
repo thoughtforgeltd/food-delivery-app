@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../meal_category.dart';
+import '../../meal_category.dart';
 
 class MealCategoryIconsBloc
     extends Bloc<MealCategoryIconsEvent, MealCategoryIconsState> {
