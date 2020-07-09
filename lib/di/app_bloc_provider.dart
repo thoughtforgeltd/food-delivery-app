@@ -6,6 +6,7 @@ import 'package:fooddeliveryapp/dish/add/bloc/bloc.dart';
 import 'package:fooddeliveryapp/dish/list/bloc/bloc.dart';
 import 'package:fooddeliveryapp/home/bloc/bloc.dart';
 import 'package:fooddeliveryapp/login/bloc/bloc.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/menu/bloc/bloc.dart';
 import 'package:fooddeliveryapp/register/bloc/bloc.dart';
@@ -81,5 +82,8 @@ getBlocsProvider() {
      * Console
      */
     BlocProvider<ConsoleBloc>(create: (BuildContext context) => ConsoleBloc()),
+    BlocProvider<MealCategoryIconsBloc>(
+        create: (BuildContext context) => MealCategoryIconsBloc(
+            iconsRepository: context.repository<MealCategoryRepository>())),
   ], child: AuthenticationProvider());
 }
