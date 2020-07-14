@@ -34,9 +34,6 @@ class _ConsoleWidgetState extends State<ConsoleWidget> {
       case ConsoleActions.dishes:
         Navigator.of(context).pushNamed('/dishes');
         break;
-      case ConsoleActions.add_dish:
-        Navigator.of(context).pushNamed('/add_dish');
-        break;
       case ConsoleActions.meal_types:
         Navigator.of(context).pushNamed('/categories');
         break;
