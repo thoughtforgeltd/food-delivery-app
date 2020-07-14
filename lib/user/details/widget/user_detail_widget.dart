@@ -39,7 +39,7 @@ class _UserDetailWidgetState extends State<UserDetailWidget> {
                       child: Column(
                         children: <Widget>[
                           UserDetailCard(userDetail: state.details),
-                          _buildActionsList(state)
+                          _buildActionsList(state.actions)
                         ],
                       ),
                     )
@@ -49,13 +49,23 @@ class _UserDetailWidgetState extends State<UserDetailWidget> {
     );
   }
 
-  _buildActionsList(UserDetailState state) {
+  _buildActionsList(List<UserProfileActions> actions) {
     return Column(
-        children: state.actions
+        children: actions
             ?.map((action) =>
                 UserActionCard(action: action, onPressed: onActionPressed))
             ?.toList());
   }
 
-  onActionPressed(UserProfileActions action) {}
+  onActionPressed(UserProfileActions action) {
+    switch (action) {
+      case UserProfileActions.edit_profile:
+        break;
+      case UserProfileActions.contact_us:
+        break;
+      case UserProfileActions.console:
+        Navigator.of(context).pushNamed('/console');
+        break;
+    }
+  }
 }

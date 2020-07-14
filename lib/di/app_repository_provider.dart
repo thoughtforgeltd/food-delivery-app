@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
@@ -24,6 +25,9 @@ getRepositoryProvider() {
     ),
     RepositoryProvider<DishRepository>(
       create: (context) => DishRepository(),
+    ),
+    RepositoryProvider<MealCategoryRepository>(
+      create: (context) => MealCategoryRepository(),
     ),
   ], child: getBlocsProvider());
 }

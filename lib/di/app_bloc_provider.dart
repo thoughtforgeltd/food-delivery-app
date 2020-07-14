@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
+import 'package:fooddeliveryapp/console/console.dart';
 import 'package:fooddeliveryapp/dish/add/bloc/bloc.dart';
 import 'package:fooddeliveryapp/dish/list/bloc/bloc.dart';
 import 'package:fooddeliveryapp/home/bloc/bloc.dart';
 import 'package:fooddeliveryapp/login/bloc/bloc.dart';
+import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/menu/bloc/bloc.dart';
 import 'package:fooddeliveryapp/register/bloc/bloc.dart';
@@ -76,5 +79,18 @@ getBlocsProvider() {
         create: (BuildContext context) => EditUserDetailsBloc(
             userDetailsRepository:
                 context.repository<UserDetailsRepository>())),
+    /**
+     * Console
+     */
+    BlocProvider<ConsoleBloc>(create: (BuildContext context) => ConsoleBloc()),
+    BlocProvider<MealCategoryIconsBloc>(
+        create: (BuildContext context) => MealCategoryIconsBloc(
+            iconsRepository: context.repository<MealCategoryRepository>())),
+    BlocProvider<AddCategoryBloc>(
+        create: (BuildContext context) => AddCategoryBloc(
+            categoryRepository: context.repository<MealCategoryRepository>())),
+    BlocProvider<CategoriesBloc>(
+        create: (BuildContext context) => CategoriesBloc(
+            categoryRepository: context.repository<MealCategoryRepository>())),
   ], child: AuthenticationProvider());
 }

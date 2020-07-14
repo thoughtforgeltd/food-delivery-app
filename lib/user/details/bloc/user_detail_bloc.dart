@@ -42,7 +42,10 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
     yield state.loading();
     try {
       final details = await _userDetailsRepository.loadUserDetails();
-      yield state.success(details: details);
+      final isAdmin = details?.admin ?? false;
+      final actions = UserProfileActions.values.toList(growable: true);
+      if (!isAdmin) actions.remove(UserProfileActions.console);
+      yield state.success(details: details, actions: actions);
     } catch (_) {
       yield state.failure();
     }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fooddeliveryapp/console/console.dart';
 import 'package:fooddeliveryapp/design/themes.dart';
+import 'package:fooddeliveryapp/dish/list/widget/list_dish_provider.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 import 'authentication/bloc/bloc.dart';
@@ -10,6 +13,7 @@ import 'di/di.dart';
 import 'dish/add/widget/widget.dart';
 import 'home/widget/home_screen.dart';
 import 'login/widget/login_screen.dart';
+import 'mealcategory/add/add_category_alias.dart';
 import 'splash/widget/widget.dart';
 
 void main() {
@@ -36,6 +40,12 @@ class App extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/addDish': (context) => AddDishProvider(),
+        '/console': (context) => ConsoleProvider(),
+        '/dishes': (context) => ListDishProvider(),
+        '/categories': (context) => CategoriesProvider(),
+        '/add_dish': (context) => AddDishProvider(),
+        '/add_meal_category': (context) => AddCategoryProvider(),
+        '/select_meal_category_icon': (context) => MealCategoryIconsProvider(),
       },
       theme: MealDeliveryThemes.lightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
