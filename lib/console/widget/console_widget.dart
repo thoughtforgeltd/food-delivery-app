@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/console/console.dart';
-import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
 
 class ConsoleWidget extends StatefulWidget {
   State<ConsoleWidget> createState() => _ConsoleWidgetState();
@@ -40,13 +38,7 @@ class _ConsoleWidgetState extends State<ConsoleWidget> {
         Navigator.of(context).pushNamed('/add_dish');
         break;
       case ConsoleActions.meal_types:
-        Navigator.of(context).pushNamed('/add_meal_category',
-            arguments: AddCategoryArguments(
-                onAddPressed: (e) => Scaffold.of(context)
-                  ..showSnackBar(getAppSnackBar(
-                    e,
-                    Icon(Icons.error),
-                  ))));
+        Navigator.of(context).pushNamed('/categories');
         break;
     }
   }

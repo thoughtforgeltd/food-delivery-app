@@ -24,4 +24,22 @@ class MealCategoryRepository {
         .collection(_pathCategories)
         .add(category.toJson());
   }
+
+  Future<Categories> loadCategories() async {
+    final collection = await _iconCollection
+        .document(_pathCategories)
+        .collection(_pathCategories)
+        .getDocuments();
+    return Future.value(Categories.fromDocuments(collection.documents));
+  }
+
+  Future<void> deleteCategory(Category category) async {
+    final document = _iconCollection
+        .document(_pathCategories)
+        .collection(_pathCategories)
+        .document(category.id);
+    await Firestore.instance.runTransaction((Transaction myTransaction) async {
+      await myTransaction.delete(document);
+    });
+  }
 }

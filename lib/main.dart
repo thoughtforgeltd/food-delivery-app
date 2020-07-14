@@ -42,6 +42,7 @@ class App extends StatelessWidget {
         '/addDish': (context) => AddDishProvider(),
         '/console': (context) => ConsoleProvider(),
         '/dishes': (context) => ListDishProvider(),
+        '/categories': (context) => CategoriesProvider(),
         '/add_dish': (context) => AddDishProvider(),
         '/add_meal_category': (context) => AddCategoryProvider(),
         '/select_meal_category_icon': (context) => MealCategoryIconsProvider(),

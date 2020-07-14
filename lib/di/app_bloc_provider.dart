@@ -89,5 +89,8 @@ getBlocsProvider() {
     BlocProvider<AddCategoryBloc>(
         create: (BuildContext context) => AddCategoryBloc(
             categoryRepository: context.repository<MealCategoryRepository>())),
+    BlocProvider<CategoriesBloc>(
+        create: (BuildContext context) => CategoriesBloc(
+            categoryRepository: context.repository<MealCategoryRepository>())),
   ], child: AuthenticationProvider());
 }
