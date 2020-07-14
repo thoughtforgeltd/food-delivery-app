@@ -13,6 +13,7 @@ import 'di/di.dart';
 import 'dish/add/widget/widget.dart';
 import 'home/widget/home_screen.dart';
 import 'login/widget/login_screen.dart';
+import 'mealcategory/add/add_category_alias.dart';
 import 'splash/widget/widget.dart';
 
 void main() {
@@ -42,6 +43,7 @@ class App extends StatelessWidget {
         '/console': (context) => ConsoleProvider(),
         '/dishes': (context) => ListDishProvider(),
         '/add_dish': (context) => AddDishProvider(),
+        '/add_meal_category': (context) => AddCategoryProvider(),
         '/select_meal_category_icon': (context) => MealCategoryIconsProvider(),
       },
       theme: MealDeliveryThemes.lightTheme,

@@ -6,6 +6,7 @@ class FireStorePaths{
   //Static Document IDs
   static const String KEY_DOCUMENT_MEAL_TYPE = "meal_types";
   static const String KEY_DOCUMENT_MEAL_CATEGORY_TYPE = "category";
+  static const String KEY_DOCUMENT_MEAL_CATEGORIES_TYPE = "categories";
 
   //Static Keys
   static const String KEY_MEAL_TYPE = "types";
