@@ -55,16 +55,26 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
           if (state.isSuccess)
             WidgetsBinding.instance
                 .addPostFrameCallback((_) => _scrollToCurrentDay());
-          return state.isSubmitting
-              ? buildLoadingWidget()
-              : SingleChildScrollView(
-                  child: Container(
-                  padding: Dimensions.padding_16,
-                  child:
-                      Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                    _buildMealsTimeline(state),
-                  ]),
-                ));
+          return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/update_meals',
+                      arguments:
+                          UpdateMealArguments(onEditPressed: _onEditPressed));
+                },
+              ),
+              body: state.isSubmitting
+                  ? buildLoadingWidget()
+                  : SingleChildScrollView(
+                      child: Container(
+                      padding: Dimensions.padding_16,
+                      child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            _buildMealsTimeline(state),
+                          ]),
+                    )));
         },
       ),
     );
@@ -173,18 +183,25 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     return Container(
       margin: Dimensions.padding_left_16,
       child: Column(
-          children: meal.schedules?.where((element) => element.quantity!= null &&  element.quantity> 0)
-              ?.map((e) => MealTimelineCard(
-                    meal: MealSelection(
-                        date: meal.date,
-                        schedules: e,
-                        configurations: type.types
-                            .firstWhere((element) => element.id == e.id)),
-                    onMealSchedulePressed: (selection) =>
-                        _onMealSchedulePressed(state, selection),
-                    disabled: isPastDay,
-                  ))
+          children: meal.schedules
+              ?.where(
+                  (element) => element.quantity != null && element.quantity > 0)
+              ?.map((e) =>
+              MealTimelineCard(
+                meal: MealSelection(
+                    date: meal.date,
+                    schedules: e,
+                    configurations: type.types
+                        .firstWhere((element) => element.id == e.id)),
+                onMealSchedulePressed: (selection) =>
+                    _onMealSchedulePressed(state, selection),
+                disabled: isPastDay,
+              ))
               ?.toList()),
     );
+  }
+
+  _onEditPressed(String message) {
+    _onMealsUpdated();
   }
 }

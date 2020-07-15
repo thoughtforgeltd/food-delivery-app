@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/button.dart';
+import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
@@ -37,58 +38,29 @@ class _UpdateMealScheduleCalendarState
   Widget build(BuildContext context) {
     return BlocListener<MealScheduleBloc, MealScheduleState>(
       listener: (context, state) {
-        if (state.isSubmitting) {
-          Scaffold.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Updating Meal Schedule...'),
-                    CircularProgressIndicator(),
-                  ],
-                ),
-              ),
-            );
-        }
-        if (state.isSuccess) {
-          Scaffold.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Meal Schedule updated!'),
-                  ],
-                ),
-              ),
-            );
+        if (state.isSuccess && state.isSubmitted) {
+          (ModalRoute.of(context).settings.arguments as UpdateMealArguments)
+              ?.onEditPressed("");
+          Navigator.pop(context);
         }
         if (state.isFailure) {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                        child: Text(
-                            'There is an error while updating meal schedules..')),
-                    Icon(Icons.error),
-                  ],
-                ),
-                backgroundColor: Colors.red,
+              getAppSnackBar(
+                'There is an error while updating meal schedules..',
+                Icon(Icons.error),
               ),
             );
         }
       },
       child: BlocBuilder<MealScheduleBloc, MealScheduleState>(
         builder: (context, state) {
-          return SingleChildScrollView(
-            child: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
+          return state.isSubmitting
+              ? buildLoadingWidget()
+              : SingleChildScrollView(
+            child:
+            Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
               _buildTableCalendar(state),
               Container(
                   padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
