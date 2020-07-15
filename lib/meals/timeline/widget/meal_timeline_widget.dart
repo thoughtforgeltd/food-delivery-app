@@ -6,6 +6,7 @@ import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
 import 'package:fooddeliveryapp/design/text_styles.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
 import 'package:fooddeliveryapp/meals/timeline/modal/modal.dart';
@@ -55,16 +56,26 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
           if (state.isSuccess)
             WidgetsBinding.instance
                 .addPostFrameCallback((_) => _scrollToCurrentDay());
-          return state.isSubmitting
-              ? buildLoadingWidget()
-              : SingleChildScrollView(
-                  child: Container(
-                  padding: Dimensions.padding_16,
-                  child:
-                      Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                    _buildMealsTimeline(state),
-                  ]),
-                ));
+          return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/update_meals',
+                      arguments:
+                          UpdateMealArguments(onEditPressed: _onEditPressed));
+                },
+              ),
+              body: state.isSubmitting
+                  ? buildLoadingWidget()
+                  : SingleChildScrollView(
+                      child: Container(
+                      padding: Dimensions.padding_16,
+                      child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            _buildMealsTimeline(state),
+                          ]),
+                    )));
         },
       ),
     );
@@ -150,7 +161,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             leftChild: _buildDateWidget(meals, index, isPastDay),
             rightChild: Column(
               children: <Widget>[
-                _buildMeals(state, meals[index], state.mealTypes, isPastDay),
+                _buildMeals(state, meals[index], state.categories, isPastDay),
                 SizedBox(height: 20),
               ],
             ));
@@ -168,23 +179,29 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     );
   }
 
-  _buildMeals(MealScheduleState state, Meal meal, MealTypeConfigurations type,
+  _buildMeals(MealScheduleState state, Meal meal, Categories categories,
       bool isPastDay) {
     return Container(
       margin: Dimensions.padding_left_16,
       child: Column(
-          children: meal.schedules?.where((element) => element.quantity!= null &&  element.quantity> 0)
+          children: meal.schedules
+              ?.where(
+                  (element) => element.quantity != null && element.quantity > 0)
               ?.map((e) => MealTimelineCard(
                     meal: MealSelection(
                         date: meal.date,
-                        schedules: e,
-                        configurations: type.types
-                            .firstWhere((element) => element.id == e.id)),
-                    onMealSchedulePressed: (selection) =>
-                        _onMealSchedulePressed(state, selection),
-                    disabled: isPastDay,
-                  ))
+                    schedules: e,
+                    category: categories.categories
+                        .firstWhere((element) => element.id == e.id)),
+                onMealSchedulePressed: (selection) =>
+                    _onMealSchedulePressed(state, selection),
+                disabled: isPastDay,
+              ))
               ?.toList()),
     );
+  }
+
+  _onEditPressed(String message) {
+    _onMealsUpdated();
   }
 }

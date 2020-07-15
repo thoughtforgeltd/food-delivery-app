@@ -47,13 +47,13 @@ class MealSelectionCard extends StatelessWidget {
     return Container(
         padding: Dimensions.padding_right_16,
         child: SvgPicture.network(
-            _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
+            _meal.category.image ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
             color: AppColors.colorPrimary));
   }
 
   Widget _buildMealTitle() {
-    return Expanded(child: Text(_meal.configurations.title));
+    return Expanded(child: Text(_meal.category.title));
   }
 
   Widget _buildMealAddAction() {

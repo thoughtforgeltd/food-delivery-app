@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
 import 'package:fooddeliveryapp/utilities/date_utilities.dart';
 import 'package:meta/meta.dart';
@@ -8,7 +9,7 @@ class MealScheduleState {
   final Timestamp selectedDate;
   final Timestamp startDate;
   final MealSchedules mealsSelection;
-  final MealTypeConfigurations mealTypes;
+  final Categories categories;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
@@ -18,7 +19,7 @@ class MealScheduleState {
     @required this.startDate,
     @required this.selectedDate,
     @required this.mealsSelection,
-    @required this.mealTypes,
+    @required this.categories,
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
@@ -30,7 +31,7 @@ class MealScheduleState {
         startDate: Timestamp.now(),
         selectedDate: Timestamp.now(),
         mealsSelection: MealSchedules(),
-        mealTypes: MealTypeConfigurations(types: List()),
+        categories: Categories(categories: List()),
         isSubmitting: false,
         isSuccess: false,
         isFailure: false,
@@ -55,32 +56,31 @@ class MealScheduleState {
 
   MealScheduleState success(
       {MealSchedules mealsSelection,
-      MealTypeConfigurations mealTypes,
+      Categories categories,
       bool handleSubmitted}) {
     return copyWith(
         mealsSelection: mealsSelection,
-        mealTypes: mealTypes,
+        categories: categories,
         isSubmitting: false,
         isSuccess: true,
         isFailure: false,
         isSubmitted: handleSubmitted);
   }
 
-  MealScheduleState copyWith(
-      {Timestamp startDate,
-      Timestamp selectedDate,
-      MealSchedules mealsSelection,
-      MealTypeConfigurations mealTypes,
-      bool isSubmitEnabled,
-      bool isSubmitting,
-      bool isSuccess,
-      bool isFailure,
-      bool isSubmitted}) {
+  MealScheduleState copyWith({Timestamp startDate,
+    Timestamp selectedDate,
+    MealSchedules mealsSelection,
+    Categories categories,
+    bool isSubmitEnabled,
+    bool isSubmitting,
+    bool isSuccess,
+    bool isFailure,
+    bool isSubmitted}) {
     return MealScheduleState(
         startDate: startDate ?? this.startDate,
         selectedDate: selectedDate ?? this.selectedDate,
         mealsSelection: mealsSelection ?? this.mealsSelection,
-        mealTypes: mealTypes ?? this.mealTypes,
+        categories: categories ?? this.categories,
         isSubmitting: isSubmitting ?? this.isSubmitting,
         isSuccess: isSuccess ?? this.isSuccess,
         isFailure: isFailure ?? this.isFailure,
@@ -90,8 +90,7 @@ class MealScheduleState {
   MealScheduleState updateSchedule(
       {MealSelection selection, int quantityOperator}) {
     if (selection.schedules == null) {
-      selection.schedules =
-          Schedules(quantity: 0, id: selection.configurations.id);
+      selection.schedules = Schedules(quantity: 0, id: selection.category.id);
     }
     selection?.schedules?.quantity =
         selection.schedules.quantity + quantityOperator;
@@ -107,7 +106,7 @@ class MealScheduleState {
           orElse: () => null);
 
       final scheduleOfSpecificDay = mealOfSpecificDay?.schedules?.firstWhere(
-          (element) => element?.id == selection.configurations.id,
+              (element) => element?.id == selection.category.id,
           orElse: () => null);
 
       if (mealOfSpecificDay == null) {
@@ -133,7 +132,7 @@ class MealScheduleState {
       startDate: $startDate,
       selectedDate: $selectedDate,
       mealsSelection: $mealsSelection,
-      mealTypes: $mealTypes,
+      categories: $categories,
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
       isFailure: $isFailure,

@@ -5,6 +5,7 @@ import 'package:fooddeliveryapp/console/console.dart';
 import 'package:fooddeliveryapp/design/themes.dart';
 import 'package:fooddeliveryapp/dish/list/widget/list_dish_provider.dart';
 import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
+import 'package:fooddeliveryapp/meals/schedule/update_meal_schedule_screen.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 import 'authentication/bloc/bloc.dart';
@@ -40,6 +41,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/addDish': (context) => AddDishProvider(),
+        '/update_meals': (context) => UpdateMealScheduleScreen(),
         '/console': (context) => ConsoleProvider(),
         '/dishes': (context) => ListDishProvider(),
         '/categories': (context) => CategoriesProvider(),

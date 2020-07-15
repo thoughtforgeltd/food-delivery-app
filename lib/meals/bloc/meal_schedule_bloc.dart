@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
 import 'package:meta/meta.dart';
@@ -10,18 +11,18 @@ import 'bloc.dart';
 class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
   final MealScheduleRepository _mealSchedulesRepository;
   final UserRepository _userRepository;
-  final ConfigurationsRepository _configurationsRepository;
+  final MealCategoryRepository _categoriesRepository;
 
   MealScheduleBloc(
       {@required MealScheduleRepository mealScheduleRepository,
       @required UserRepository userRepository,
-      @required ConfigurationsRepository configurationsRepository})
+      @required MealCategoryRepository categoriesRepository})
       : assert(mealScheduleRepository != null &&
             userRepository != null &&
-            configurationsRepository != null),
+            categoriesRepository != null),
         _mealSchedulesRepository = mealScheduleRepository,
         _userRepository = userRepository,
-        _configurationsRepository = configurationsRepository;
+        _categoriesRepository = categoriesRepository;
 
   @override
   MealScheduleState get initialState => MealScheduleState.empty();
@@ -67,11 +68,12 @@ class MealScheduleBloc extends Bloc<MealScheduleEvent, MealScheduleState> {
     yield state.loading();
     try {
       final userId = await _userRepository.getUserID();
-      final configurations =
-          await _configurationsRepository.getMealTypeConfigurations();
+      final categories =
+      await _categoriesRepository.loadCategories();
       final schedules =
-          await _mealSchedulesRepository.getMealSelections(userId.uid);
-      yield state.success(mealsSelection: schedules, mealTypes: configurations);
+      await _mealSchedulesRepository.getMealSelections(userId.uid);
+      yield state.success(
+          mealsSelection: schedules, categories: categories);
     } catch (_) {
       yield state.failure();
     }
