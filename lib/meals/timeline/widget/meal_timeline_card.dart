@@ -25,12 +25,9 @@ class MealTimelineCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: Dimensions.radius,
-      ),
       child: new InkWell(
         customBorder: RoundedRectangleBorder(
-          borderRadius: Dimensions.radius,
+          borderRadius: Dimensions.radius_4,
         ),
         onTap: _disabled ? null : () => onMealSchedulePressed(),
         child: Container(

@@ -7,6 +7,7 @@ import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
 import 'package:fooddeliveryapp/meals/schedule/widget.dart';
+import 'package:fooddeliveryapp/utilities/date_utilities.dart';
 
 class MealTimelineModal extends StatefulWidget {
   final MealSelection _mealSelection;
@@ -98,10 +99,19 @@ class _MealTimelineModalState extends State<MealTimelineModal> {
                                 fontSize: Dimensions.button_text_size,
                                 color: AppColors.colorWhite)),
                       ),
-                      MealSelectionCard(
-                          meal: meal,
-                          onAddPressed: _onAddPressed,
-                          onSubtractPressed: _onRemovePressed),
+                      IntrinsicHeight(
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              DateWidget(label: meal.date.toUIDate()),
+                              Expanded(
+                                child: MealSelectionCard(
+                                    meal: meal,
+                                    onAddPressed: _onAddPressed,
+                                    onSubtractPressed: _onRemovePressed),
+                              )
+                            ]),
+                      ),
                       TextButton(
                         onPressed: () => !isButtonEnabled(state)
                             ? null

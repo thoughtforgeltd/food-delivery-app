@@ -25,11 +25,8 @@ class MealSelectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
       child: Container(
-        padding: Dimensions.padding_16,
+        padding: Dimensions.padding_8,
         child: Row(
           children: <Widget>[
             _buildMealIcon(),
