@@ -6,6 +6,7 @@ import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
 import 'package:fooddeliveryapp/design/text_styles.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
 import 'package:fooddeliveryapp/meals/timeline/modal/modal.dart';
@@ -160,7 +161,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             leftChild: _buildDateWidget(meals, index, isPastDay),
             rightChild: Column(
               children: <Widget>[
-                _buildMeals(state, meals[index], state.mealTypes, isPastDay),
+                _buildMeals(state, meals[index], state.categories, isPastDay),
                 SizedBox(height: 20),
               ],
             ));
@@ -178,7 +179,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
     );
   }
 
-  _buildMeals(MealScheduleState state, Meal meal, MealTypeConfigurations type,
+  _buildMeals(MealScheduleState state, Meal meal, Categories categories,
       bool isPastDay) {
     return Container(
       margin: Dimensions.padding_left_16,
@@ -186,12 +187,11 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
           children: meal.schedules
               ?.where(
                   (element) => element.quantity != null && element.quantity > 0)
-              ?.map((e) =>
-              MealTimelineCard(
-                meal: MealSelection(
-                    date: meal.date,
+              ?.map((e) => MealTimelineCard(
+                    meal: MealSelection(
+                        date: meal.date,
                     schedules: e,
-                    configurations: type.types
+                    category: categories.categories
                         .firstWhere((element) => element.id == e.id)),
                 onMealSchedulePressed: (selection) =>
                     _onMealSchedulePressed(state, selection),

@@ -59,8 +59,8 @@ getBlocsProvider() {
             userRepository: context.repository<UserRepository>(),
             mealScheduleRepository:
                 context.repository<MealScheduleRepository>(),
-            configurationsRepository:
-                context.repository<ConfigurationsRepository>())),
+            categoriesRepository:
+                context.repository<MealCategoryRepository>())),
     /**
      * Menu related Blocs
      */

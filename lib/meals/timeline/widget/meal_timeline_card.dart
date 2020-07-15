@@ -49,7 +49,7 @@ class MealTimelineCard extends StatelessWidget {
 
   Widget _buildMealTitle() {
     return Expanded(
-        child: Text(_meal.configurations.title,
+        child: Text(_meal.category.title,
             style:
                 _disabled ? TextStyles.regularDisabled : TextStyles.regular));
   }
@@ -58,10 +58,10 @@ class MealTimelineCard extends StatelessWidget {
     return Container(
         margin: Dimensions.padding_right_16,
         child: SvgPicture.network(
-            _meal.configurations.icon ?? FireStorePaths.URL_WARNING_ICON,
+            _meal.category.image ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
             color:
-                _disabled ? AppColors.colorDisable : AppColors.colorPrimary));
+            _disabled ? AppColors.colorDisable : AppColors.colorPrimary));
   }
 
   Widget _buildMealQuantity() {

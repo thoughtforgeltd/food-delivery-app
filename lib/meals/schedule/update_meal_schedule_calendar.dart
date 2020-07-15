@@ -122,7 +122,7 @@ class _UpdateMealScheduleCalendarState
   }
 
   _buildEventList(MealScheduleState state) {
-    final events = state.mealTypes.types;
+    final events = state.categories.categories;
     final meals = state.mealsSelection?.meals?.firstWhere(
         (element) => element?.date?.isSameDayFromTimestamp(state.selectedDate),
         orElse: () => null);
@@ -136,9 +136,9 @@ class _UpdateMealScheduleCalendarState
           meal: MealSelection(
               date: state.selectedDate,
               schedules: meals?.schedules?.firstWhere(
-                  (element) => element?.id == events[index]?.id,
+                      (element) => element?.id == events[index]?.id,
                   orElse: () => null),
-              configurations: events[index]),
+              category: events[index]),
           onAddPressed: _onAddPressed,
           onSubtractPressed: _onSubtractPressed,
         );

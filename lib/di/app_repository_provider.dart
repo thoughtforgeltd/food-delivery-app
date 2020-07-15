@@ -17,9 +17,6 @@ getRepositoryProvider() {
     RepositoryProvider<MealScheduleRepository>(
       create: (context) => MealScheduleRepository(),
     ),
-    RepositoryProvider<ConfigurationsRepository>(
-      create: (context) => ConfigurationsRepository(),
-    ),
     RepositoryProvider<TodayMenuRepository>(
       create: (context) => TodayMenuRepository(),
     ),

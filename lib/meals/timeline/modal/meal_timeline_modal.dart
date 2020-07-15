@@ -69,14 +69,14 @@ class _MealTimelineModalState extends State<MealTimelineModal> {
               ?.firstWhere(
                   (element) => element.id == _mealSelection.schedules.id);
 
-          final mealType = state.mealTypes.types.firstWhere(
-              (element) => element.id == _mealSelection.configurations.id,
+          final mealType = state.categories.categories.firstWhere(
+              (element) => element.id == _mealSelection.category.id,
               orElse: () => null);
 
           final meal = MealSelection(
             date: _mealSelection.date,
             schedules: schedules,
-            configurations: mealType,
+            category: mealType,
           );
 
           return state.isSubmitting
