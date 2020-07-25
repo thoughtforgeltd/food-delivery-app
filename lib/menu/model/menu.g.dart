@@ -7,17 +7,17 @@ part of 'menu.dart';
 // **************************************************************************
 
 Menu _$MenuFromJson(Map<String, dynamic> json) {
+  if (json == null) return null;
   return Menu(
-    id: json['id'] as String,
-    title: json['title'] as String,
-    item: json['item'] == null
-        ? null
-        : MenuItem.fromJson(json['item'] as Map<String, dynamic>),
-  );
+      items: json.map((key, value) =>
+          value?.map((e) => e == null ? null : e as MenuItem)?.toList() ?? []));
 }
 
-Map<String, dynamic> _$MenuToJson(Menu instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'item': instance.item,
-    };
+Map<String, dynamic> _$MenuToJson(Menu instance) =>
+    new Map.fromIterable(instance.items.entries,
+        key: (item) => (item as MapEntry<String, List<MenuItem>>).key,
+        value: (item) =>
+            (item as MapEntry<String, List<MenuItem>>)
+                .value
+                .map((e) => e.toJson())
+                .toList());

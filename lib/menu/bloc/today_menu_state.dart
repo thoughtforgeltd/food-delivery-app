@@ -19,7 +19,7 @@ class TodayMenuState {
   factory TodayMenuState.empty() {
     return TodayMenuState(
         date: DateTime.now(),
-        menus: Menus(meals: List()),
+        menus: Menus(menus: List()),
         isLoading: false,
         isSuccess: false,
         isFailure: false);

@@ -32,7 +32,8 @@ class TodayMenuCard extends StatelessWidget {
     return Container(
         padding: Dimensions.padding_right_16,
         child: SvgPicture.network(
-            _menu.item.icon ?? FireStorePaths.URL_WARNING_ICON,
+//            _menu.item.icon ??
+            FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
             color: Theme
                 .of(context)
@@ -40,6 +41,6 @@ class TodayMenuCard extends StatelessWidget {
   }
 
   Widget _buildMenuTitle() {
-    return Expanded(child: Text(_menu.item.title));
+    return Expanded(child: Text("Menu"));
   }
 }
