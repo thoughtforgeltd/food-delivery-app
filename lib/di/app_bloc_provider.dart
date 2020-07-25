@@ -9,6 +9,7 @@ import 'package:fooddeliveryapp/login/bloc/bloc.dart';
 import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
 import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
+import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
 import 'package:fooddeliveryapp/menu/bloc/bloc.dart';
 import 'package:fooddeliveryapp/register/bloc/bloc.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
@@ -66,7 +67,13 @@ getBlocsProvider() {
      */
     BlocProvider<TodayMenuBloc>(
       create: (BuildContext context) => TodayMenuBloc(
-          todayMenuRepository: context.repository<TodayMenuRepository>()),
+          todayMenuRepository: context.repository<MenuRepository>()),
+    ),
+    BlocProvider<ScheduleMenuBloc>(
+      create: (BuildContext context) => ScheduleMenuBloc(
+          todayMenuRepository: context.repository<MenuRepository>(),
+          categoryRepository: context.repository<MealCategoryRepository>(),
+          dishRepository: context.repository<DishRepository>()),
     ),
     /**
      * User Details

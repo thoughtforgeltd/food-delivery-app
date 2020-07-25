@@ -49,7 +49,7 @@ class _TodayMenuWidgetState extends State<TodayMenuWidget> {
 
   buildTodayMenu(TodayMenuState state) {
     return Column(
-        children: state.menus?.meals
+        children: state.menus?.menus
             ?.map((menu) => TodayMenuCard(menu: menu))
             ?.toList());
   }

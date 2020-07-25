@@ -4,11 +4,9 @@ part 'menu_item.g.dart';
 
 @JsonSerializable(nullable: true)
 class MenuItem {
-  String title;
-  String description;
-  String icon;
+  Map<String, List<String>> items;
 
-  MenuItem({this.title, this.description, this.icon});
+  MenuItem({this.items});
 
   factory MenuItem.fromJson(Map<String, dynamic> json) =>
       _$MenuItemFromJson(json);
@@ -18,9 +16,7 @@ class MenuItem {
   @override
   String toString() {
     return '''MenuItem {
-      title: $title,
-      description: $description,
-      icon: $icon,
+      items: $items,
     }''';
   }
 }

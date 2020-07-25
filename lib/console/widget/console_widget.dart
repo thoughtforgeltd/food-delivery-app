@@ -30,13 +30,6 @@ class _ConsoleWidgetState extends State<ConsoleWidget> {
   }
 
   onActionPressed(ConsoleActions action) {
-    switch (action) {
-      case ConsoleActions.dishes:
-        Navigator.of(context).pushNamed('/dishes');
-        break;
-      case ConsoleActions.meal_types:
-        Navigator.of(context).pushNamed('/categories');
-        break;
-    }
+    action.navigate(context);
   }
 }
