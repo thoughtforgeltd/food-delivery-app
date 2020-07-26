@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fooddeliveryapp/menu/model/model.dart';
 import 'package:json_annotation/json_annotation.dart';
 

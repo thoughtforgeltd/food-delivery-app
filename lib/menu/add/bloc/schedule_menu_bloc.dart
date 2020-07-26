@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
-import 'package:fooddeliveryapp/menu/model/model.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
@@ -56,7 +55,7 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
       final menus = await _menuRepository.loadMenus();
       final categories = await _categoryRepository.loadCategories();
       final dishes = await _dishRepository.loadDishes();
-      yield state.success(menus: menus.toMenuView(categories, dishes));
+      yield state.success(menus: menus.toMenusView(categories, dishes));
     } catch (_) {
       yield state.failure();
     }
@@ -66,7 +65,7 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
       Submitted event) async* {
     yield state.loading();
     try {
-      await _menuRepository.addMenus(Menus(menus: [event.menus.toMenu()]));
+      await _menuRepository.addMenus(event.menus.toMenus());
       yield state.success(menus: event.menus);
     } catch (_) {
       yield state.failure();
