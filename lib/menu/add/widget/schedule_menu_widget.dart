@@ -94,24 +94,22 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
   }
 
   void _onMealSubmitted(MenuView menus) {
-    final temp = MenuView(items: {
-      DateTime.now(): [
-        MenuItemView(item: {
-          Category(
+    final temp = MenuView(date: DateTime.now(), items: [
+      MenuItemView(
+          category: Category(
               image: "image",
               id: "breakfast",
               description: "Description",
-              title: "title"): [
+              title: "title"),
+          dishes: [
             Dish(
                 title: "Title",
                 description: "Description",
                 id: "dish1",
                 image: "image",
                 note: "note")
-          ]
-        })
-      ]
-    });
+          ])
+    ]);
     _mealScheduleBloc.add(
       Submitted(
           selectedDate: _calendarController.selectedDay,
