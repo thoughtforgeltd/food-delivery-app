@@ -5,9 +5,10 @@ part 'menu.g.dart';
 
 @JsonSerializable(nullable: true)
 class Menu {
-  Map<String, List<MenuItem>> items;
+  DateTime date;
+  List<MenuItem> items;
 
-  Menu({this.items});
+  Menu({this.date, this.items});
 
   factory Menu.fromJson(Map<String, dynamic> json) => _$MenuFromJson(json);
 
@@ -16,6 +17,7 @@ class Menu {
   @override
   String toString() {
     return '''Menu {
+      date: $date,
       dishes: $items,
     }''';
   }

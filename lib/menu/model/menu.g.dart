@@ -8,16 +8,15 @@ part of 'menu.dart';
 
 Menu _$MenuFromJson(Map<String, dynamic> json) {
   if (json == null) return null;
+  final items = json['items'] ?? null;
   return Menu(
-      items: json.map((key, value) =>
-          value?.map((e) => e == null ? null : e as MenuItem)?.toList() ?? []));
+      date: DateTime.parse(json['date']),
+      items: items != null
+          ? (items as List)?.map((e) => MenuItem.fromJson(e))
+          : []);
 }
 
-Map<String, dynamic> _$MenuToJson(Menu instance) =>
-    new Map.fromIterable(instance.items.entries,
-        key: (item) => (item as MapEntry<String, List<MenuItem>>).key,
-        value: (item) =>
-            (item as MapEntry<String, List<MenuItem>>)
-                .value
-                .map((e) => e.toJson())
-                .toList());
+Map<String, dynamic> _$MenuToJson(Menu instance) => {
+      'date': instance.date,
+      'items': instance.items?.map((e) => e?.toJson())?.toList()
+    };
