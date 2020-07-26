@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 class ScheduleMenuState {
   final DateTime selectedDate;
   final DateTime startDate;
-  final MenuView menus;
+  final MenusView menus;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
@@ -26,7 +26,7 @@ class ScheduleMenuState {
     return ScheduleMenuState(
         startDate: DateTime.now(),
         selectedDate: DateTime.now(),
-        menus: MenuView(),
+        menus: MenusView(),
         isSubmitting: false,
         isSuccess: false,
         isFailure: false,
@@ -49,7 +49,7 @@ class ScheduleMenuState {
         isSubmitted: false);
   }
 
-  ScheduleMenuState success({MenuView menus, bool handleSubmitted}) {
+  ScheduleMenuState success({MenusView menus, bool handleSubmitted}) {
     return copyWith(
         menus: menus,
         isSubmitting: false,
@@ -61,7 +61,7 @@ class ScheduleMenuState {
   ScheduleMenuState copyWith(
       {Timestamp startDate,
       Timestamp selectedDate,
-      MenuView menus,
+      MenusView menus,
       bool isSubmitEnabled,
       bool isSubmitting,
       bool isSuccess,

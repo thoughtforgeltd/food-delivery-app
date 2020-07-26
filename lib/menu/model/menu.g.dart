@@ -9,10 +9,11 @@ part of 'menu.dart';
 Menu _$MenuFromJson(Map<String, dynamic> json) {
   if (json == null) return null;
   final items = json['items'] ?? null;
+  final date = json['date'] ?? null;
   return Menu(
-      date: DateTime.parse(json['date']),
+      date: date != null ? (date as Timestamp).toDate() : null,
       items: items != null
-          ? (items as List)?.map((e) => MenuItem.fromJson(e))
+          ? (items as List)?.map((e) => MenuItem.fromJson(e))?.toList()
           : []);
 }
 
