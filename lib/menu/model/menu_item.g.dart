@@ -8,13 +8,13 @@ part of 'menu_item.dart';
 
 MenuItem _$MenuItemFromJson(Map<String, dynamic> json) {
   if (json == null) return null;
-  return MenuItem(items: json as Map<String, List<String>>);
+  final dishes = json['dishes'] ?? null;
+  return MenuItem(
+      category: Category(id: json['category']),
+      dishes: dishes != null ? dishes as List<String> : []);
 }
 
-Map<String, dynamic> _$MenuItemToJson(MenuItem instance) =>
-    new Map.fromIterable(instance.items.entries,
-        key: (item) => (item as MapEntry<String, List<String>>).key,
-        value: (item) => (item as MapEntry<String, List<String>>)
-            .value
-            .map((e) => e)
-            .toList());
+Map<String, dynamic> _$MenuItemToJson(MenuItem instance) => {
+      'category': instance.category.id,
+      'dishes': instance.dishes?.map((e) => e.id)?.toList()
+    };
