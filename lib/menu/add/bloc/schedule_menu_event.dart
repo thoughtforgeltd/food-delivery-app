@@ -71,7 +71,7 @@ class RemoveMenuSchedule extends ScheduleMenuEvent {
 
 class Submitted extends ScheduleMenuEvent {
   final DateTime selectedDate;
-  final MenuView menus;
+  final MenusView menus;
   final bool handleSubmitted;
 
   const Submitted({

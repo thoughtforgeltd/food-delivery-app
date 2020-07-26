@@ -14,9 +14,9 @@ class MenuRepository {
     return Future.value(Menus.fromJson(document.data));
   }
 
-  Future<Menu> loadMenus() async {
+  Future<Menus> loadMenus() async {
     final collection = await _collection.document(_path).get();
-    return Future.value(Menu.fromJson(collection.data));
+    return Future.value(Menus.fromJson(collection.data));
   }
 
   Future<void> addMenu(MenuItem menuItem) async {

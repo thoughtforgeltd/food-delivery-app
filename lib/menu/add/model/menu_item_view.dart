@@ -28,6 +28,15 @@ extension MenuItemViewMapper on MenuItemView {
 extension MenuItemMapper on MenuItem {
   MenuItemView toMenuItemView(Categories categories, Dishes dishes) {
     if (this == null) return null;
-    return MenuItemView(dishes: this.dishes, category: this.category);
+    return MenuItemView(
+        dishes: dishes.dishes
+            ?.where((dish) =>
+                this.dishes?.singleWhere((element) => dish.id == element.id,
+                    orElse: () => null) !=
+                null)
+            ?.toList(),
+        category: categories.categories?.firstWhere(
+            (element) => element?.id == this.category?.id,
+            orElse: () => null));
   }
 }

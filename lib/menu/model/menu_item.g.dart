@@ -11,7 +11,9 @@ MenuItem _$MenuItemFromJson(Map<String, dynamic> json) {
   final dishes = json['dishes'] ?? null;
   return MenuItem(
       category: Category(id: json['category']),
-      dishes: dishes != null ? dishes as List<String> : []);
+      dishes: dishes != null
+          ? (dishes as List)?.map((e) => Dish(id: e.toString()))?.toList()
+          : []);
 }
 
 Map<String, dynamic> _$MenuItemToJson(MenuItem instance) => {
