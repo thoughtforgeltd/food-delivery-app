@@ -30,7 +30,9 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
     TransitionFunction<ScheduleMenuEvent, ScheduleMenuState> transitionFn,
   ) {
     final debounceStream = events.where((event) {
-      return (event is MenuSchedulesLoaded || event is Submitted);
+      return (event is MenuSchedulesLoaded ||
+          event is Submitted ||
+          event is CategoryChanged);
     }).debounceTime(Duration(milliseconds: 300));
     return super.transformEvents(
       debounceStream,
@@ -39,13 +41,13 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
   }
 
   @override
-  Stream<ScheduleMenuState> mapEventToState(
-    ScheduleMenuEvent event,
-  ) async* {
+  Stream<ScheduleMenuState> mapEventToState(ScheduleMenuEvent event,) async* {
     if (event is MenuSchedulesLoaded) {
       yield* _mapMenuSchedulesLoadedEventToState();
     } else if (event is Submitted) {
       yield* _mapMenuSchedulesSubmittedEventToState(event);
+    } else if (event is CategoryChanged) {
+      yield* _mapCategoryChangedEventToState(event);
     }
   }
 
@@ -55,11 +57,20 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
       final menus = await _menuRepository.loadMenus();
       final categories = await _categoryRepository.loadCategories();
       final dishes = await _dishRepository.loadDishes();
-      yield state.success(
-          menus: menus.toMenusView(categories, dishes), categories: categories);
+      final selectedCategory = categories?.categories?.first?.id;
+      yield
+      state.success(
+          menus: menus.toMenusView(categories, dishes),
+          categories: categories,
+          selectedCategory: selectedCategory);
     } catch (_) {
       yield state.failure();
     }
+  }
+
+  Stream<ScheduleMenuState> _mapCategoryChangedEventToState(
+      CategoryChanged event) async* {
+    yield state.success(selectedCategory: event.category.id);
   }
 
   Stream<ScheduleMenuState> _mapMenuSchedulesSubmittedEventToState(

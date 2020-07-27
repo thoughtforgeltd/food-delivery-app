@@ -29,14 +29,20 @@ extension MenuItemMapper on MenuItem {
   MenuItemView toMenuItemView(Categories categories, Dishes dishes) {
     if (this == null) return null;
     return MenuItemView(
-        dishes: dishes.dishes
-            ?.where((dish) =>
-                this.dishes?.firstWhere((element) => dish.id == element.id,
-                    orElse: () => null) !=
-                null)
-            ?.toList(),
+        dishes: this.dishes?.map((e) {
+          final dish = dishes?.dishes
+              ?.firstWhere((element) => element.id == e.id, orElse: () => null);
+          return Dish(
+            id: e.id,
+            title: dish?.title,
+            note: dish?.note,
+            image: dish?.image,
+            description: dish?.description,
+          );
+        })?.toList(),
         category: categories.categories?.firstWhere(
-            (element) => element?.id == this.category?.id,
-            orElse: () => null));
+                (element) => element?.id == this.category?.id,
+                orElse: () => null) ??
+            []);
   }
 }
