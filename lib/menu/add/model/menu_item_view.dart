@@ -31,7 +31,7 @@ extension MenuItemMapper on MenuItem {
     return MenuItemView(
         dishes: dishes.dishes
             ?.where((dish) =>
-                this.dishes?.singleWhere((element) => dish.id == element.id,
+                this.dishes?.firstWhere((element) => dish.id == element.id,
                     orElse: () => null) !=
                 null)
             ?.toList(),

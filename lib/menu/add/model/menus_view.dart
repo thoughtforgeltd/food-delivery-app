@@ -29,6 +29,6 @@ extension MenusMapper on Menus {
     if (this == null) return null;
     return MenusView(
         menus:
-            this.menus?.map((e) => e.toMenuView(categories, dishes))?.toList());
+        this.menus?.map((e) => e?.toMenuView(categories, dishes))?.toList());
   }
 }

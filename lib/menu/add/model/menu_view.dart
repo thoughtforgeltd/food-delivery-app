@@ -32,6 +32,7 @@ extension MenuMapper on Menu {
   MenuView toMenuView(Categories categories, Dishes dishes) {
     if (this == null) return null;
     return MenuView(
+        date: this.date,
         items: this
             .items
             ?.map((e) => e.toMenuItemView(categories, dishes))
