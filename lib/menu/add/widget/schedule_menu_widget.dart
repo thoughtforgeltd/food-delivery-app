@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
+import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
 import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -69,7 +70,8 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
   Widget _buildCategoriesBar(ScheduleMenuState state) {
     final categories = state.categories?.categories ?? [];
     return Container(
-        height: 60,
+        padding: Dimensions.padding_16,
+        height: 80,
         child: new ListView.builder(
           itemCount: categories.length,
           scrollDirection: Axis.horizontal,

@@ -19,11 +19,12 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: InkWell(
-                onTap: () => _onSelected(_category),
+    return Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: InkWell(
+            onTap: () => _onSelected(_category),
+            child: Container(
+                padding: Dimensions.padding_8,
                 child: Row(
                   children: <Widget>[_buildStartIcon(), _buildTitle()],
                 ))));
