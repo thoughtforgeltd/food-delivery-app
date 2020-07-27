@@ -9,6 +9,7 @@ class ScheduleMenuState {
   final DateTime startDate;
   final MenusView menus;
   final Categories categories;
+  final String selectedCategory;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
@@ -19,6 +20,7 @@ class ScheduleMenuState {
   ScheduleMenuState({
     @required this.startDate,
     @required this.selectedDate,
+    @required this.selectedCategory,
     @required this.menus,
     @required this.categories,
     @required this.isSubmitting,
@@ -31,6 +33,7 @@ class ScheduleMenuState {
     return ScheduleMenuState(
         startDate: DateTime.now(),
         selectedDate: DateTime.now(),
+        selectedCategory: null,
         menus: null,
         categories: null,
         isSubmitting: false,
@@ -56,30 +59,35 @@ class ScheduleMenuState {
   }
 
   ScheduleMenuState success(
-      {MenusView menus, Categories categories, bool handleSubmitted}) {
+      {MenusView menus,
+      Categories categories,
+      String selectedCategory,
+      bool handleSubmitted}) {
     return copyWith(
         menus: menus,
         isSubmitting: false,
         isSuccess: true,
         isFailure: false,
         categories: categories,
+        selectedCategory: selectedCategory,
         isSubmitted: handleSubmitted);
   }
 
-  ScheduleMenuState copyWith(
-      {Timestamp startDate,
-      Timestamp selectedDate,
-      MenusView menus,
-      Categories categories,
-      bool isSubmitEnabled,
-      bool isSubmitting,
-      bool isSuccess,
-      bool isFailure,
-      bool isSubmitted}) {
+  ScheduleMenuState copyWith({Timestamp startDate,
+    Timestamp selectedDate,
+    String selectedCategory,
+    MenusView menus,
+    Categories categories,
+    bool isSubmitEnabled,
+    bool isSubmitting,
+    bool isSuccess,
+    bool isFailure,
+    bool isSubmitted}) {
     return ScheduleMenuState(
         startDate: startDate ?? this.startDate,
         selectedDate: selectedDate ?? this.selectedDate,
         menus: menus ?? this.menus,
+        selectedCategory: selectedCategory ?? this.selectedCategory,
         categories: categories ?? this.categories,
         isSubmitting: isSubmitting ?? this.isSubmitting,
         isSuccess: isSuccess ?? this.isSuccess,
@@ -92,6 +100,7 @@ class ScheduleMenuState {
     return '''ScheduleMenuState {
       startDate: $startDate,
       selectedDate: $selectedDate,
+      selectedCategory: $selectedCategory,
       menus: $menus,
       categories: $categories,
       menuSelection: $menuSelection,
