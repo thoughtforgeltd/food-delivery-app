@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
 import 'package:fooddeliveryapp/menu/model/model.dart';
 import 'package:meta/meta.dart';
 
@@ -23,6 +24,18 @@ class DateChanged extends ScheduleMenuEvent {
 
   @override
   String toString() => 'DateChanged { selectedDate :$selectedDate }';
+}
+
+class CategoryChanged extends ScheduleMenuEvent {
+  final Category category;
+
+  const CategoryChanged({@required this.category});
+
+  @override
+  List<Object> get props => [category];
+
+  @override
+  String toString() => 'CategoryChanged { category :$category }';
 }
 
 class MenuSelectionChanged extends ScheduleMenuEvent {

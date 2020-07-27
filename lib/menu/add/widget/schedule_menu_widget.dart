@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
+import 'package:fooddeliveryapp/dish/list/widget/widget.dart';
 import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
 import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -56,9 +57,9 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
                       Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
                     _buildTableCalendar(state),
                     _buildCategoriesBar(state),
-//                    Container(
-//                        padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-//                        child: _buildEventList(state).build(context)),
+                    Container(
+                        padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+                        child: _buildDishes(state).build(context)),
                     _buildSubmitButton(state)
                   ]),
                 );
@@ -84,7 +85,9 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
         ));
   }
 
-  _onCategorySelected(Category category) {}
+  _onCategorySelected(Category category) {
+    _mealScheduleBloc.add(CategoryChanged(category: category));
+  }
 
   Padding _buildSubmitButton(ScheduleMenuState state) {
     return Padding(
@@ -96,7 +99,7 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
             onPressed: isButtonEnabled(state)
                 ? () => _onMealSubmitted(state.menus)
                 : null,
-            label: "Add Meals",
+            label: "Schedule Menu",
           ),
         ],
       ),
@@ -134,30 +137,26 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
     );
   }
 
-//  _buildEventList(ScheduleMenuState state) {
-//    final events = state.menus.items[state.selectedDate];
-//    final meals = state.menus?.menus?.firstWhere(
-//        (element) => element?.date?.isSameDayFromTimestamp(state.selectedDate),
-//        orElse: () => null);
-//    return new ListView.builder(
-//      itemCount: events.length,
-//      scrollDirection: Axis.vertical,
-//      physics: NeverScrollableScrollPhysics(),
-//      shrinkWrap: true,
-//      itemBuilder: (BuildContext context, int index) {
-//        return MealSelectionCard(
-//          meal: MealSelection(
-//              date: state.selectedDate,
-//              schedules: meals?.schedules?.firstWhere(
-//                  (element) => element?.id == events[index]?.id,
-//                  orElse: () => null),
-//              category: events[index]),
-//          onAddPressed: _onAddPressed,
-//          onSubtractPressed: _onSubtractPressed,
-//        );
-//      },
-//    );
-//  }
+  _buildDishes(ScheduleMenuState state) {
+    final MenuItemView events = state.menuSelection?.items?.firstWhere(
+            (element) => element?.category?.id == state.selectedCategory,
+        orElse: () => null
+    );
+    final dishes = events?.dishes ?? [];
+    return new ListView.builder(
+      itemCount: dishes.length,
+      scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        return DishCard(
+          dish: dishes[index],
+          onDeletePressed: null,
+          onEditPressed: null,
+        );
+      },
+    );
+  }
 
   TableCalendar _buildTableCalendar(ScheduleMenuState state) {
     return TableCalendar(
