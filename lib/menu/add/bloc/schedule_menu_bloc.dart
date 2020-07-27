@@ -55,7 +55,8 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
       final menus = await _menuRepository.loadMenus();
       final categories = await _categoryRepository.loadCategories();
       final dishes = await _dishRepository.loadDishes();
-      yield state.success(menus: menus.toMenusView(categories, dishes));
+      yield state.success(
+          menus: menus.toMenusView(categories, dishes), categories: categories);
     } catch (_) {
       yield state.failure();
     }

@@ -55,6 +55,7 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
                   child:
                       Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
                     _buildTableCalendar(state),
+                    _buildCategoriesBar(state),
 //                    Container(
 //                        padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
 //                        child: _buildEventList(state).build(context)),
@@ -65,6 +66,24 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
       ),
     );
   }
+
+  Widget _buildCategoriesBar(ScheduleMenuState state) {
+    final categories = state.categories?.categories ?? [];
+    return Container(
+        height: 60,
+        child: new ListView.builder(
+          itemCount: categories.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (BuildContext context, int index) {
+            return CategoryCard(
+              category: categories[index],
+              onSelected: _onCategorySelected,
+            );
+          },
+        ));
+  }
+
+  _onCategorySelected(Category category) {}
 
   Padding _buildSubmitButton(ScheduleMenuState state) {
     return Padding(
