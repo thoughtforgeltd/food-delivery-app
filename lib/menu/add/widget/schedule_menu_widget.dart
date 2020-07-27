@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
-import 'package:fooddeliveryapp/dish/model/dish.dart';
 import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
 import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -113,28 +112,10 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
   }
 
   void _onMealSubmitted(MenusView menus) {
-    final temp = MenusView(menus: [
-      MenuView(date: DateTime.now(), items: [
-        MenuItemView(
-            category: Category(
-                image: "image",
-                id: "breakfast",
-                description: "Description",
-                title: "title"),
-            dishes: [
-              Dish(
-                  title: "Title",
-                  description: "Description",
-                  id: "dish1",
-                  image: "image",
-                  note: "note")
-            ])
-      ])
-    ]);
     _mealScheduleBloc.add(
       Submitted(
           selectedDate: _calendarController.selectedDay,
-          menus: temp,
+          menus: menus,
           handleSubmitted: true),
     );
   }

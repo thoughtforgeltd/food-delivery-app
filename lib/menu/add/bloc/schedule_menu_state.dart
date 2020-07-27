@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
 import 'package:meta/meta.dart';
 
@@ -7,15 +8,19 @@ class ScheduleMenuState {
   final DateTime selectedDate;
   final DateTime startDate;
   final MenusView menus;
+  final Categories categories;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
   final bool isSubmitted;
 
+  MenuView get menuSelection => menus?.getMenuView(selectedDate);
+
   ScheduleMenuState({
     @required this.startDate,
     @required this.selectedDate,
     @required this.menus,
+    @required this.categories,
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
@@ -26,7 +31,8 @@ class ScheduleMenuState {
     return ScheduleMenuState(
         startDate: DateTime.now(),
         selectedDate: DateTime.now(),
-        menus: MenusView(),
+        menus: null,
+        categories: null,
         isSubmitting: false,
         isSuccess: false,
         isFailure: false,
@@ -49,12 +55,14 @@ class ScheduleMenuState {
         isSubmitted: false);
   }
 
-  ScheduleMenuState success({MenusView menus, bool handleSubmitted}) {
+  ScheduleMenuState success(
+      {MenusView menus, Categories categories, bool handleSubmitted}) {
     return copyWith(
         menus: menus,
         isSubmitting: false,
         isSuccess: true,
         isFailure: false,
+        categories: categories,
         isSubmitted: handleSubmitted);
   }
 
@@ -62,6 +70,7 @@ class ScheduleMenuState {
       {Timestamp startDate,
       Timestamp selectedDate,
       MenusView menus,
+      Categories categories,
       bool isSubmitEnabled,
       bool isSubmitting,
       bool isSuccess,
@@ -71,6 +80,7 @@ class ScheduleMenuState {
         startDate: startDate ?? this.startDate,
         selectedDate: selectedDate ?? this.selectedDate,
         menus: menus ?? this.menus,
+        categories: categories ?? this.categories,
         isSubmitting: isSubmitting ?? this.isSubmitting,
         isSuccess: isSuccess ?? this.isSuccess,
         isFailure: isFailure ?? this.isFailure,
@@ -83,6 +93,8 @@ class ScheduleMenuState {
       startDate: $startDate,
       selectedDate: $selectedDate,
       menus: $menus,
+      categories: $categories,
+      menuSelection: $menuSelection,
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
       isFailure: $isFailure,
