@@ -5,8 +5,10 @@ import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/dish/list/widget/widget.dart';
+import 'package:fooddeliveryapp/dish/model/dish.dart';
 import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
 import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
+import 'package:fooddeliveryapp/menu/add/widget/add_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleMenuWidget extends StatefulWidget {
@@ -57,10 +59,8 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
                       Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
                     _buildTableCalendar(state),
                     _buildCategoriesBar(state),
-                    Container(
-                        padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                        child: _buildDishes(state).build(context)),
-                    _buildSubmitButton(state)
+                    _buildDishes(state),
+                    _buildSubmitButton(state),
                   ]),
                 );
         },
@@ -76,6 +76,7 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
         child: new ListView.builder(
           itemCount: categories.length,
           scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return CategoryCard(
               category: categories[index],
@@ -89,9 +90,9 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
     _mealScheduleBloc.add(CategoryChanged(category: category));
   }
 
-  Padding _buildSubmitButton(ScheduleMenuState state) {
-    return Padding(
-      padding: EdgeInsets.all(16),
+  Widget _buildSubmitButton(ScheduleMenuState state) {
+    return Container(
+      padding: Dimensions.padding_16,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -137,26 +138,47 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
     );
   }
 
-  _buildDishes(ScheduleMenuState state) {
+  Widget _buildDishes(ScheduleMenuState state) {
     final MenuItemView events = state.menuSelection?.items?.firstWhere(
             (element) => element?.category?.id == state.selectedCategory,
-        orElse: () => null
-    );
+        orElse: () => null);
     final dishes = events?.dishes ?? [];
-    return new ListView.builder(
-      itemCount: dishes.length,
-      scrollDirection: Axis.vertical,
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemBuilder: (BuildContext context, int index) {
-        return DishCard(
-          dish: dishes[index],
-          onDeletePressed: null,
-          onEditPressed: null,
-        );
-      },
-    );
+    if (dishes.isNotEmpty)
+      return _buildDishCards(dishes);
+    else
+      return _buildAddDishCard();
   }
+
+  Widget _buildAddDishCard() {
+    return Container(
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        padding: Dimensions.padding_lr_16,
+        child:
+        AddCard(title: "Add Dish", onAddButtonPressed: _onAddDishPressed));
+  }
+
+  Widget _buildDishCards(List<Dish> dishes) {
+    return Container(
+        padding: Dimensions.padding_16,
+        child: new ListView.builder(
+          itemCount: dishes.length,
+          scrollDirection: Axis.vertical,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return DishCard(
+              dish: dishes[index],
+              onDeletePressed: null,
+              onEditPressed: null,
+            );
+          },
+        ).build(context));
+  }
+
+  _onAddDishPressed(String p1) {}
 
   TableCalendar _buildTableCalendar(ScheduleMenuState state) {
     return TableCalendar(
