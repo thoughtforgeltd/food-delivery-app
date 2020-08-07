@@ -152,19 +152,19 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             ),
             topLineStyle: LineStyle(
               color: isCurrentDay
-                  ? Theme
-                  .of(context)
-                  .accentColor
-                  : isPastDay ? AppColors.colorDisable : Theme
-                  .of(context)
-                  .primaryColor,
+                  ? Theme.of(context).accentColor
+                  : isPastDay
+                      ? Theme.of(context).disabledColor
+                      : Theme.of(context).primaryColor,
             ),
             bottomLineStyle: LineStyle(
               color: isCurrentDay
                   ? Theme
                   .of(context)
                   .accentColor
-                  : isPastDay ? AppColors.colorDisable : Theme
+                  : isPastDay ? Theme
+                  .of(context)
+                  .disabledColor : Theme
                   .of(context)
                   .primaryColor,
             ),

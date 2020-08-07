@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fooddeliveryapp/common/common.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
 import 'package:fooddeliveryapp/design/text_styles.dart';
@@ -58,7 +57,7 @@ class MealTimelineCard extends StatelessWidget {
             _meal.category.image ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
             color: _disabled
-                ? AppColors.colorDisable
+                ? Theme.of(context).disabledColor
                 : Theme.of(context).primaryColor));
   }
 
