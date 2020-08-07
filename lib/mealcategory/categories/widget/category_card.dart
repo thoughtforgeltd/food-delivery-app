@@ -36,7 +36,7 @@ class CategoryCard extends StatelessWidget {
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: 'Edit',
-          color: AppColors.colorPrimary,
+          color: Theme.of(context).primaryColor,
           icon: Icons.edit,
           onTap: () => _onEditPressed(_category),
         ),

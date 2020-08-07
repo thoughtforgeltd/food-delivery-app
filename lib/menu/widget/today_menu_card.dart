@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fooddeliveryapp/common/common.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
 import 'package:fooddeliveryapp/menu/model/model.dart';
@@ -23,22 +22,21 @@ class TodayMenuCard extends StatelessWidget {
       child: Container(
         padding: Dimensions.padding_16,
         child: Row(
-          children: <Widget>[
-            _buildMenuIcon(),
-            _buildMenuTitle()
-          ],
+          children: <Widget>[_buildMenuIcon(context), _buildMenuTitle()],
         ),
       ),
     );
   }
 
-  Widget _buildMenuIcon() {
+  Widget _buildMenuIcon(BuildContext context) {
     return Container(
         padding: Dimensions.padding_right_16,
         child: SvgPicture.network(
             _menu.item.icon ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
-            color: AppColors.colorPrimary));
+            color: Theme
+                .of(context)
+                .primaryColor));
   }
 
   Widget _buildMenuTitle() {
