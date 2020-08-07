@@ -6,7 +6,9 @@ class UserDetailProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<UserDetailBloc>(
-      create: (context) => BlocProvider.of(context)..add(UserDetailLoadEvent()),
+      create: (BuildContext context) => UserDetailBloc(
+          userDetailsRepository: context.repository<UserDetailsRepository>())
+        ..add(UserDetailLoadEvent()),
       child: UserDetailWidget(),
     );
   }
