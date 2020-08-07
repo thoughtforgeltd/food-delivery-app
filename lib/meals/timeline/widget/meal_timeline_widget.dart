@@ -143,10 +143,10 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
                   .primaryColor,
               iconStyle: IconStyle(
                 color: isCurrentDay
-                    ? AppColors.colorWhite
+                    ? Theme.of(context).backgroundColor
                     : isPastDay
-                    ? AppColors.colorTransparent
-                    : AppColors.colorWhite,
+                        ? AppColors.colorTransparent
+                        : Theme.of(context).backgroundColor,
                 iconData: isCurrentDay ? Icons.today : Icons.timer,
               ),
             ),

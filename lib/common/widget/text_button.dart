@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 
 class TextButton extends StatelessWidget {
@@ -14,7 +13,7 @@ class TextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      textColor: AppColors.colorWhite,
+      textColor: Theme.of(context).backgroundColor,
       onPressed: _onPressed,
       child:
           Text(_label, style: TextStyle(fontSize: Dimensions.button_text_size)),
