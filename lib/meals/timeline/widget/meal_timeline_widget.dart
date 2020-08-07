@@ -133,7 +133,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             indicatorStyle: IndicatorStyle(
               width: Sizes.icon_size,
               color: isCurrentDay
-                  ? AppColors.colorPrimaryAccent
+                  ? Theme.of(context).accentColor
                   : isPastDay
                       ? AppColors.colorTransparent
                       : AppColors.colorPrimary,
@@ -148,12 +148,16 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             ),
             topLineStyle: LineStyle(
               color: isCurrentDay
-                  ? AppColors.colorPrimaryAccent
+                  ? Theme
+                  .of(context)
+                  .accentColor
                   : isPastDay ? AppColors.colorDisable : AppColors.colorPrimary,
             ),
             bottomLineStyle: LineStyle(
               color: isCurrentDay
-                  ? AppColors.colorPrimaryAccent
+                  ? Theme
+                  .of(context)
+                  .accentColor
                   : isPastDay ? AppColors.colorDisable : AppColors.colorPrimary,
             ),
             alignment: TimelineAlign.manual,

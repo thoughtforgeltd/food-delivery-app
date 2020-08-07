@@ -42,7 +42,7 @@ class CategoryCard extends StatelessWidget {
         ),
         IconSlideAction(
           caption: 'Delete',
-          color: AppColors.colorPrimaryAccent,
+          color: Theme.of(context).accentColor,
           icon: Icons.delete,
           onTap: () => _onDeletePressed(_category),
         ),
