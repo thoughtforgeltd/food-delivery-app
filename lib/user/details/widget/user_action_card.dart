@@ -32,17 +32,13 @@ class UserActionCard extends StatelessWidget {
   }
 
   Widget _buildStartIcon(BuildContext context) {
-    return Container(
-        padding: Dimensions.padding_16,
-        child: Icon(_action.icon, color: Theme.of(context).primaryColor));
+    return Container(padding: Dimensions.padding_16, child: Icon(_action.icon));
   }
 
   Widget _buildEndIcon(BuildContext context) {
     return Container(
         padding: Dimensions.padding_16,
-        child: Icon(Icons.keyboard_arrow_right, color: Theme
-            .of(context)
-            .primaryColor));
+        child: Icon(Icons.keyboard_arrow_right));
   }
 
   Widget _buildTitle() {

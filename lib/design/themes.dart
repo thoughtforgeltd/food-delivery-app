@@ -17,10 +17,14 @@ class MealDeliveryThemes {
       primarySwatch: MaterialColor(
           AppColors.colorPrimary.value, AppColors.primarySwatchColors),
       buttonTheme: buttonTheme,
-      textTheme: GoogleFonts.robotoTextTheme());
+      textTheme: GoogleFonts.robotoTextTheme(),
+      iconTheme: iconThemeData);
 
   static final ButtonThemeData buttonTheme = ButtonThemeData(
       buttonColor: AppColors.colorPrimaryDark,
       disabledColor: AppColors.colorDisable,
       textTheme: ButtonTextTheme.primary);
+
+  static final IconThemeData iconThemeData =
+      IconThemeData(color: AppColors.colorPrimaryDark);
 }
