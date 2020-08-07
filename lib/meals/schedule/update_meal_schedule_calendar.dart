@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/button.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
 import 'package:fooddeliveryapp/meals/schedule/widget.dart';
@@ -159,8 +158,8 @@ class _UpdateMealScheduleCalendarState
           rightChevronIcon: Icon(Icons.arrow_right),
           formatButtonVisible: false),
       calendarStyle: CalendarStyle(
-          selectedColor: AppColors.colorPrimaryDark,
-          todayColor: AppColors.colorPrimaryLight),
+          selectedColor: Theme.of(context).primaryColorDark,
+          todayColor: Theme.of(context).primaryColorLight),
       onDaySelected: _onDaySelected,
     );
   }
