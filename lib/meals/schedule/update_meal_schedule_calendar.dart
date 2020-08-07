@@ -158,8 +158,8 @@ class _UpdateMealScheduleCalendarState
           rightChevronIcon: Icon(Icons.arrow_right),
           formatButtonVisible: false),
       calendarStyle: CalendarStyle(
-          selectedColor: Theme.of(context).primaryColorDark,
-          todayColor: Theme.of(context).primaryColorLight),
+          selectedColor: Theme.of(context).colorScheme.primary,
+          todayColor: Theme.of(context).colorScheme.primaryVariant),
       onDaySelected: _onDaySelected,
     );
   }

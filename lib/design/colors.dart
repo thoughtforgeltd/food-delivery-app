@@ -11,28 +11,20 @@ class AppColors{
   static final colorDisable = colorPrimaryDark.withOpacity(alpha);
   static final colorTransparent = Colors.transparent;
   static final colorError = Colors.red;
+  static final colorWhite = Colors.white;
 
-  static final colorPrimary900 = Color(0xff15212A);
-  static final colorPrimary800 = Color(0xff21313B);
-  static final colorPrimary700 = Color(0xff273944);
-  static final colorPrimary600 = Color(0xff2F424E);
-  static final colorPrimary500 = Color(0xff344955);
-  static final colorPrimary400 = Color(0xff52646F);
-  static final colorPrimary300 = Color(0xff718088);
-  static final colorPrimary200 = Color(0xff9AA4AA);
-  static final colorPrimary100 = Color(0xffC2C8CC);
-  static final colorPrimary50 = Color(0xffE7E9EB);
-
-  static final primarySwatchColors = {
-    50: colorPrimary50,
-    100: colorPrimary100,
-    200: colorPrimary200,
-    300: colorPrimary300,
-    400: colorPrimary400,
-    500: colorPrimary500,
-    600: colorPrimary600,
-    700: colorPrimary700,
-    800: colorPrimary800,
-    900: colorPrimary900,
-  };
+  static final colorScheme = ColorScheme(
+      primary: colorPrimary,
+      primaryVariant: colorPrimaryLight,
+      secondary: colorPrimaryAccent,
+      secondaryVariant: colorPrimaryAccent,
+      surface: colorWhite,
+      background: colorWhite,
+      error: colorError,
+      onPrimary: colorWhite,
+      onSecondary: colorWhite,
+      onSurface: colorPrimary,
+      onBackground: colorPrimary,
+      onError: colorError,
+      brightness: Brightness.light);
 }
