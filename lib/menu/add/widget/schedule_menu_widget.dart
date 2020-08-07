@@ -164,25 +164,36 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
 
   Widget _buildDishes(ScheduleMenuState state) {
     final MenuItemView events = state.menuSelection?.items?.firstWhere(
-            (element) => element?.category?.id == state.selectedCategory,
+        (element) => element?.category?.id == state.selectedCategory,
         orElse: () => null);
     final dishes = events?.dishes ?? [];
     if (dishes.isNotEmpty)
       return _buildDishCards(dishes);
     else
-      return _buildAddDishCard();
+      return _buildAddDishCard(state);
   }
 
-  Widget _buildAddDishCard() {
+  Widget _buildAddDishCard(ScheduleMenuState state) {
     return Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        width: MediaQuery.of(context).size.width,
         padding: Dimensions.padding_lr_16,
-        child:
-        AddCard(title: "Add Dish", onAddButtonPressed: _onAddDishPressed));
+        child: AddCard(
+            title: "Add Dish",
+            onAddButtonPressed: (message) => _onAddDishPressed(state)));
   }
+
+  void _showDialog(ScheduleMenuState state) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SelectDishDialog(
+            onDishSelected: (dish) => _onDishSelected(dish, state));
+      },
+    );
+  }
+
+  _onDishSelected(Dish dish, ScheduleMenuState state) {}
 
   Widget _buildDishCards(List<Dish> dishes) {
     return Container(
@@ -202,7 +213,9 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
         ).build(context));
   }
 
-  _onAddDishPressed(String p1) {}
+  _onAddDishPressed(ScheduleMenuState state) {
+    _showDialog(state);
+  }
 
   TableCalendar _buildTableCalendar(ScheduleMenuState state) {
     return TableCalendar(
