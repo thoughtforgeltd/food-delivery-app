@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/dish/list/widget/widget.dart';
 import 'package:fooddeliveryapp/dish/model/dish.dart';
@@ -102,7 +101,7 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
                   color: isSelected == true
                       ? Theme.of(context).chipTheme.secondaryLabelStyle.color
                       : Theme.of(context).chipTheme.labelStyle.color)
-              : Icon(Icons.error, color: AppColors.colorError),
+              : Icon(Icons.error),
           selected: isSelected,
           onSelected: (selected) => _onCategorySelected(selected, category),
         ));
@@ -228,8 +227,14 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
           rightChevronIcon: Icon(Icons.arrow_right),
           formatButtonVisible: false),
       calendarStyle: CalendarStyle(
-          selectedColor: AppColors.colorPrimaryDark,
-          todayColor: AppColors.colorPrimaryLight),
+          selectedColor: Theme
+              .of(context)
+              .colorScheme
+              .primary,
+          todayColor: Theme
+              .of(context)
+              .colorScheme
+              .primaryVariant),
       onDaySelected: _onDaySelected,
     );
   }

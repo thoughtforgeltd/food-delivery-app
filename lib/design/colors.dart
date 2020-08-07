@@ -10,8 +10,6 @@ class AppColors{
   static final colorPrimaryAccent = Color(0xffc07605);
   static final colorDisable = colorPrimaryDark.withOpacity(alpha);
   static final colorTransparent = Colors.transparent;
-  static final colorError = Colors.red;
-  static final colorWhite = Colors.white;
 
   static final colorScheme = ColorScheme(
       primary: colorPrimary,
@@ -20,11 +18,11 @@ class AppColors{
       secondaryVariant: colorPrimaryAccent,
       surface: Colors.white,
       background: Colors.white,
-      error: colorError,
+      error: Colors.red,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       onSurface: Colors.black,
       onBackground: Colors.black,
-      onError: colorError,
+      onError: Colors.white,
       brightness: Brightness.light);
 }
