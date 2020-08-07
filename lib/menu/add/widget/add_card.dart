@@ -21,7 +21,7 @@ class AddCard extends StatelessWidget {
         child: InkWell(
             onTap: () => _onAddButtonPressed(_title),
             child: Container(
-                padding: Dimensions.padding_8,
+                padding: Dimensions.padding_16,
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[_buildStartIcon(), _buildTitle()],
@@ -29,7 +29,8 @@ class AddCard extends StatelessWidget {
   }
 
   Widget _buildStartIcon() {
-    return Container(padding: Dimensions.padding_4, child: Icon(Icons.add));
+    return Container(
+        padding: Dimensions.padding_4, child: Icon(Icons.add_circle));
   }
 
   Widget _buildTitle() {
