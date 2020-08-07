@@ -7,7 +7,7 @@ class MealDeliveryThemes {
   static final ThemeData lightTheme = ThemeData.from(
           colorScheme: AppColors.colorScheme,
           textTheme: GoogleFonts.robotoTextTheme())
-      .copyWith(buttonTheme: buttonTheme);
+      .copyWith(buttonTheme: buttonTheme, chipTheme: cheapTheme);
 
 //  ThemeData(
 //      brightness: Brightness.light,
@@ -30,4 +30,13 @@ class MealDeliveryThemes {
   /// custom button theme.
   static final ButtonThemeData buttonTheme = ButtonThemeData(
       colorScheme: AppColors.colorScheme, textTheme: ButtonTextTheme.primary);
+
+  static final ChipThemeData cheapTheme = ChipThemeData.fromDefaults(
+      primaryColor: AppColors.colorScheme.primary,
+      secondaryColor: AppColors.colorScheme.onPrimary,
+      labelStyle: GoogleFonts
+          .robotoTextTheme()
+          .bodyText1).copyWith(
+      selectedColor: AppColors.colorScheme.onPrimary,
+      secondarySelectedColor: AppColors.colorScheme.primary);
 }

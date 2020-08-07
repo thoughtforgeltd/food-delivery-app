@@ -93,17 +93,15 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
         child: ChoiceChip(
           padding: Dimensions.padding_8,
           elevation: 4,
-          selectedColor: AppColors.colorPrimary,
-          backgroundColor: AppColors.colorWhite,
-          label: Text(category?.title,
-              style: Theme.of(context).textTheme.bodyText1.apply(
-                  color: isSelected == true ? AppColors.colorWhite : null)),
+          label: Text(category?.title),
           avatar: category.image != null
               ? SvgPicture.network(category.image,
                   height: 25,
                   width: 25,
                   fit: BoxFit.cover,
-                  color: isSelected == true ? AppColors.colorWhite : null)
+                  color: isSelected == true
+                      ? Theme.of(context).chipTheme.secondaryLabelStyle.color
+                      : Theme.of(context).chipTheme.labelStyle.color)
               : Icon(Icons.error, color: AppColors.colorError),
           selected: isSelected,
           onSelected: (selected) => _onCategorySelected(selected, category),
