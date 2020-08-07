@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/dish/model/model.dart';
 import 'package:fooddeliveryapp/repositories/dishes/dish_repository.dart';
 
@@ -22,9 +21,6 @@ class SelectDishDialog extends StatelessWidget {
           getImmediateSuggestions: true,
           textFieldConfiguration: TextFieldConfiguration(
             autofocus: true,
-            /*style: DefaultTextStyle.of(context)
-                    .style
-                    .copyWith(fontStyle: FontStyle.italic),*/
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Which dish are you looking for?'),
@@ -37,21 +33,12 @@ class SelectDishDialog extends StatelessWidget {
           itemBuilder: (context, suggestion) {
             final dish = suggestion as Dish;
             return ListTile(
-              leading: ClipRRect(
-                borderRadius: Dimensions.radius_4,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: dish.image != null
-                    ? Image.network(dish.image,
-                        height: 80, width: 80, fit: BoxFit.cover)
-                    : Icon(Icons.error,
-                        color: Theme.of(context).colorScheme.error),
-              ),
               title: Text(dish.title),
-              subtitle: Text(dish.description),
             );
           },
           onSuggestionSelected: (suggestion) {
             _onDishSelected(suggestion);
+            Navigator.of(context).pop();
           },
         ),
       ),
