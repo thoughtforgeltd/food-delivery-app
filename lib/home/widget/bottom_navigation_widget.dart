@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/home/bloc/bloc.dart';
 import 'package:fooddeliveryapp/home/model/model.dart';
 import 'package:fooddeliveryapp/meals/timeline/widget/widget.dart';
@@ -62,16 +61,16 @@ class _UpdateBottomNavigationState extends State<BottomNavigationWidget> {
   _buildBottomNavigationBar(BottomNavigationState state) {
     return BottomNavigationBar(
       currentIndex: state.options.index,
-      selectedItemColor: AppColors.colorPrimaryAccent,
+      selectedItemColor: Theme.of(context).accentColor,
       showUnselectedLabels: false,
       onTap: (int index) {
         _bottomNavigationBloc.add(BottomNavigationChanged(
             options: BottomNavigationOptions.values.firstWhere(
-                    (element) => element.index == index,
+                (element) => element.index == index,
                 orElse: () => BottomNavigationState.DEFAULT_SELECTION)));
       },
       items:
-      BottomNavigationOptions.values.map((BottomNavigationOptions options) {
+          BottomNavigationOptions.values.map((BottomNavigationOptions options) {
         return BottomNavigationBarItem(
             icon: new Icon(options.icon), title: new Text(options.title));
       }).toList(),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fooddeliveryapp/common/widget/text/text.dart';
 import 'package:fooddeliveryapp/console/console.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 
 class ConsoleActionCard extends StatelessWidget {
@@ -25,23 +24,21 @@ class ConsoleActionCard extends StatelessWidget {
                 onTap: () => _onPressed(_action),
                 child: Row(
                   children: <Widget>[
-                    _buildStartIcon(),
+                    _buildStartIcon(context),
                     _buildTitle(),
-                    _buildEndIcon()
+                    _buildEndIcon(context)
                   ],
                 ))));
   }
 
-  Widget _buildStartIcon() {
-    return Container(
-        padding: Dimensions.padding_16,
-        child: Icon(_action.icon, color: AppColors.colorPrimary));
+  Widget _buildStartIcon(BuildContext context) {
+    return Container(padding: Dimensions.padding_16, child: Icon(_action.icon));
   }
 
-  Widget _buildEndIcon() {
+  Widget _buildEndIcon(BuildContext context) {
     return Container(
         padding: Dimensions.padding_16,
-        child: Icon(Icons.keyboard_arrow_right, color: AppColors.colorPrimary));
+        child: Icon(Icons.keyboard_arrow_right));
   }
 
   Widget _buildTitle() {

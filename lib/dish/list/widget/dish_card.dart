@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fooddeliveryapp/common/widget/text/text.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/dish/model/model.dart';
 
@@ -30,18 +29,18 @@ class DishCard extends StatelessWidget {
           elevation: 5,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Row(
-            children: <Widget>[_buildMenuIcon(), _buildDishDetails()],
+            children: <Widget>[_buildMenuIcon(context), _buildDishDetails()],
           )),
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: 'Edit',
-          color: AppColors.colorPrimary,
+          color: Theme.of(context).primaryColor,
           icon: Icons.edit,
           onTap: () => _onEditPressed(_dish),
         ),
         IconSlideAction(
           caption: 'Delete',
-          color: AppColors.colorPrimaryAccent,
+          color: Theme.of(context).accentColor,
           icon: Icons.delete,
           onTap: () => _onDeletePressed(_dish),
         ),
@@ -49,17 +48,17 @@ class DishCard extends StatelessWidget {
     ));
   }
 
-  Widget _buildMenuIcon() {
+  Widget _buildMenuIcon(BuildContext context) {
     return Container(
-      padding: Dimensions.padding_4,
-      child: ClipRRect(
-        borderRadius: Dimensions.radius_4,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: _dish.image != null
-            ? Image.network(_dish.image, height: 80, width: 80, fit: BoxFit.cover)
-            : Icon(Icons.error, color: AppColors.colorError),
-      )
-    );
+        padding: Dimensions.padding_4,
+        child: ClipRRect(
+          borderRadius: Dimensions.radius_4,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: _dish.image != null
+              ? Image.network(_dish.image,
+                  height: 80, width: 80, fit: BoxFit.cover)
+              : Icon(Icons.error, color: Theme.of(context).errorColor),
+        ));
   }
 
   Widget _buildDishDetails() {

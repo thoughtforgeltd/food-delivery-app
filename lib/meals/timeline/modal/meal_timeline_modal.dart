@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/meals/bloc/bloc.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
@@ -97,7 +96,8 @@ class _MealTimelineModalState extends State<MealTimelineModal> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: Dimensions.button_text_size,
-                                color: AppColors.colorWhite)),
+                                color:
+                                    Theme.of(context).colorScheme.onPrimary)),
                       ),
                       IntrinsicHeight(
                         child: Row(

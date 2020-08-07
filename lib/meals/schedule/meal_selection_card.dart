@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fooddeliveryapp/common/common.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
 import 'package:fooddeliveryapp/meals/model/model.dart';
@@ -29,7 +28,7 @@ class MealSelectionCard extends StatelessWidget {
         padding: Dimensions.padding_8,
         child: Row(
           children: <Widget>[
-            _buildMealIcon(),
+            _buildMealIcon(context),
             _buildMealTitle(),
             _buildMealAddAction(),
             _buildMealQuantity(),
@@ -40,13 +39,13 @@ class MealSelectionCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMealIcon() {
+  Widget _buildMealIcon(BuildContext context) {
     return Container(
         padding: Dimensions.padding_right_16,
         child: SvgPicture.network(
             _meal.category.image ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
-            color: AppColors.colorPrimary));
+            color: Theme.of(context).primaryColor));
   }
 
   Widget _buildMealTitle() {

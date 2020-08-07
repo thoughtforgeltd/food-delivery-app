@@ -98,7 +98,7 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
       MealScheduleState state, MealSelection mealSelection) {
     showMaterialModalBottomSheet(
         context: context,
-        backgroundColor: AppColors.colorPrimary,
+        backgroundColor: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: Dimensions.topRadius,
         ),
@@ -133,28 +133,40 @@ class _MealTimelineWidgetState extends State<MealTimelineWidget> {
             indicatorStyle: IndicatorStyle(
               width: Sizes.icon_size,
               color: isCurrentDay
-                  ? AppColors.colorPrimaryAccent
+                  ? Theme
+                  .of(context)
+                  .accentColor
                   : isPastDay
-                      ? AppColors.colorTransparent
-                      : AppColors.colorPrimary,
+                  ? AppColors.colorTransparent
+                  : Theme
+                  .of(context)
+                  .primaryColor,
               iconStyle: IconStyle(
                 color: isCurrentDay
-                    ? AppColors.colorWhite
+                    ? Theme.of(context).colorScheme.onSecondary
                     : isPastDay
                         ? AppColors.colorTransparent
-                        : AppColors.colorWhite,
+                        : Theme.of(context).colorScheme.onPrimary,
                 iconData: isCurrentDay ? Icons.today : Icons.timer,
               ),
             ),
             topLineStyle: LineStyle(
               color: isCurrentDay
-                  ? AppColors.colorPrimaryAccent
-                  : isPastDay ? AppColors.colorDisable : AppColors.colorPrimary,
+                  ? Theme.of(context).accentColor
+                  : isPastDay
+                      ? Theme.of(context).disabledColor
+                      : Theme.of(context).primaryColor,
             ),
             bottomLineStyle: LineStyle(
               color: isCurrentDay
-                  ? AppColors.colorPrimaryAccent
-                  : isPastDay ? AppColors.colorDisable : AppColors.colorPrimary,
+                  ? Theme
+                  .of(context)
+                  .accentColor
+                  : isPastDay ? Theme
+                  .of(context)
+                  .disabledColor : Theme
+                  .of(context)
+                  .primaryColor,
             ),
             alignment: TimelineAlign.manual,
             lineX: 0.15,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fooddeliveryapp/common/widget/text/text.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 
@@ -31,18 +30,18 @@ class CategoryCard extends StatelessWidget {
           elevation: 5,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Row(
-            children: <Widget>[_buildMenuIcon(), _buildDishDetails()],
+            children: <Widget>[_buildMenuIcon(context), _buildDishDetails()],
           )),
       secondaryActions: <Widget>[
         IconSlideAction(
           caption: 'Edit',
-          color: AppColors.colorPrimary,
+          color: Theme.of(context).primaryColor,
           icon: Icons.edit,
           onTap: () => _onEditPressed(_category),
         ),
         IconSlideAction(
           caption: 'Delete',
-          color: AppColors.colorPrimaryAccent,
+          color: Theme.of(context).accentColor,
           icon: Icons.delete,
           onTap: () => _onDeletePressed(_category),
         ),
@@ -50,7 +49,7 @@ class CategoryCard extends StatelessWidget {
     ));
   }
 
-  Widget _buildMenuIcon() {
+  Widget _buildMenuIcon(BuildContext context) {
     return Container(
         padding: Dimensions.padding_4,
         child: ClipRRect(
@@ -59,7 +58,7 @@ class CategoryCard extends StatelessWidget {
           child: _category.image != null
               ? SvgPicture.network(_category.image,
                   height: 50, width: 50, fit: BoxFit.cover)
-              : Icon(Icons.error, color: AppColors.colorError),
+              : Icon(Icons.error, color: Theme.of(context).errorColor),
         ));
   }
 

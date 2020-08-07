@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fooddeliveryapp/common/common.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
 import 'package:fooddeliveryapp/design/text_styles.dart';
@@ -34,7 +33,7 @@ class MealTimelineCard extends StatelessWidget {
           margin: Dimensions.padding_16,
           child: Row(
             children: <Widget>[
-              _buildMealIcon(),
+              _buildMealIcon(context),
               _buildMealTitle(),
               _buildMealQuantity(),
             ],
@@ -51,14 +50,15 @@ class MealTimelineCard extends StatelessWidget {
                 _disabled ? TextStyles.regularDisabled : TextStyles.regular));
   }
 
-  Widget _buildMealIcon() {
+  Widget _buildMealIcon(BuildContext context) {
     return Container(
         margin: Dimensions.padding_right_16,
         child: SvgPicture.network(
             _meal.category.image ?? FireStorePaths.URL_WARNING_ICON,
             height: Sizes.icon_size,
-            color:
-            _disabled ? AppColors.colorDisable : AppColors.colorPrimary));
+            color: _disabled
+                ? Theme.of(context).disabledColor
+                : Theme.of(context).primaryColor));
   }
 
   Widget _buildMealQuantity() {

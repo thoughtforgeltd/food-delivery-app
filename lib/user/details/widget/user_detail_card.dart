@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fooddeliveryapp/common/widget/text/text.dart';
-import 'package:fooddeliveryapp/design/colors.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
@@ -23,7 +22,7 @@ class UserDetailCard extends StatelessWidget {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        _buildUserImage(),
+                        _buildUserImage(context),
                         _buildUserDetails()
                       ],
                     ),
@@ -31,7 +30,7 @@ class UserDetailCard extends StatelessWidget {
                 ))));
   }
 
-  Widget _buildUserImage() {
+  Widget _buildUserImage(BuildContext context) {
     return Container(
         padding: Dimensions.padding_4,
         child: ClipRRect(
@@ -40,7 +39,7 @@ class UserDetailCard extends StatelessWidget {
           child: _userDetail.image != null
               ? Image.network(_userDetail.image,
                   height: 100, width: 100, fit: BoxFit.cover)
-              : Icon(Icons.error, color: AppColors.colorError),
+              : Icon(Icons.error, color: Theme.of(context).errorColor),
         ));
   }
 
