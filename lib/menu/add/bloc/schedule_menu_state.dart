@@ -73,16 +73,17 @@ class ScheduleMenuState {
         isSubmitted: handleSubmitted);
   }
 
-  ScheduleMenuState copyWith({Timestamp startDate,
-    Timestamp selectedDate,
-    String selectedCategory,
-    MenusView menus,
-    Categories categories,
-    bool isSubmitEnabled,
-    bool isSubmitting,
-    bool isSuccess,
-    bool isFailure,
-    bool isSubmitted}) {
+  ScheduleMenuState copyWith(
+      {Timestamp startDate,
+      DateTime selectedDate,
+      String selectedCategory,
+      MenusView menus,
+      Categories categories,
+      bool isSubmitEnabled,
+      bool isSubmitting,
+      bool isSuccess,
+      bool isFailure,
+      bool isSubmitted}) {
     return ScheduleMenuState(
         startDate: startDate ?? this.startDate,
         selectedDate: selectedDate ?? this.selectedDate,

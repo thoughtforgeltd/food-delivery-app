@@ -34,7 +34,8 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
       return (event is MenuSchedulesLoaded ||
           event is Submitted ||
           event is CategoryChanged ||
-          event is AddDishSchedule);
+          event is AddDishSchedule ||
+          event is DateChanged);
     }).debounceTime(Duration(milliseconds: 300));
     return super.transformEvents(
       debounceStream,
@@ -43,7 +44,9 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
   }
 
   @override
-  Stream<ScheduleMenuState> mapEventToState(ScheduleMenuEvent event,) async* {
+  Stream<ScheduleMenuState> mapEventToState(
+    ScheduleMenuEvent event,
+  ) async* {
     if (event is MenuSchedulesLoaded) {
       yield* _mapMenuSchedulesLoadedEventToState();
     } else if (event is Submitted) {
@@ -52,6 +55,8 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
       yield* _mapCategoryChangedEventToState(event);
     } else if (event is AddDishSchedule) {
       yield* _mapAddDishScheduleEventToState(event);
+    } else if (event is DateChanged) {
+      yield* _mapDateChangedEventToState(event);
     }
   }
 
@@ -78,8 +83,8 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
 
   Stream<ScheduleMenuState> _mapAddDishScheduleEventToState(
       AddDishSchedule event) async* {
-    final selectedCategory = state.categories?.categories
-        ?.firstWhere((element) => element.id == state.selectedCategory,
+    final selectedCategory = state.categories?.categories?.firstWhere(
+            (element) => element.id == state.selectedCategory,
         orElse: null);
     final dishNeedsToBeAdded = event.dish;
     var result = MenusView();
@@ -93,42 +98,24 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
             (element) => element?.category?.id == state.selectedCategory,
         orElse: () => null);
 
-    final dish = dishes?.dishes?.firstWhere((element) =>
-    element?.id == dishNeedsToBeAdded?.id, orElse: () => null);
+    final dish = dishes?.dishes?.firstWhere(
+            (element) => element?.id == dishNeedsToBeAdded?.id,
+        orElse: () => null);
 
     if (menuView == null) {
-      result.menus.add(MenuView(
-          date: state.selectedDate,
-          items: [
-            MenuItemView(
-                category: selectedCategory,
-                dishes: [
-                  dishNeedsToBeAdded
-                ]
-            )
-          ]
-      ));
+      result.menus.add(MenuView(date: state.selectedDate, items: [
+        MenuItemView(category: selectedCategory, dishes: [dishNeedsToBeAdded])
+      ]));
     } else if (menuViewItems == null) {
       menuView.date = state.selectedDate;
       menuView.items = [
-        MenuItemView(
-            category: selectedCategory,
-            dishes: [
-              dishNeedsToBeAdded
-            ]
-        )
+        MenuItemView(category: selectedCategory, dishes: [dishNeedsToBeAdded])
       ];
     } else if (dishes == null) {
       menuViewItems.add(MenuItemView(
-          category: selectedCategory,
-          dishes: [
-            dishNeedsToBeAdded
-          ]
-      ));
+          category: selectedCategory, dishes: [dishNeedsToBeAdded]));
     } else if (dishes.dishes == null) {
-      dishes.dishes = [
-        dishNeedsToBeAdded
-      ];
+      dishes.dishes = [dishNeedsToBeAdded];
     } else if (dish == null) {
       dishes.dishes.add(dishNeedsToBeAdded);
     } else {
@@ -147,5 +134,12 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
     } catch (_) {
       yield state.failure();
     }
+  }
+
+  Stream<ScheduleMenuState> _mapDateChangedEventToState(
+      DateChanged event) async* {
+    yield state.copyWith(
+        selectedCategory: state.categories.categories.first.id,
+        selectedDate: event.selectedDate);
   }
 }
