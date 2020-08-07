@@ -60,6 +60,7 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
                     _buildTableCalendar(state),
                     _buildCategoriesBar(state),
                     _buildDishes(state),
+                    _buildAddDishCard(state),
                     _buildSubmitButton(state),
                   ]),
                 );
@@ -147,9 +148,9 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
     );
   }
 
-  void _onAddPressed(MenuView menus) {
+  void _onDishAdded(Dish dish) {
     _mealScheduleBloc.add(
-      AddMenuSchedule(menus: menus),
+      AddDishSchedule(dish: dish),
     );
   }
 
@@ -164,10 +165,7 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
         (element) => element?.category?.id == state.selectedCategory,
         orElse: () => null);
     final dishes = events?.dishes ?? [];
-    if (dishes.isNotEmpty)
-      return _buildDishCards(dishes);
-    else
-      return _buildAddDishCard(state);
+    return _buildDishCards(dishes);
   }
 
   Widget _buildAddDishCard(ScheduleMenuState state) {
@@ -184,13 +182,10 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return SelectDishDialog(
-            onDishSelected: (dish) => _onDishSelected(dish, state));
+        return SelectDishDialog(onDishSelected: (dish) => _onDishAdded(dish));
       },
     );
   }
-
-  _onDishSelected(Dish dish, ScheduleMenuState state) {}
 
   Widget _buildDishCards(List<Dish> dishes) {
     return Container(
