@@ -13,7 +13,7 @@ class TextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      textColor: Theme.of(context).backgroundColor,
+      textColor: Theme.of(context).colorScheme.onPrimary,
       onPressed: _onPressed,
       child:
           Text(_label, style: TextStyle(fontSize: Dimensions.button_text_size)),

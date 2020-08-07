@@ -96,7 +96,8 @@ class _MealTimelineModalState extends State<MealTimelineModal> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: Dimensions.button_text_size,
-                                color: Theme.of(context).backgroundColor)),
+                                color:
+                                    Theme.of(context).colorScheme.onPrimary)),
                       ),
                       IntrinsicHeight(
                         child: Row(
