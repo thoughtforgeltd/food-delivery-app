@@ -48,6 +48,7 @@ class App extends StatelessWidget {
         '/add_dish': (context) => AddDishProvider(),
         '/add_meal_category': (context) => AddCategoryProvider(),
         '/select_meal_category_icon': (context) => MealCategoryIconsProvider(),
+        '/edit_profile': (context) => EditUserDetailsScreen(),
       },
       theme: MealDeliveryThemes.lightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(

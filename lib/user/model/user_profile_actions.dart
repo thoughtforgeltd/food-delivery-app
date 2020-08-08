@@ -28,4 +28,17 @@ extension UserProfileActionsExtension on UserProfileActions {
         return null;
     }
   }
+
+  void navigate(BuildContext context) {
+    switch (this) {
+      case UserProfileActions.edit_profile:
+        Navigator.of(context).pushNamed('/edit_profile');
+        break;
+      case UserProfileActions.contact_us:
+        break;
+      case UserProfileActions.console:
+        Navigator.of(context).pushNamed('/console');
+        break;
+    }
+  }
 }
