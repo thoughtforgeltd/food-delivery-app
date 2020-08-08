@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fooddeliveryapp/dish/model/model.dart';
 import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
-import 'package:fooddeliveryapp/menu/model/model.dart';
 import 'package:meta/meta.dart';
 
 import '../add_schedule.dart';
@@ -39,18 +38,6 @@ class CategoryChanged extends ScheduleMenuEvent {
   String toString() => 'CategoryChanged { category :$category }';
 }
 
-class MenuSelectionChanged extends ScheduleMenuEvent {
-  final Menus menus;
-
-  const MenuSelectionChanged({@required this.menus});
-
-  @override
-  List<Object> get props => [menus];
-
-  @override
-  String toString() => 'MenuSelectionChanged { menus: $menus }';
-}
-
 class AddDishSchedule extends ScheduleMenuEvent {
   final Dish dish;
 
@@ -67,19 +54,19 @@ class AddDishSchedule extends ScheduleMenuEvent {
   }
 }
 
-class RemoveMenuSchedule extends ScheduleMenuEvent {
-  final MenuView menus;
+class RemoveDishEvent extends ScheduleMenuEvent {
+  final Dish dish;
 
-  const RemoveMenuSchedule({
-    @required this.menus,
+  const RemoveDishEvent({
+    @required this.dish,
   });
 
   @override
-  List<Object> get props => [menus];
+  List<Object> get props => [dish];
 
   @override
   String toString() {
-    return 'RemoveMenuSchedule { menus: $menus}';
+    return 'RemoveDishEvent { dish: $dish}';
   }
 }
 

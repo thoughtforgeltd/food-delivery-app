@@ -35,7 +35,8 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
           event is Submitted ||
           event is CategoryChanged ||
           event is AddDishSchedule ||
-          event is DateChanged);
+          event is DateChanged ||
+          event is RemoveDishEvent);
     }).debounceTime(Duration(milliseconds: 300));
     return super.transformEvents(
       debounceStream,
@@ -57,6 +58,8 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
       yield* _mapAddDishScheduleEventToState(event);
     } else if (event is DateChanged) {
       yield* _mapDateChangedEventToState(event);
+    } else if (event is RemoveDishEvent) {
+      yield* _mapRemoveDishEventToState(event);
     }
   }
 
@@ -141,5 +144,22 @@ class ScheduleMenuBloc extends Bloc<ScheduleMenuEvent, ScheduleMenuState> {
     yield state.copyWith(
         selectedCategory: state.categories.categories.first.id,
         selectedDate: event.selectedDate);
+  }
+
+  Stream<ScheduleMenuState> _mapRemoveDishEventToState(
+      RemoveDishEvent event) async* {
+    final result = MenusView(menus: []);
+    result.menus.addAll(state.menus.menus);
+    result.menus
+        .firstWhere((element) => element?.date?.isSameDay(state?.selectedDate),
+            orElse: () => null)
+        ?.items
+        ?.firstWhere(
+            (element) => element?.category?.id == state?.selectedCategory,
+            orElse: () => null)
+        ?.dishes
+        ?.removeWhere((element) => element.id == event.dish.id);
+    yield state.copyWith(
+        selectedCategory: state.categories.categories.first.id, menus: result);
   }
 }

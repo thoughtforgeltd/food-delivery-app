@@ -34,11 +34,6 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
   Widget build(BuildContext context) {
     return BlocListener<ScheduleMenuBloc, ScheduleMenuState>(
       listener: (context, state) {
-        if (state.isSuccess && state.isSubmitted) {
-//          (ModalRoute.of(context).settings.arguments as UpdateMealArguments)
-//              ?.onEditPressed("");
-//          Navigator.pop(context);
-        }
         if (state.isFailure) {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
@@ -154,12 +149,6 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
     );
   }
 
-  void _onSubtractPressed(MenuView menus) {
-    _mealScheduleBloc.add(
-      RemoveMenuSchedule(menus: menus),
-    );
-  }
-
   Widget _buildDishes(ScheduleMenuState state) {
     final MenuItemView events = state.menuSelection?.items?.firstWhere(
         (element) => element?.category?.id == state.selectedCategory,
@@ -198,7 +187,7 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
           itemBuilder: (BuildContext context, int index) {
             return DishCard(
               dish: dishes[index],
-              onDeletePressed: null,
+              onDeletePressed: _onDeleteDishPressed,
               onEditPressed: null,
             );
           },
@@ -207,6 +196,12 @@ class _ScheduleMenuWidgetState extends State<ScheduleMenuWidget> {
 
   _onAddDishPressed(ScheduleMenuState state) {
     _showDialog(state);
+  }
+
+  _onDeleteDishPressed(Dish dish) {
+    _mealScheduleBloc.add(
+      RemoveDishEvent(dish: dish),
+    );
   }
 
   TableCalendar _buildTableCalendar(ScheduleMenuState state) {
