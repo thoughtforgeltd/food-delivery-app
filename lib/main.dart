@@ -6,6 +6,7 @@ import 'package:fooddeliveryapp/design/themes.dart';
 import 'package:fooddeliveryapp/dish/list/widget/list_dish_provider.dart';
 import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
 import 'package:fooddeliveryapp/meals/schedule/update_meal_schedule_screen.dart';
+import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 import 'authentication/bloc/bloc.dart';
@@ -48,6 +49,7 @@ class App extends StatelessWidget {
         '/add_dish': (context) => AddDishProvider(),
         '/add_meal_category': (context) => AddCategoryProvider(),
         '/select_meal_category_icon': (context) => MealCategoryIconsProvider(),
+        '/schedule_menu': (context) => ScheduleMenuProvider(),
         '/edit_profile': (context) => EditUserDetailsScreen(),
       },
       theme: MealDeliveryThemes.lightTheme,

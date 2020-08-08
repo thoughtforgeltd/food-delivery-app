@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fooddeliveryapp/menu/model/model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -5,11 +6,10 @@ part 'menu.g.dart';
 
 @JsonSerializable(nullable: true)
 class Menu {
-  String id;
-  String title;
-  MenuItem item;
+  DateTime date;
+  List<MenuItem> items;
 
-  Menu({this.id, this.title, this.item});
+  Menu({this.date, this.items});
 
   factory Menu.fromJson(Map<String, dynamic> json) => _$MenuFromJson(json);
 
@@ -18,9 +18,8 @@ class Menu {
   @override
   String toString() {
     return '''Menu {
-      id: $id,
-      title: $title,
-      item: $item,
+      date: $date,
+      dishes: $items,
     }''';
   }
 }

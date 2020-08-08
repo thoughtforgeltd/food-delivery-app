@@ -7,9 +7,9 @@ import 'package:rxdart/rxdart.dart';
 import 'bloc.dart';
 
 class TodayMenuBloc extends Bloc<TodayMenuEvent, TodayMenuState> {
-  final TodayMenuRepository _todayMenuRepository;
+  final MenuRepository _todayMenuRepository;
 
-  TodayMenuBloc({@required TodayMenuRepository todayMenuRepository})
+  TodayMenuBloc({@required MenuRepository todayMenuRepository})
       : assert(todayMenuRepository != null),
         _todayMenuRepository = todayMenuRepository;
 

@@ -1,14 +1,15 @@
+import 'package:fooddeliveryapp/dish/model/model.dart';
+import 'package:fooddeliveryapp/mealcategory/add/add_category_alias.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'menu_item.g.dart';
 
 @JsonSerializable(nullable: true)
 class MenuItem {
-  String title;
-  String description;
-  String icon;
+  Category category;
+  List<Dish> dishes;
 
-  MenuItem({this.title, this.description, this.icon});
+  MenuItem({this.category, this.dishes});
 
   factory MenuItem.fromJson(Map<String, dynamic> json) =>
       _$MenuItemFromJson(json);
@@ -18,9 +19,8 @@ class MenuItem {
   @override
   String toString() {
     return '''MenuItem {
-      title: $title,
-      description: $description,
-      icon: $icon,
+      category: $category,
+      dishes: $dishes,
     }''';
   }
 }
