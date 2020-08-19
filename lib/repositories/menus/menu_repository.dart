@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fooddeliveryapp/menu/model/menus.dart';
 import 'package:fooddeliveryapp/menu/model/model.dart';
+import 'package:fooddeliveryapp/utilities/date_utilities.dart';
 
 class MenuRepository {
   final CollectionReference _collection;
@@ -8,10 +9,10 @@ class MenuRepository {
 
   MenuRepository() : _collection = Firestore.instance.collection(_path);
 
-  /// Pass the date in format of dd-mm-yyyy
-  Future<Menus> loadTodayMenu(String date) async {
-    final document = await _collection.document(date).get();
-    return Future.value(Menus.fromJson(document.data));
+  Future<Menus> loadTodayMenu(DateTime date) async {
+    final document = await loadMenus();
+    document.menus.retainWhere((element) => element.date.isSameDay(date));
+    return Future.value(document);
   }
 
   Future<Menus> loadMenus() async {

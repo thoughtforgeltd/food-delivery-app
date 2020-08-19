@@ -9,6 +9,7 @@ class Dimensions {
   static const padding_right_16 = EdgeInsets.fromLTRB(0, 0, 16, 0);
   static const padding_top_16 = EdgeInsets.fromLTRB(0, 16, 0, 0);
   static const padding_bottom_16 = EdgeInsets.fromLTRB(0, 0, 0, 16);
+  static const padding_bottom_8 = EdgeInsets.fromLTRB(0, 0, 0, 8);
   static const padding_ltr_16 = EdgeInsets.fromLTRB(16, 16, 16, 0);
   static const padding_lr_16 = EdgeInsets.fromLTRB(16, 0, 16, 0);
 

@@ -5,7 +5,7 @@ import 'package:fooddeliveryapp/authentication/bloc/bloc.dart';
 import 'package:fooddeliveryapp/home/bloc/bloc.dart';
 import 'package:fooddeliveryapp/home/model/model.dart';
 import 'package:fooddeliveryapp/meals/timeline/widget/widget.dart';
-import 'package:fooddeliveryapp/menu/widget/widget.dart';
+import 'package:fooddeliveryapp/menu/today/widget/widget.dart';
 import 'package:fooddeliveryapp/user/user_details_alias.dart';
 
 class BottomNavigationWidget extends StatefulWidget {

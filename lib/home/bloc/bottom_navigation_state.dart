@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 @immutable
 class BottomNavigationState {
   final BottomNavigationOptions options;
-  static const DEFAULT_SELECTION = BottomNavigationOptions.profile;
+  static const DEFAULT_SELECTION = BottomNavigationOptions.today;
 
   BottomNavigationState({@required this.options});
 
@@ -14,8 +14,8 @@ class BottomNavigationState {
     );
   }
 
-  factory BottomNavigationState.update({
-    final BottomNavigationOptions options
+  factory BottomNavigationState.update(
+      {final BottomNavigationOptions options
 }) {
     return BottomNavigationState(
       options: options ?? DEFAULT_SELECTION,
