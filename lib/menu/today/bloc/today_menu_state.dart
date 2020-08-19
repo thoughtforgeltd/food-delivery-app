@@ -1,9 +1,9 @@
-import 'package:fooddeliveryapp/menu/model/model.dart';
+import 'package:fooddeliveryapp/menu/add/model/model.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 class TodayMenuState {
-  final Menus menus;
+  final MenusView menus;
   final DateTime date;
   final bool isLoading;
   final bool isSuccess;
@@ -19,7 +19,7 @@ class TodayMenuState {
   factory TodayMenuState.empty() {
     return TodayMenuState(
         date: DateTime.now(),
-        menus: Menus(menus: List()),
+        menus: MenusView(menus: List()),
         isLoading: false,
         isSuccess: false,
         isFailure: false);
@@ -33,13 +33,13 @@ class TodayMenuState {
     return copyWith(isLoading: false, isSuccess: false, isFailure: true);
   }
 
-  TodayMenuState success({Menus menus}) {
+  TodayMenuState success({MenusView menus}) {
     return copyWith(
         menus: menus, isLoading: false, isSuccess: true, isFailure: false);
   }
 
   TodayMenuState copyWith(
-      {Menus menus, bool isLoading, bool isSuccess, bool isFailure}) {
+      {MenusView menus, bool isLoading, bool isSuccess, bool isFailure}) {
     return TodayMenuState(
         date: this.date,
         menus: menus ?? this.menus,

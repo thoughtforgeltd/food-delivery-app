@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fooddeliveryapp/mealcategory/meal_category.dart';
+import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
 import 'package:fooddeliveryapp/repositories/repositories.dart';
-import 'package:fooddeliveryapp/utilities/date_utilities.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -8,10 +9,17 @@ import 'bloc.dart';
 
 class TodayMenuBloc extends Bloc<TodayMenuEvent, TodayMenuState> {
   final MenuRepository _todayMenuRepository;
+  final MealCategoryRepository _categoryRepository;
+  final DishRepository _dishRepository;
 
-  TodayMenuBloc({@required MenuRepository todayMenuRepository})
+  TodayMenuBloc(
+      {@required MenuRepository todayMenuRepository,
+      MealCategoryRepository categoryRepository,
+      DishRepository dishRepository})
       : assert(todayMenuRepository != null),
-        _todayMenuRepository = todayMenuRepository;
+        _todayMenuRepository = todayMenuRepository,
+        _categoryRepository = categoryRepository,
+        _dishRepository = dishRepository;
 
   @override
   TodayMenuState get initialState => TodayMenuState.empty();
@@ -31,9 +39,7 @@ class TodayMenuBloc extends Bloc<TodayMenuEvent, TodayMenuState> {
   }
 
   @override
-  Stream<TodayMenuState> mapEventToState(
-      TodayMenuEvent event,
-  ) async* {
+  Stream<TodayMenuState> mapEventToState(TodayMenuEvent event,) async* {
     if (event is TodayMenuLoadEvent) {
       yield* _mapTodayMenuLoadEventToState();
     }
@@ -42,8 +48,11 @@ class TodayMenuBloc extends Bloc<TodayMenuEvent, TodayMenuState> {
   Stream<TodayMenuState> _mapTodayMenuLoadEventToState() async* {
     yield state.loading();
     try {
-      final menus = await _todayMenuRepository.loadTodayMenu(state.date.toMenuDate());
-      yield state.success(menus: menus);
+      final menus = await _todayMenuRepository.loadTodayMenu(state.date);
+      final categories = await _categoryRepository.loadCategories();
+      final dishes = await _dishRepository.loadDishes();
+      yield state.success(
+          menus: menus.toMenusView(categories, dishes));
     } catch (_) {
       yield state.failure();
     }

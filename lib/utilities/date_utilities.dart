@@ -3,11 +3,18 @@ import 'package:intl/intl.dart';
 
 extension DateUtilities on DateTime {
   bool isSameDay(DateTime dateTime) {
-    return dateTime != null && this.year == dateTime.year && this.month == dateTime.month
-        && this.day == dateTime.day;
+    return dateTime != null &&
+        this.year == dateTime.year &&
+        this.month == dateTime.month &&
+        this.day == dateTime.day;
   }
+
   String toMenuDate() {
     return DateFormat('dd-MM-yyyy', Intl.defaultLocale).format(this);
+  }
+
+  String toUIDate() {
+    return DateFormat('dd MMM yyyy', Intl.defaultLocale).format(this);
   }
 }
 

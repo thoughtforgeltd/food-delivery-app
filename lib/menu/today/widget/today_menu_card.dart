@@ -3,12 +3,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fooddeliveryapp/common/common.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/design/sizes.dart';
-import 'package:fooddeliveryapp/menu/model/model.dart';
+import 'package:fooddeliveryapp/dish/list/widget/widget.dart';
+import 'package:fooddeliveryapp/menu/add/add_schedule.dart';
 
 class TodayMenuCard extends StatelessWidget {
-  final Menu _menu;
+  final MenuItemView _menu;
 
-  TodayMenuCard({Key key, Menu menu})
+  TodayMenuCard({Key key, MenuItemView menu})
       : _menu = menu,
         super(key: key);
 
@@ -41,6 +42,17 @@ class TodayMenuCard extends StatelessWidget {
   }
 
   Widget _buildMenuTitle() {
-    return Expanded(child: Text("Menu"));
+    return Expanded(
+        child: Column(
+      children: [Text(_menu.category?.title ?? ""), buildDishes()],
+    ));
+  }
+
+  buildDishes() {
+    return Column(
+        children: _menu?.dishes
+            ?.map((dish) => DishCard(
+                dish: dish, onEditPressed: null, onDeletePressed: null))
+            ?.toList());
   }
 }

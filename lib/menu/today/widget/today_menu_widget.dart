@@ -3,8 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
-import 'package:fooddeliveryapp/menu/bloc/bloc.dart';
-import 'package:fooddeliveryapp/menu/widget/widget.dart';
+import 'package:fooddeliveryapp/menu/today/bloc/bloc.dart';
+import 'package:fooddeliveryapp/menu/today/widget/widget.dart';
+import 'package:fooddeliveryapp/utilities/date_utilities.dart';
 
 class TodayMenuWidget extends StatefulWidget {
   State<TodayMenuWidget> createState() => _TodayMenuWidgetState();
@@ -34,22 +35,30 @@ class _TodayMenuWidgetState extends State<TodayMenuWidget> {
         builder: (context, state) {
           return state.isLoading
               ? buildLoadingWidget()
-              : SingleChildScrollView(
-                  child: Container(
-                  padding: Dimensions.padding_16,
-                  child:
-                      Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                    buildTodayMenu(state),
-                  ]),
-                ));
+              : state.isSuccess
+                  ? SingleChildScrollView(
+                      child: Container(
+                      padding: Dimensions.padding_16,
+                      child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            buildDate(state),
+                            buildTodayMenu(state),
+                          ]),
+                    ))
+                  : Container();
         },
       ),
     );
   }
 
+  buildDate(TodayMenuState state) {
+    return Container(child: Text(state.date.toUIDate()));
+  }
+
   buildTodayMenu(TodayMenuState state) {
     return Column(
-        children: state.menus?.menus
+        children: state.menus?.menus?.first?.items
             ?.map((menu) => TodayMenuCard(menu: menu))
             ?.toList());
   }
