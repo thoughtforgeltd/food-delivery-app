@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fooddeliveryapp/common/widget/text/subtitle1.dart';
 import 'package:fooddeliveryapp/common/widget/widget.dart';
 import 'package:fooddeliveryapp/design/dimensions.dart';
 import 'package:fooddeliveryapp/menu/today/bloc/bloc.dart';
@@ -36,16 +37,21 @@ class _TodayMenuWidgetState extends State<TodayMenuWidget> {
           return state.isLoading
               ? buildLoadingWidget()
               : state.isSuccess
-                  ? SingleChildScrollView(
-                      child: Container(
-                      padding: Dimensions.padding_16,
-                      child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            buildDate(state),
-                            buildTodayMenu(state),
-                          ]),
-                    ))
+                  ? state?.menus != null
+                      ? SingleChildScrollView(
+                          child: Container(
+                          padding: Dimensions.padding_16,
+                          child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                buildDate(state),
+                                buildTodayMenu(state),
+                              ]),
+                        ))
+                      : Center(
+                          child: Subtitle1(
+                              text: "There is no menu available for today"),
+                        )
                   : Container();
         },
       ),
@@ -53,13 +59,14 @@ class _TodayMenuWidgetState extends State<TodayMenuWidget> {
   }
 
   buildDate(TodayMenuState state) {
-    return Container(child: Text(state.date.toUIDate()));
+    return Container(child: Text(state?.menus?.date?.toUIDate() ?? ""));
   }
 
   buildTodayMenu(TodayMenuState state) {
     return Column(
-        children: state.menus?.menus?.first?.items
+        children: state?.menus?.items
             ?.map((menu) => TodayMenuCard(menu: menu))
-            ?.toList());
+            ?.toList() ??
+            []);
   }
 }

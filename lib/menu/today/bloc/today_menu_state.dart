@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 @immutable
 class TodayMenuState {
-  final MenusView menus;
+  final MenuView menus;
   final DateTime date;
   final bool isLoading;
   final bool isSuccess;
@@ -19,7 +19,7 @@ class TodayMenuState {
   factory TodayMenuState.empty() {
     return TodayMenuState(
         date: DateTime.now(),
-        menus: MenusView(menus: List()),
+        menus: null,
         isLoading: false,
         isSuccess: false,
         isFailure: false);
@@ -33,13 +33,13 @@ class TodayMenuState {
     return copyWith(isLoading: false, isSuccess: false, isFailure: true);
   }
 
-  TodayMenuState success({MenusView menus}) {
+  TodayMenuState success({MenuView menus}) {
     return copyWith(
         menus: menus, isLoading: false, isSuccess: true, isFailure: false);
   }
 
   TodayMenuState copyWith(
-      {MenusView menus, bool isLoading, bool isSuccess, bool isFailure}) {
+      {MenuView menus, bool isLoading, bool isSuccess, bool isFailure}) {
     return TodayMenuState(
         date: this.date,
         menus: menus ?? this.menus,

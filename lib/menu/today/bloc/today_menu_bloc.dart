@@ -51,8 +51,11 @@ class TodayMenuBloc extends Bloc<TodayMenuEvent, TodayMenuState> {
       final menus = await _todayMenuRepository.loadTodayMenu(state.date);
       final categories = await _categoryRepository.loadCategories();
       final dishes = await _dishRepository.loadDishes();
-      yield state.success(
-          menus: menus.toMenusView(categories, dishes));
+      final menuView = menus
+          .toMenusView(categories, dishes)
+          ?.menus
+          ?.firstWhere((element) => true, orElse: () => null);
+      yield state.success(menus: menuView);
     } catch (_) {
       yield state.failure();
     }

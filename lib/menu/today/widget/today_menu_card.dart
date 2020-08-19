@@ -41,7 +41,7 @@ class TodayMenuCard extends StatelessWidget {
                 .primaryColor));
   }
 
-  Widget _buildMenuTitle() {
+  _buildMenuTitle() {
     return Expanded(
         child: Column(
       children: [Text(_menu.category?.title ?? ""), buildDishes()],
